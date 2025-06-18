@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function MainContent() {
-  return (
-    <div>MainContent</div>
-  )
+  return <div className="h-[100vh] container mx-auto">MainContent</div>;
 }
 
-export default MainContent
+export default MainContent;
