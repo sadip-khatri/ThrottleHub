@@ -11,6 +11,7 @@ import LogIn from "./Pages/LogIN/LogIn";
 import CartTry from "./Pages/Cart/CartTry";
 import Layout from "./Layouts/Layout";
 import Home from "./Pages/Home/Home";
+// import Home from "./Pages/Home/Hero";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <Routes>
         {/* Wrap routes under Layout */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />  } /> {/* Or Home if you add it */}
+          <Route index element={<Home />} /> {/* Or Home if you add it */}
           <Route path="season-event" element={<SeasonEvent />} />
           <Route path="new-arrival" element={<NewArrival />} />
           <Route path="trending" element={<Trending />} />
