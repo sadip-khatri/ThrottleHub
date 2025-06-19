@@ -1,7 +1,15 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
 
-const CartTry = () => {
+const CartTry: React.FC = () => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Optionally handle email input change
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // Optionally handle size select change
+  };
+
   return (
     <div className="font-sans text-gray-800">
       {/* Header */}
@@ -39,6 +47,7 @@ const CartTry = () => {
             <h2 className="text-2xl font-semibold mb-2">TALLER MARMO</h2>
             <p className="text-sm mb-1">Dresses - Size 10</p>
             <p className="text-sm text-gray-500 mb-4">Rs. 5,500</p>
+
             <div className="mb-4">
               <span className="font-medium">Color:</span>
               <div className="flex space-x-2 mt-2">
@@ -48,7 +57,10 @@ const CartTry = () => {
 
             <div className="mb-6">
               <label className="block mb-1 font-medium">Size</label>
-              <select className="border px-3 py-2 rounded w-32">
+              <select
+                className="border px-3 py-2 rounded w-32"
+                onChange={handleSelectChange}
+              >
                 <option>10</option>
               </select>
             </div>
@@ -59,7 +71,7 @@ const CartTry = () => {
 
             {/* Dropdowns */}
             {["Description", "Condition", "Style & Fit", "My Love Story"].map(
-              (section, i) => (
+              (section: string, i: number) => (
                 <div
                   key={i}
                   className="border-t py-4 flex justify-between items-center cursor-pointer"
@@ -76,7 +88,7 @@ const CartTry = () => {
         <div className="mt-20">
           <h3 className="text-xl font-semibold mb-6">Similar Items</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((_, i) => (
+            {[1, 2, 3, 4].map((_, i: number) => (
               <div
                 key={i}
                 className="border rounded-lg overflow-hidden text-center"
@@ -93,7 +105,7 @@ const CartTry = () => {
         <div className="mt-20">
           <h3 className="text-xl font-semibold mb-6">You Might Also Like</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {[1, 2, 3, 4, 5].map((_, i) => (
+            {[1, 2, 3, 4, 5].map((_, i: number) => (
               <div
                 key={i}
                 className="border rounded-lg overflow-hidden text-center"
@@ -116,6 +128,7 @@ const CartTry = () => {
               type="email"
               placeholder="Your email"
               className="border px-3 py-2 rounded"
+              onChange={handleEmailChange}
             />
             <button className="bg-black text-white px-4 py-2 rounded">
               Join
