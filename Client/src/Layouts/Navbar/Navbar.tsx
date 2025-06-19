@@ -11,14 +11,14 @@ import { TbFlag3 } from "react-icons/tb";
 
 const Navbar = () => {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {/* Top banner */}
       <div className="bg-[#e1c3a1] text-center py-1 text-sm text-[#333] font-light">
         Join the community
       </div>
 
       {/* Main navbar */}
-      <div className="flex items-center justify-between px-6 py-3 bg-white shadow-sm">
+      <div className="flex items-center justify-between px-6 py-3 bg-white shadow-sm container mx-auto">
         {/* Search box */}
         <div className="flex items-center gap-2 w-1/3">
           <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 w-full max-w-xs">
