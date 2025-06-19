@@ -8,10 +8,20 @@ import {
 } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { TbFlag3 } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const navItems = [
+    { label: "End of Season Event", path: "/season-event" },
+    { label: "New Arrival", path: "/new-arrival" },
+    { label: "Trending", path: "/trending" },
+    { label: "Our Story", path: "/our-story" },
+    { label: "Exclusive", path: "/exclusive" },
+    { label: "Accessories", path: "/accessories" },
+  ];
+
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {/* Top banner */}
       <div className="bg-[#e1c3a1] text-center py-1 text-sm text-[#333] font-light">
         Join the community
@@ -33,16 +43,16 @@ const Navbar = () => {
 
         {/* Logo */}
         <div className="text-center">
-          <div className="flex items-center justify-center gap-2">
+          <Link to="/" className="flex items-center justify-center gap-2">
             <img
-              src="/assets/images/logo.png" // Adjust path as needed
+              src="/assets/images/logo.png"
               alt="Dangiz"
               className="w-6 h-6 object-contain"
             />
             <span className="text-2xl font-semibold text-[#4b2d18]">
               Dangiz
             </span>
-          </div>
+          </Link>
         </div>
 
         {/* Icons */}
@@ -52,34 +62,27 @@ const Navbar = () => {
             <TbFlag3 className="text-pink-400" />
             <MdKeyboardArrowDown />
           </div>
-          <FaUserPlus title="Register" />
-          <FaUser title="Profile" />
-          <FaSignInAlt title="Login" />
-          <FaShoppingCart title="Cart" />
+          <Link to="/register"><FaUserPlus title="Register" /></Link>
+          <Link to="/profile"><FaUser title="Profile" /></Link>
+          <Link to="/login"><FaSignInAlt title="Login" /></Link>
+          <Link to="/cart"><FaShoppingCart title="Cart" /></Link>
         </div>
       </div>
 
       {/* Bottom nav links */}
       <div className="flex justify-center gap-8 text-sm py-3 border-t border-gray-200">
-        {[
-          "End of Season Event",
-          "New Arrival",
-          "Trending",
-          "Our Story",
-          "Exclusive",
-          "Accessories",
-          "Trending",
-        ].map((item, idx) => (
-          <a
+        {navItems.map((item, idx) => (
+          <Link
             key={idx}
-            href="#"  
+            to={item.path}
             className="hover:text-[#4b2d18] transition-colors duration-200"
           >
-            {item}
-          </a>
+            {item.label}
+          </Link>
         ))}
       </div>
     </div>
   );
 };
+
 export default Navbar;
