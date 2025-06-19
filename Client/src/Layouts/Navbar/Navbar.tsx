@@ -72,7 +72,7 @@ const Navbar = () => {
         ].map((item, idx) => (
           <a
             key={idx}
-            href="#"
+            href="#"  
             className="hover:text-[#4b2d18] transition-colors duration-200"
           >
             {item}
@@ -82,5 +82,4 @@ const Navbar = () => {
     </div>
   );
 };
-
 export default Navbar;
