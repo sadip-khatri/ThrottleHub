@@ -18,7 +18,7 @@ function App() {
       <Routes>
         {/* Wrap routes under Layout */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />  } /> {/* Or Home if you add it */}
+          <Route index element={<Home />} /> {/* Or Home if you add it */}
           <Route path="season-event" element={<SeasonEvent />} />
           <Route path="new-arrival" element={<NewArrival />} />
           <Route path="trending" element={<Trending />} />
