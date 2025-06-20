@@ -1,7 +1,9 @@
 import React from "react";
 import Hero from "./Hero";
-import NewIn from "../../Components/Shared/NewIn";
-import BagCollection from "../../Components/Shared/BagCollection";
+import NewIn from "../../Components/Shared/Home/NewIn";
+import BagCollection from "../../Components/Shared/Home/BagCollection";
+import MensCollection from "../../Components/Shared/Home/MensCollection";
+import AdBanner from "../../Components/Shared/Home/AdBanner";
 
 function Home() {
   return (
@@ -9,6 +11,8 @@ function Home() {
       <Hero />
       <NewIn />
       <BagCollection />
+      <MensCollection />
+      <AdBanner />
     </>
   );
 }
