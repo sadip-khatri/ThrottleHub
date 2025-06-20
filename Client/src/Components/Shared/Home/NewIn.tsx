@@ -1,9 +1,20 @@
 import React, { useRef } from "react";
-import ProductCard from "../Ui/ProductCard";
+import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-// ✅ 7 Unique Products
-const products = [
+interface Product {
+  image: string;
+  title: string;
+  price: number;
+}
+
+interface NewInProps {
+  products?: Product[];
+  heading?: string;
+  description?: string;
+}
+
+const defaultProducts: Product[] = [
   {
     image: "/assets/images/product1.jpg",
     title: "Emerald Leather Dress",
@@ -41,7 +52,11 @@ const products = [
   },
 ];
 
-const NewIn = () => {
+const NewIn: React.FC<NewInProps> = ({
+  products = defaultProducts,
+  heading = "NEW IN",
+  description = "Discover all-new arrivals.",
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -79,11 +94,11 @@ const NewIn = () => {
         <div className="flex items-start w-max gap-4">
           {/* Intro Text Box */}
           <div className="min-w-[200px] shrink-0">
-            <p className="text-xs uppercase text-gray-400">60 New Items</p>
-            <h2 className="text-2xl font-bold mt-1">NEW IN</h2>
-            <p className="text-sm text-gray-500 mt-2">
-              Discover all-new arrivals.
-            </p>
+            {/* <p className="text-xs uppercase text-gray-400">
+              {products.length} New Items
+            </p> */}
+            <h2 className="text-2xl font-bold mt-1">{heading}</h2>
+            <p className="text-sm text-gray-500 mt-2">{description}</p>
             <button className="mt-4 px-5 py-2 border border-black text-sm rounded-full hover:bg-black hover:text-white transition">
               Shop Now →
             </button>
@@ -101,8 +116,8 @@ const NewIn = () => {
       {/* Inline CSS for hiding scrollbar */}
       <style>{`
         .hide-scrollbar {
-          -ms-overflow-style: none; 
-          scrollbar-width: none; 
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
 
         .hide-scrollbar::-webkit-scrollbar {

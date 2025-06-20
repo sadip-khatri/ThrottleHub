@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import ProductCard from "../Ui/ProductCard";
+import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const bags = [
