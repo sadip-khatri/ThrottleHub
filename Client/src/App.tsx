@@ -11,6 +11,7 @@ import LogIn from "./Pages/LogIN/LogIn";
 import CartTry from "./Pages/Cart/CartTry";
 import Layout from "./Layouts/Layout";
 import Home from "./Pages/Home/Home";
+import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 // import Home from "./Pages/Home/Hero";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<LogIn />} />
           <Route path="cart" element={<CartTry />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
         </Route>
       </Routes>
     </Router>

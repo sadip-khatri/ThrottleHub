@@ -1,7 +1,21 @@
-import React from "react";
+// src/Pages/ProductDetail.tsx
+import { useParams } from "react-router-dom";
+import { products } from "../../Data/Product";
+import ProductGallery from "../../Components/Ui/ProductGallery";
+import ProductInfo from "../../Components/Ui/ProductInfo";
 
-function ProductDetails() {
-  return <div>ProductDetails</div>;
-}
+const ProductDetail = () => {
+  const { id } = useParams();
+  const product = products.find((p) => p.id === Number(id));
 
-export default ProductDetails;
+  if (!product) return <p className="text-center mt-20">Product not found.</p>;
+
+  return (
+    <div className="max-w-6xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-10">
+      <ProductGallery product={product} />
+      <ProductInfo product={product} />
+    </div>
+  );
+};
+
+export default ProductDetail;

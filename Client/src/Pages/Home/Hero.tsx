@@ -1,7 +1,5 @@
-// src/components/shared/Hero.tsx
-import React from "react";
 import Button from "../../Components/Ui/Button";
-
+import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <section className="w-full h-[80vh] max-w-[94%] m-auto flex items-center bg-gradient-to-r from-[#b67c4b]/90 to-[#e3b47c]/90 text-white relative overflow-hidden rounded-md mb-10 mt-2">
@@ -28,9 +26,11 @@ const Hero = () => {
           <p className="italic text-white/60 mb-6">
             Share the love and find something with us
           </p>
-          <Button>
-            Shop Now <span className="text-lg">→</span>
-          </Button>
+          <Link to="new-arrival">
+            <Button>
+              Shop Now <span className="text-lg">→</span>
+            </Button>
+          </Link>
         </div>
 
         {/* Removed image on the right */}

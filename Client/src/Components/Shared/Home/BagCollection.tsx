@@ -4,26 +4,31 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const bags = [
   {
+    id: 8,
     image: "/bags/black.jpg",
     title: "Crinkle Stripe Dress",
     price: 2000,
   },
   {
+    id: 9,
     image: "/bags/brown.jpg",
     title: "Crinkle Stripe Dress",
     price: 2000,
   },
   {
+    id: 10,
     image: "/bags/blue.jpg",
     title: "Crinkle Stripe Dress",
     price: 2000,
   },
   {
+    id: 11,
     image: "/bags/orange.jpg",
     title: "Crinkle Stripe Dress",
     price: 2000,
   },
   {
+    id: 12,
     image: "/bags/extra.jpg",
     title: "Crinkle Stripe Dress",
     price: 2000,
