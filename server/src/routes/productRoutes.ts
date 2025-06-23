@@ -12,8 +12,8 @@ const router = express.Router();
 
 router.get('/', getProducts);
 router.get('/:id', getProductById);
-router.post('/', authenticate, createProduct); // Protected
-router.put('/:id', authenticate, updateProduct); // Protected
-router.delete('/:id', authenticate, deleteProduct); // Protected
+router.post('/', authenticate, createProduct); 
+router.put('/:id', authenticate, updateProduct); 
+router.delete('/:id', authenticate, deleteProduct);
 
 export default router;

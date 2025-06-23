@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import productData from "../../ProductData/Productsinfo.json"; // Make sure this path is correct
+import productData from "../../Data/Productsinfo.json"; // Make sure this path is correct
 
 const CartTry: React.FC = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
@@ -10,7 +10,7 @@ const CartTry: React.FC = () => {
   };
 
   const toggleSection = (section: string) => {
-    setOpenSection(prev => (prev === section ? null : section));
+    setOpenSection((prev) => (prev === section ? null : section));
   };
 
   return (
@@ -92,7 +92,7 @@ const CartTry: React.FC = () => {
               { title: "Description", content: productData.description },
               { title: "Condition", content: productData.condition },
               { title: "Style & Fit", content: productData.styleAndFit },
-              { title: "My Love Story", content: productData.loveStory }
+              { title: "My Love Story", content: productData.loveStory },
             ].map((section, i) => (
               <div key={i} className="border-b py-4">
                 <div
@@ -107,7 +107,9 @@ const CartTry: React.FC = () => {
                   )}
                 </div>
                 {openSection === section.title && (
-                  <p className="mt-2 text-sm text-gray-700">{section.content}</p>
+                  <p className="mt-2 text-sm text-gray-700">
+                    {section.content}
+                  </p>
                 )}
               </div>
             ))}

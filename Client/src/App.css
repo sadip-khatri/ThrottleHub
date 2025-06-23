@@ -205,3 +205,41 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+
+/* tegiseter */
+.register-section {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.register-section h1 {
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 13px;
+}
+
+.register-section p {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.register-section a {
+  color: #b23028;
+  text-decoration: none;
+}
+.register-button {
+  width: 100%;
+  padding: 13px;
+  background-color: #a97b50;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+  cursor: pointer;
+}
