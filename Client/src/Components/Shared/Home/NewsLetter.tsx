@@ -14,7 +14,7 @@ function NewsLetter() {
           </p>
           <form className="flex items-center gap-3 mt-2" method="post">
             <label htmlFor="email" className="sr-only">
-              Email
+              Emails
             </label>
             <input
               type="email"
