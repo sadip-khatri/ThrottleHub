@@ -141,7 +141,7 @@ export const products: Product[] = [
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
   },
-// Bag collection
+  // Bag collection
   {
     id: 8,
     title: "Bag 1",

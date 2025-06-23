@@ -1,16 +1,58 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import productData from "../../Data/Productsinfo.json"; // Make sure this path is correct
+import productData from "../../Data/Productsinfo.json";
+import { useNavigate } from "react-router-dom";
 
 const CartTry: React.FC = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [addToCart, setAddToCart] = useState(false);
+  const navigate = useNavigate();
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // Handle size change if needed
+    // You could update the selected size here
   };
 
   const toggleSection = (section: string) => {
     setOpenSection((prev) => (prev === section ? null : section));
+  };
+  const handleAddToCart = () => {
+    setAddToCart(true);
+
+    const newProduct = {
+      id: productData.id,
+      name: productData.name,
+      price: productData.price,
+      selectedSize: productData.selectedSize,
+      images: productData.images,
+      quantity: 1,
+      addToCart: true,
+    };
+
+    // Get existing cart items from localStorage
+    const existingCart = JSON.parse(
+      localStorage.getItem("cartProducts") || "[]"
+    );
+
+    // Check if item is already in cart with same ID and size
+    const existingIndex = existingCart.findIndex(
+      (item: any) =>
+        item.id === newProduct.id &&
+        item.selectedSize === newProduct.selectedSize
+    );
+
+    if (existingIndex !== -1) {
+      // Update quantity
+      existingCart[existingIndex].quantity += 1;
+    } else {
+      // Add new item
+      existingCart.push(newProduct);
+    }
+
+    // Save updated cart
+    localStorage.setItem("cartProducts", JSON.stringify(existingCart));
+
+    // Navigate to cart
+    navigate("/cart");
   };
 
   return (
@@ -19,7 +61,6 @@ const CartTry: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
           {/* Image Section */}
           <div className="flex md:flex-row flex-col gap-4 w-full max-w-md mx-auto">
-            {/* Thumbnails */}
             <div className="flex md:flex-col flex-row md:justify-start justify-center gap-2 md:mt-63">
               {productData.images.thumbnails.map((src, index) => (
                 <img
@@ -30,8 +71,6 @@ const CartTry: React.FC = () => {
                 />
               ))}
             </div>
-
-            {/* Main Image */}
             <div className="aspect-[3/4] w-full">
               <img
                 src={productData.images.main}
@@ -83,8 +122,11 @@ const CartTry: React.FC = () => {
             </div>
 
             {/* Add to Cart */}
-            <button className="bg-[#8B5D3B] hover:bg-[#754C29] text-white px-6 py-3 rounded-full font-medium w-full mb-6">
-              Add to Cart
+            <button
+              onClick={handleAddToCart}
+              className="bg-[#8B5D3B] hover:bg-[#754C29] text-white px-6 py-3 rounded-full font-medium w-full mb-6"
+            >
+              {addToCart ? "Added to Cart" : "Add to Cart"}
             </button>
 
             {/* Expandable Sections */}
