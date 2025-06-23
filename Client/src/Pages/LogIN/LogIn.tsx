@@ -1,55 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, type FormEvent } from "react";
+import api from "../../utils/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function LogIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+interface User {
+  name: string;
+  email: string;
+}
 
-  const handleSubmit = async (e) => {
+const LogIn: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!email || !password) {
-      setError("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
 
     setLoading(true);
-    setError("");
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await api.post("/auth/login", { email, password });
 
-      const data = await response.json();
+      const { token, user } = response.data;
 
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
-      }
+      // Store token and user in localStorage
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      // ✅ Successful login
-      console.log("Login successful:", data);
-      // Redirect or store token as needed
-    } catch (err) {
-      setError(err.message);
+      setUser(user);
+
+      toast.success(`Welcome, ${user.name}!`);
+
+     
+      // window.location.href = "/dashboard";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        "Login failed.";
+      toast.error(message);
     } finally {
       setLoading(false);
     }
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
     <section className="login-section">
+      <ToastContainer position="top-right" autoClose={3000} />
+
       <h1>LOGIN</h1>
+      {user && (
+        <p className="user-greeting">
+           Logged in as <strong>{user.name}</strong>
+        </p>
+      )}
       <p>
         New user? <a href="/create-account">Create an account</a>
       </p>
@@ -91,8 +105,6 @@ function LogIn() {
           </button>
         </div>
 
-        {error && <p className="error-message">{error}</p>}
-
         <div className="form-options">
           <label className="remember-me">
             <input type="checkbox" />
@@ -131,6 +143,6 @@ function LogIn() {
       </div>
     </section>
   );
-}
+};
 
 export default LogIn;
