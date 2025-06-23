@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className="bg-[#f6efe7] border-t border-[#8b6f4d] px-6 md:px-[85px] pt-[68px] pb-[30px]">
       {/* Newsletter Section */}
-      <section className="flex flex-col lg:flex-row justify-between mb-10 gap-10">
+      {/* <section className="flex flex-col lg:flex-row justify-between mb-10 gap-10">
         <div className="flex flex-col gap-4 max-w-xl">
           <h2 className="text-2xl font-medium">
             Become part of the community.
@@ -65,12 +65,12 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Main Footer */}
       <footer>
         <div className="flex flex-col lg:flex-row justify-between mb-7 gap-10">
-          <div className="flex flex-wrap gap-12">
+          <div className="flex flex-wrap gap-30">
             <div className="flex flex-col gap-3">
               <h4 className="text-base text-black font-medium">CATEGORIES</h4>
               <ul className="flex flex-col gap-2">
