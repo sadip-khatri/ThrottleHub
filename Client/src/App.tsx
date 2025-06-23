@@ -14,7 +14,9 @@ import Home from "./Pages/Home/Home";
 
 import CartPage from "./Pages/Cart/CartPage";
 import ProductDetail from "./Pages/ProductDetails/ProductDetails";
+
 import CartTry from "./Pages/Cart/CartTry";
+
 
 // import Home from "./Pages/Home/Hero";
 
@@ -35,8 +37,14 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<LogIn />} />
           <Route path="cart" element={<CartPage />} />
+
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cartTry" element={<CartTry />} />
+
+
+          
+
+
         </Route>
       </Routes>
     </Router>

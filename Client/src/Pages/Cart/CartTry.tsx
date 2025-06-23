@@ -1,39 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import productData from "../../Data/Productsinfo.json";
 import { useNavigate } from "react-router-dom";
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  size: string[];
+  color: string;
+  mainImage: string;
+  thumbnails: string[];
+  description: string;
+  condition: string;
+  fit: string;
+  story: string;
+}
 
 const CartTry: React.FC = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [addToCart, setAddToCart] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<string>("8");
+  const [productData, setProductData] = useState<Product | null>(null);
   const navigate = useNavigate();
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // You could update the selected size here
-  };
+  useEffect(() => {
+    fetch("src/Data/Productsinfo.json")
+      .then((res) => res.json())
+      .then((data: Product[]) => {
+        // You can dynamically pick which product to show here, using ID or other logic
+        setProductData(data[0]); // Change index or use route params to select product
+      })
+      .catch((error) => console.error("Error loading product:", error));
+  }, []);
 
   const toggleSection = (section: string) => {
     setOpenSection((prev) => (prev === section ? null : section));
   };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSize(e.target.value);
+  };
+
   const handleAddToCart = () => {
+    if (!productData) return;
+
     setAddToCart(true);
 
     const newProduct = {
       id: productData.id,
-      name: productData.name,
+      name: productData.title,
       price: productData.price,
-      selectedSize: productData.selectedSize,
-      images: productData.images,
+      selectedSize,
+      images: productData.thumbnails,
       quantity: 1,
-      addToCart: true,
     };
 
-    // Get existing cart items from localStorage
     const existingCart = JSON.parse(
       localStorage.getItem("cartProducts") || "[]"
     );
 
-    // Check if item is already in cart with same ID and size
     const existingIndex = existingCart.findIndex(
       (item: any) =>
         item.id === newProduct.id &&
@@ -41,19 +66,19 @@ const CartTry: React.FC = () => {
     );
 
     if (existingIndex !== -1) {
-      // Update quantity
       existingCart[existingIndex].quantity += 1;
     } else {
-      // Add new item
       existingCart.push(newProduct);
     }
 
-    // Save updated cart
     localStorage.setItem("cartProducts", JSON.stringify(existingCart));
 
-    // Navigate to cart
     navigate("/cart");
   };
+
+  if (!productData) {
+    return <div className="text-center py-10">Loading...</div>;
+  }
 
   return (
     <div className="font-sans text-gray-800 min-h-screen">
@@ -61,8 +86,8 @@ const CartTry: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
           {/* Image Section */}
           <div className="flex md:flex-row flex-col gap-4 w-full max-w-md mx-auto">
-            <div className="flex md:flex-col flex-row md:justify-start justify-center gap-2 md:mt-63">
-              {productData.images.thumbnails.map((src, index) => (
+            <div className="flex md:flex-col flex-row justify-center gap-2">
+              {productData.thumbnails.map((src, index) => (
                 <img
                   key={index}
                   src={src}
@@ -73,8 +98,8 @@ const CartTry: React.FC = () => {
             </div>
             <div className="aspect-[3/4] w-full">
               <img
-                src={productData.images.main}
-                alt={productData.name}
+                src={productData.mainImage}
+                alt={productData.title}
                 className="w-full h-full object-cover rounded-lg"
               />
             </div>
@@ -82,26 +107,21 @@ const CartTry: React.FC = () => {
 
           {/* Product Info */}
           <div className="max-w-lg w-full mx-auto md:mx-0 px-2 md:px-0">
-            <h2 className="text-2xl font-semibold mb-2">{productData.name}</h2>
-            <p className="text-sm mb-1">
-              {productData.category} - Size {productData.selectedSize}
-            </p>
+            <h2 className="text-2xl font-semibold mb-2">{productData.title}</h2>
+            <p className="text-sm mb-1">Size {selectedSize}</p>
             <p className="text-sm text-gray-600 mb-4">
-              {productData.currency}. {productData.price}
+              Rs. {productData.price}
             </p>
 
-            {/* Colors */}
+            {/* Color */}
             <div className="mb-4">
               <span className="font-medium">Color:</span>
               <div className="flex space-x-2 mt-2">
-                {productData.colors.map((color, idx) => (
-                  <div
-                    key={idx}
-                    className="w-6 h-6 rounded-full border-2 border-black"
-                    style={{ backgroundColor: color.hex }}
-                    title={color.name}
-                  ></div>
-                ))}
+                <div
+                  className="w-6 h-6 rounded-full border-2 border-black"
+                  style={{ backgroundColor: productData.color }}
+                  title="Selected color"
+                ></div>
               </div>
             </div>
 
@@ -111,9 +131,9 @@ const CartTry: React.FC = () => {
               <select
                 className="border px-3 py-2 rounded w-32"
                 onChange={handleSelectChange}
-                defaultValue={productData.selectedSize}
+                value={selectedSize}
               >
-                {productData.availableSizes.map((size, index) => (
+                {productData.size.map((size, index) => (
                   <option key={index} value={size}>
                     {size}
                   </option>
@@ -133,8 +153,8 @@ const CartTry: React.FC = () => {
             {[
               { title: "Description", content: productData.description },
               { title: "Condition", content: productData.condition },
-              { title: "Style & Fit", content: productData.styleAndFit },
-              { title: "My Love Story", content: productData.loveStory },
+              { title: "Style & Fit", content: productData.fit },
+              { title: "My Love Story", content: productData.story },
             ].map((section, i) => (
               <div key={i} className="border-b py-4">
                 <div

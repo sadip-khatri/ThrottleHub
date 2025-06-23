@@ -1,30 +1,326 @@
-{
-  "id": "product-001",
-  "name": "TALLER MARMO",
-  "category": "Dresses",
-  "price": 5500,
-  "currency": "NPR",
-  "availableSizes": ["8", "10", "12"],
-  "selectedSize": "10",
-  "colors": [
-    {
-      "name": "Red",
-      "hex": "#DC2626"
-    }
-  ],
-  "images": {
-    "main": "public/4736760a52d9089593f4697fa8dcc1a92660d619.jpg",
+[
+  {
+    "id": 1,
+    "title": "Emerald Leather Dress",
+    "price": 3200,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
     "thumbnails": [
-      "public/thumb1.jpg",
-      "public/thumb2.jpg",
-      "public/thumb3.jpg",
-      "public/thumb4.jpg"
-    ]
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
   },
-  "description": "An elegant red dress perfect for formal evenings or parties.",
-  "condition": "New",
-  "styleAndFit": "Fitted silhouette, ankle length",
-  "loveStory": "Inspired by Italian luxury and timeless romance."
-}
-
-
+  {
+    "id": 2,
+    "title": "Maroon Puff Sleeve Dress",
+    "price": 2800,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 3,
+    "title": "Beige Bodycon Dress",
+    "price": 2500,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 4,
+    "title": "Polka Dot Mini Dress",
+    "price": 2100,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 5,
+    "title": "Sunset Maxi Dress",
+    "price": 3600,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 6,
+    "title": "Vintage Denim Dress",
+    "price": 3100,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 7,
+    "title": "Chic wrap dress",
+    "price": 2900,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 8,
+    "title": "Bag 1",
+    "price": 2900,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 9,
+    "title": "Bag 2",
+    "price": 2900,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 10,
+    "title": "Bag 3",
+    "price": 2900,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 11,
+    "title": "Bag 4",
+    "price": 2900,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 12,
+    "title": "Bag 5",
+    "price": 2900,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 13,
+    "title": "Denim Utility Jacket",
+    "price": 4500,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 14,
+    "title": "Classic Fit Cotton Shirt",
+    "price": 2200,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 15,
+    "title": "Slim Fit Blazer",
+    "price": 5000,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 16,
+    "title": "Slim Fit Blazer 2",
+    "price": 5000,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 17,
+    "title": "Slim Fit Blazer 3",
+    "price": 5000,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  },
+  {
+    "id": 18,
+    "title": "Slim Fit Blazer 4",
+    "price": 5000,
+    "size": ["8", "10", "12"],
+    "color": "#cc0000",
+    "mainImage": "/images/product1.jpg",
+    "thumbnails": [
+      "/images/product1_thumb1.jpg",
+      "/images/product1_thumb2.jpg",
+      "/images/product1_thumb3.jpg",
+      "/images/product1_thumb4.jpg"
+    ],
+    "description": "Elegant red evening dress...",
+    "condition": "Brand New",
+    "fit": "Slim Fit",
+    "story": "Worn by top celebrities on the red carpet..."
+  }
+]
