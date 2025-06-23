@@ -1,8 +1,10 @@
 import React, { useRef } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface Product {
+  id: number;
   image: string;
   title: string;
   price: number;
@@ -16,36 +18,43 @@ interface NewInProps {
 
 const defaultProducts: Product[] = [
   {
+    id: 1,
     image: "/assets/images/product1.jpg",
     title: "Emerald Leather Dress",
     price: 3200,
   },
   {
+    id: 2,
     image: "/assets/images/product2.jpg",
     title: "Maroon Puff Sleeve Dress",
     price: 2800,
   },
   {
+    id: 3,
     image: "/assets/images/product3.jpg",
     title: "Beige Bodycon Dress",
     price: 2500,
   },
   {
+    id: 4,
     image: "/assets/images/product4.jpg",
     title: "Polka Dot Mini Dress",
     price: 2100,
   },
   {
+    id: 5,
     image: "/assets/images/product5.jpg",
     title: "Sunset Maxi Dress",
     price: 3600,
   },
   {
+    id: 6,
     image: "/assets/images/product6.jpg",
     title: "Vintage Denim Dress",
     price: 3100,
   },
   {
+    id: 7,
     image: "/assets/images/product7.jpg",
     title: "Chic Wrap Dress",
     price: 2900,
@@ -99,9 +108,11 @@ const NewIn: React.FC<NewInProps> = ({
             </p> */}
             <h2 className="text-2xl font-bold mt-1">{heading}</h2>
             <p className="text-sm text-gray-500 mt-2">{description}</p>
-            <button className="mt-4 px-5 py-2 border border-black text-sm rounded-full hover:bg-black hover:text-white transition">
-              Shop Now →
-            </button>
+            <Link to="new-arrival">
+              <button className="mt-4 px-5 py-2 border cursor-pointer border-black text-sm rounded-full hover:bg-black hover:text-white transition">
+                Shop Now →
+              </button>
+            </Link>
           </div>
 
           {/* Product Cards */}
