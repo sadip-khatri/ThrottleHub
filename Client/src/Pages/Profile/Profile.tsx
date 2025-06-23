@@ -123,7 +123,7 @@ const Profile: React.FC = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[#4b2d18] text-white py-2 text-sm rounded-md hover:bg-[#951f1a] transition disabled:opacity-60"
+          className="w-full bg-[#4b2d18] text-white py-2 text-sm roun ded-md hover:bg-[#951f1a] transition disabled:opacity-60"
         >
           {loading ? "Updating..." : "Update Profile"}
         </button>
