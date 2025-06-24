@@ -59,6 +59,13 @@ const allProducts: Product[] = [
     price: 2900,
     category: "Dresses",
   },
+  {
+    id: 8,
+    image: "/assets/images/product7.jpg",
+    title: "Bag",
+    price: 2900,
+    category: "Bags",
+  },
 ];
 
 const categories = ["Dresses", "Bags", "Shoes", "Jewelry & Accessories"];
@@ -131,9 +138,9 @@ const NewArrivals: React.FC = () => {
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1">
+        <div className="flex-1 -mt-19">
           {/* Sorting */}
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-end py-4 mb-8">
             <select
               className="border px-3 py-2 rounded text-sm"
               onChange={(e) => setSortOption(e.target.value)}
