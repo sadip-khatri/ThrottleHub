@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Product } from "../Data/Product";
 import { useNavigate } from "react-router-dom";
 
 export const handleAddToCart = () => {
   const [productData, setProductData] = useState<Product | null>(null);
-  const [addToCart, setAddToCart] = useState(false);
+  const [addToCart, setAddToCart] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>("8");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("src/Data/Productsinfo.json")
+      .then((res) => res.json())
+      .then((data: Product[]) => {
+        setProductData(data[0]);
+        console.log(data);
+      })
+      .catch((error) => console.error("Error loading product:", error));
+  }, []);
 
   if (!productData) return;
 

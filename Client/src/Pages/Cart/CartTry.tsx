@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { handleAddToCart } from "../../utils/addToCart";
 
 interface Product {
   id: number;
