@@ -8,10 +8,15 @@ import Accessories from "./Pages/Accessories/Accessories";
 import Register from "./Pages/Register/Register";
 import Profile from "./Pages/Profile/Profile";
 import LogIn from "./Pages/LogIN/LogIn";
-import CartTry from "./Pages/Cart/CartTry";
+// import CartTry from "./Pages/Cart/CartTry";
 import Layout from "./Layouts/Layout";
 import Home from "./Pages/Home/Home";
-import ProductDetails from "./Pages/ProductDetails/ProductDetails";
+
+import CartPage from "./Pages/Cart/CartPage";
+import ProductDetail from "./Pages/ProductDetails/ProductDetails";
+
+import CartTry from "./Pages/Cart/CartTry";
+
 // import Home from "./Pages/Home/Hero";
 
 function App() {
@@ -30,8 +35,9 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<LogIn />} />
-          <Route path="cart" element={<CartTry />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cartTry" element={<CartTry />} />
         </Route>
       </Routes>
     </Router>
