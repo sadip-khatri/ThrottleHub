@@ -78,6 +78,45 @@ const NewIn: React.FC<NewInProps> = ({
     }
   };
 
+  // Function to handle adding product to cart
+  const handleAddToCart = (product: Product, selectedSize: string = "M") => {
+    const cartProduct = {
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      selectedSize: selectedSize,
+      quantity: 1,
+      images: {
+        main: product.image,
+      },
+    };
+
+    // Get existing cart items
+    const existingCart = JSON.parse(
+      localStorage.getItem("cartProducts") || "[]"
+    );
+
+    // Check if product with same ID and size already exists
+    const existingItemIndex = existingCart.findIndex(
+      (item: any) =>
+        item.id === product.id && item.selectedSize === selectedSize
+    );
+
+    if (existingItemIndex > -1) {
+      // Update quantity if item exists
+      existingCart[existingItemIndex].quantity += 1;
+    } else {
+      // Add new item to cart
+      existingCart.push(cartProduct);
+    }
+
+    // Save to localStorage
+    localStorage.setItem("cartProducts", JSON.stringify(existingCart));
+
+    // Optional: Show confirmation message
+    alert(`${product.title} added to cart!`);
+  };
+
   return (
     <section className="relative px-4 md:px-16 py-10 bg-white">
       {/* Arrow Buttons */}
@@ -103,9 +142,6 @@ const NewIn: React.FC<NewInProps> = ({
         <div className="flex items-start w-max gap-4">
           {/* Intro Text Box */}
           <div className="min-w-[200px] shrink-0">
-            {/* <p className="text-xs uppercase text-gray-400">
-              {products.length} New Items
-            </p> */}
             <h2 className="text-2xl font-bold mt-1">{heading}</h2>
             <p className="text-sm text-gray-500 mt-2">{description}</p>
             <Link to="new-arrival">
@@ -118,7 +154,9 @@ const NewIn: React.FC<NewInProps> = ({
           {/* Product Cards */}
           {products.map((product, index) => (
             <div key={index} className="min-w-[220px] shrink-0">
-              <ProductCard {...product} />
+              <Link to={`/product/${product.id}`} className="block">
+                <ProductCard {...product} />
+              </Link>
             </div>
           ))}
         </div>
