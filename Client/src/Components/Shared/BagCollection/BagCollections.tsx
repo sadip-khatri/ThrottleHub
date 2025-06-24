@@ -11,73 +11,66 @@ type Product = {
 
 const allProducts: Product[] = [
   {
-    id: 1,
-    image: "/assets/images/product1.jpg",
-    title: "Emerald Leather Dress",
-    price: 3200,
-    category: "Dresses",
-  },
-  {
-    id: 2,
-    image: "/assets/images/product2.jpg",
-    title: "Maroon Puff Sleeve Dress",
-    price: 2800,
-    category: "Dresses",
-  },
-  {
-    id: 3,
-    image: "/assets/images/product3.jpg",
-    title: "Beige Bodycon Dress",
-    price: 2500,
-    category: "Dresses",
-  },
-  {
-    id: 4,
-    image: "/assets/images/product4.jpg",
-    title: "Polka Dot Mini Dress",
-    price: 2100,
-    category: "Dresses",
-  },
-  {
-    id: 5,
-    image: "/assets/images/product5.jpg",
-    title: "Sunset Maxi Dress",
-    price: 3600,
-    category: "Dresses",
-  },
-  {
-    id: 6,
-    image: "/assets/images/product6.jpg",
-    title: "Vintage Denim Dress",
-    price: 3100,
-    category: "Dresses",
-  },
-  {
-    id: 7,
-    image: "/assets/images/product7.jpg",
-    title: "Chic Wrap Dress",
-    price: 2900,
-    category: "Dresses",
-  },
-  {
     id: 8,
     image: "/assets/images/product7.jpg",
     title: "Bag",
     price: 2900,
     category: "Bags",
   },
+  {
+    id: 9,
+    image: "/bags/black.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "Bags",
+  },
+  {
+    id: 10,
+    image: "/bags/brown.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "Bags",
+  },
+  {
+    id: 11,
+    image: "/bags/blue.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "Bags",
+  },
+  {
+    id: 12,
+    image: "/bags/orange.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "Bags",
+  },
+  {
+    id: 13,
+    image: "/bags/extra.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "Backpacks",
+  },
+  {
+    id: 14,
+    image: "/bags/extra.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "Totes",
+  },
 ];
 
-const categories = ["Dresses", "Bags", "Shoes", "Jewelry & Accessories"];
+const categories = ["Bags", "Backpacks", "Totes"];
 const itemsPerPage = 6;
 
-const NewArrivals: React.FC = () => {
+const BagCollections: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleCategoryChange = (category: string) => {
-    setCurrentPage(1); // reset pagination on filter
+    setCurrentPage(1);
     setSelectedCategories((prev) =>
       prev.includes(category) ? prev.filter((c) => c !== category) : [category]
     );
@@ -109,9 +102,9 @@ const NewArrivals: React.FC = () => {
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
-      <h2 className="text-2xl font-bold mb-1">NEW ARRIVAL</h2>
+      <h2 className="text-2xl font-bold mb-1">BAG COLLECTIONS</h2>
       <p className="text-sm text-gray-500 mb-6">
-        {sortedAndFiltered.length} new items
+        {sortedAndFiltered.length} bag items
       </p>
 
       <div className="flex flex-col md:flex-row gap-6">
@@ -154,7 +147,7 @@ const NewArrivals: React.FC = () => {
           {/* Product Grid or Message */}
           {displayedProducts.length === 0 ? (
             <div className="text-center text-gray-500 mt-10">
-              No products found.
+              No bags found.
             </div>
           ) : (
             <>
@@ -186,4 +179,4 @@ const NewArrivals: React.FC = () => {
   );
 };
 
-export default NewArrivals;
+export default BagCollections;
