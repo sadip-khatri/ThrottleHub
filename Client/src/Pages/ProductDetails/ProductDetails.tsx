@@ -1,6 +1,6 @@
 // src/Pages/ProductDetail.tsx
 import { useParams } from "react-router-dom";
-import { products } from "../../Data/Product";
+import products from "../../Data/Productsinfo.json";
 import ProductGallery from "../../Components/Ui/ProductGallery";
 import ProductInfo from "../../Components/Ui/ProductInfo";
 
