@@ -144,7 +144,7 @@ const NewIn: React.FC<NewInProps> = ({
           <div className="min-w-[200px] shrink-0">
             <h2 className="text-2xl font-bold mt-1">{heading}</h2>
             <p className="text-sm text-gray-500 mt-2">{description}</p>
-            <Link to="new-arrival">
+            <Link to="mens-collection">
               <button className="mt-4 px-5 py-2 border cursor-pointer border-black text-sm rounded-full hover:bg-black hover:text-white transition">
                 Shop Now →
               </button>
