@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
+import { Link } from "react-router-dom";
 
 type Product = {
   id: number;
@@ -160,7 +161,9 @@ const NewArrivals: React.FC = () => {
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {displayedProducts.map((product) => (
-                  <ProductCard key={product.id} {...product} />
+                  <Link to="">
+                    <ProductCard key={product.id} {...product} />
+                  </Link>
                 ))}
               </div>
 
