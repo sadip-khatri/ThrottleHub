@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   id: number;
   image: string;
   title: string;
   price: number;
+  onAddToCart?: () => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -13,25 +13,30 @@ const ProductCard: React.FC<ProductCardProps> = ({
   image,
   title,
   price,
+  onAddToCart,
 }) => {
   return (
-    <Link to={`/product/${id}`} className="block">
-      <div className="min-w-[180px] sm:min-w-[220px] max-w-[240px] bg-[#f8f5f1] rounded-md overflow-hidden shadow-sm">
+    <div className="bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+      <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
         <img
           src={image}
           alt={title}
-          className="w-full h-[300px] object-cover"
+          className="h-48 w-full object-cover object-center group-hover:opacity-75 bg-[#F0E6DA]"
         />
-        <div className="p-3">
-          <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-            {title}
-          </h4>
-          <p className="text-base font-semibold mt-1">
-            Rs. {price.toLocaleString()}
-          </p>
-        </div>
       </div>
-    </Link>
+      <div className="p-4">
+        <h3 className="text-sm font-medium text-[#754C29]">{title}</h3>
+        <p className="mt-1 text-lg font-semibold text-gray-900">
+          Rs. {price.toLocaleString()}
+        </p>
+        {/* <button
+          onClick={onAddToCart}
+          className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+        >
+          Add to Cart
+        </button> */}
+      </div>
+    </div>
   );
 };
 

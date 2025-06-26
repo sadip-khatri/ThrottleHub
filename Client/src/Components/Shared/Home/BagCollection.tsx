@@ -49,6 +49,45 @@ const BagCollection = () => {
     }
   };
 
+  // Function to handle adding product to cart
+  const handleAddToCart = (product: any, selectedSize: string = "M") => {
+    const cartProduct = {
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      selectedSize: selectedSize,
+      quantity: 1,
+      images: {
+        main: product.image,
+      },
+    };
+
+    // Get existing cart items
+    const existingCart = JSON.parse(
+      localStorage.getItem("cartProducts") || "[]"
+    );
+
+    // Check if product with same ID and size already exists
+    const existingItemIndex = existingCart.findIndex(
+      (item: any) =>
+        item.id === product.id && item.selectedSize === selectedSize
+    );
+
+    if (existingItemIndex > -1) {
+      // Update quantity if item exists
+      existingCart[existingItemIndex].quantity += 1;
+    } else {
+      // Add new item to cart
+      existingCart.push(cartProduct);
+    }
+
+    // Save to localStorage
+    localStorage.setItem("cartProducts", JSON.stringify(existingCart));
+
+    // Optional: Show confirmation message
+    alert(`${product.title} added to cart!`);
+  };
+
   return (
     <section className="relative px-4 md:px-16 py-10 bg-white">
       {/* Top Text Section */}
@@ -63,87 +102,7 @@ const BagCollection = () => {
             Comfortable & convenient, the bag is an essential.
           </p>
         </div>
-        <Link to="bag-collection     9
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        ">
+        <Link to="bag-collection">
           <button className="px-5 py-2 border border-black text-sm rounded-full hover:bg-black hover:text-white transition">
             Shop Now →
           </button>
@@ -173,7 +132,12 @@ const BagCollection = () => {
         <div className="flex items-start w-max gap-4">
           {bags.map((bag, index) => (
             <div key={index} className="min-w-[220px] shrink-0">
-              <ProductCard {...bag} />
+              <Link to={`/product/${bag.id}`} className="block">
+                <ProductCard
+                  {...bag}
+                  onAddToCart={() => handleAddToCart(bag)}
+                />
+              </Link>
             </div>
           ))}
         </div>
