@@ -59,6 +59,20 @@ const allProducts: Product[] = [
     price: 2000,
     category: "Totes",
   },
+  {
+    id: 15,
+    image: "/bags/extra.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "exclusive",
+  },
+  {
+    id: 16,
+    image: "/bags/extra.jpg",
+    title: "Crinkle Stripe Dress",
+    price: 2000,
+    category: "exclusive",
+  },
 ];
 
 const categories = ["Bags", "Backpacks", "Totes"];

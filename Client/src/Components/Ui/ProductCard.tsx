@@ -5,6 +5,7 @@ interface ProductCardProps {
   image: string;
   title: string;
   price: number;
+  category?: string;
   onAddToCart?: () => void;
 }
 
@@ -13,28 +14,45 @@ const ProductCard: React.FC<ProductCardProps> = ({
   image,
   title,
   price,
+  category,
   onAddToCart,
 }) => {
+  const isExclusive = category?.toLowerCase() === "exclusive";
+
   return (
-    <div className="bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <div className="relative bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+      {/* Exclusive Badge */}
+      {category?.toLowerCase() === "exclusive" && (
+        <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded z-10">
+          EXCLUSIVE
+        </span>
+      )}
+
+      {/* Image Section */}
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
         <img
           src={image}
           alt={title}
-          className="h-48 w-full object-cover object-center group-hover:opacity-75 bg-[#F0E6DA]"
+          className="h-48 w-full object-cover object-center bg-[#F0E6DA]"
         />
       </div>
+
+      {/* Info Section */}
       <div className="p-4">
         <h3 className="text-sm font-medium text-[#754C29]">{title}</h3>
         <p className="mt-1 text-lg font-semibold text-gray-900">
           Rs. {price.toLocaleString()}
         </p>
-        {/* <button
+
+        {/* Optional Add to Cart Button */}
+        {/* 
+        <button
           onClick={onAddToCart}
           className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
         >
           Add to Cart
-        </button> */}
+        </button> 
+        */}
       </div>
     </div>
   );
