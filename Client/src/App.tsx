@@ -17,6 +17,7 @@ import ProductDetail from "./Pages/ProductDetails/ProductDetails";
 
 import CartTry from "./Pages/Cart/CartTry";
 import BagCollection from "./Pages/BagCollection/BagCollection";
+import MensCollection from "./Pages/MensCollection/MensCollection";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="season-event" element={<SeasonEvent />} />
           <Route path="new-arrival" element={<NewArrival />} />
           <Route path="bag-collection" element={<BagCollection />} />
+          <Route path="mens-collection" element={<MensCollection />} />
           <Route path="trending" element={<Trending />} />
           <Route path="our-story" element={<OurStory />} />
           <Route path="exclusive" element={<Exclusive />} />
