@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/Pages/ProductDetail.tsx
 import { useParams } from "react-router-dom";
 import products from "../../Data/Productsinfo.json";
@@ -10,7 +11,6 @@ const ProductDetail = () => {
 
   if (!product) return <p className="text-center mt-20">Product not found.</p>;
 
-  // Function to handle adding product to cart
   const handleAddToCart = (
     selectedProduct: any,
     selectedSize: string = "M",
@@ -27,35 +27,32 @@ const ProductDetail = () => {
       },
     };
 
-    // Get existing cart items
     const existingCart = JSON.parse(
       localStorage.getItem("cartProducts") || "[]"
     );
-
-    // Check if product with same ID and size already exists
     const existingItemIndex = existingCart.findIndex(
       (item: any) =>
         item.id === selectedProduct.id && item.selectedSize === selectedSize
     );
 
     if (existingItemIndex > -1) {
-      // Update quantity if item exists
       existingCart[existingItemIndex].quantity += quantity;
     } else {
-      // Add new item to cart
       existingCart.push(cartProduct);
     }
 
-    // Save to localStorage
     localStorage.setItem("cartProducts", JSON.stringify(existingCart));
-
-    // Optional: Show confirmation message
     alert(`${selectedProduct.title || selectedProduct.name} added to cart!`);
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-10">
-      {/* <ProductGallery product={product} /> */}
+    <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+      {/* LEFT: GALLERY */}
+      <div className="flex flex-col md:flex-row gap-4">
+        <ProductGallery product={product} />
+      </div>
+
+      {/* RIGHT: PRODUCT INFO */}
       <ProductInfo product={product} onAddToCart={handleAddToCart} />
     </div>
   );
