@@ -102,7 +102,7 @@ const BagCollection = () => {
             Comfortable & convenient, the bag is an essential.
           </p>
         </div>
-        <Link to="accessories">
+        <Link to="bag-collection">
           <button className="px-5 py-2 border border-black text-sm rounded-full hover:bg-black hover:text-white transition">
             Shop Now →
           </button>
