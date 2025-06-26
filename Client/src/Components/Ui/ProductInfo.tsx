@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 
 // Product type definition
 interface Product {
-  id: string;
+  id: number;
   title: string;
   price: number;
   originalPrice?: number;

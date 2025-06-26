@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
-
+import { Link } from "react-router-dom";
 type Product = {
   id: number;
   image: string;
@@ -11,46 +11,46 @@ type Product = {
 
 const allProducts: Product[] = [
   {
-    id: 101,
+    id: 13,
     image: "/assets/images/mens1.jpg",
-    title: "Classic White Shirt",
-    price: 2200,
-    category: "Shirts",
-  },
-  {
-    id: 102,
-    image: "/assets/images/mens2.jpg",
-    title: "Denim Jacket",
+    title: "Denim Utility Jacket",
     price: 4500,
     category: "Jackets",
   },
   {
-    id: 103,
-    image: "/assets/images/mens3.jpg",
-    title: "Black Leather Shoes",
-    price: 3800,
-    category: "Shoes",
+    id: 14,
+    image: "/assets/images/mens2.jpg",
+    title: "Classic Fit Cotton Shirt",
+    price: 2200,
+    category: "Shirts",
   },
   {
-    id: 104,
-    image: "/assets/images/mens4.jpg",
-    title: "Slim Fit Jeans",
-    price: 3200,
+    id: 15,
+    image: "/assets/images/mens3.jpg",
+    title: "Slim Fit Blazer",
+    price: 5000,
     category: "Jeans",
   },
   {
-    id: 105,
-    image: "/assets/images/mens5.jpg",
-    title: "Polo T-Shirt",
-    price: 1800,
-    category: "T-Shirts",
+    id: 16,
+    image: "/assets/images/mens3.jpg",
+    title: "Slim Fit Blazer",
+    price: 5000,
+    category: "Jeans",
   },
   {
-    id: 106,
-    image: "/assets/images/mens6.jpg",
-    title: "Bomber Jacket",
-    price: 5200,
-    category: "Jackets",
+    id: 17,
+    image: "/assets/images/mens3.jpg",
+    title: "Slim Fit Blazer",
+    price: 5000,
+    category: "Jeans",
+  },
+  {
+    id: 18,
+    image: "/assets/images/mens3.jpg",
+    title: "Slim Fit Blazer",
+    price: 5000,
+    category: "Jeans",
   },
 ];
 
@@ -146,7 +146,9 @@ const MensCollections: React.FC = () => {
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {displayedProducts.map((product) => (
-                  <ProductCard key={product.id} {...product} />
+                  <Link to={`/product/${product.id}`} className="block">
+                    <ProductCard key={product.id} {...product} />
+                  </Link>
                 ))}
               </div>
 
