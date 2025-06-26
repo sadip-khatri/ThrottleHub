@@ -7,7 +7,8 @@ import ProductInfo from "../../Components/Ui/ProductInfo";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === Number(id));
+  const product = products.find((p) => Number(p.id) === Number(id));
+  console.log(product);
 
   if (!product) return <p className="text-center mt-20">Product not found.</p>;
 

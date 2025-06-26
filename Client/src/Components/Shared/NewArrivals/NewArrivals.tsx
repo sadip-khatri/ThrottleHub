@@ -161,7 +161,7 @@ const NewArrivals: React.FC = () => {
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {displayedProducts.map((product) => (
-                  <Link to="">
+                  <Link to={`/product/${product.id}`} className="block">
                     <ProductCard key={product.id} {...product} />
                   </Link>
                 ))}
