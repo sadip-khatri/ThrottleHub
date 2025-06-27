@@ -2,6 +2,7 @@ import express from 'express';
 import authRoutes from './authRoutes';
 import { home } from '../controllers/homeController';
 import productRoutes from './productRoutes';
+import cartRoutes from './cartRoutes';
 import dotenv from 'dotenv';
 import { connectDB } from '../config/db';
 import { getProfile, updateProfile } from "../controllers/userController";
@@ -14,6 +15,8 @@ connectDB();
 router.get('/', home);
 router.use('/auth', authRoutes);
 router.use('/products', productRoutes);
+router.use("/api/cart", cartRoutes);
+
 
 router.get("/profile", authenticate, getProfile);
 router.put("/profile", authenticate, updateProfile);

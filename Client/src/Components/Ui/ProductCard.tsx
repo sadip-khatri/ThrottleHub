@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
-  id: number;
+  id: string;   
   image: string;
   title: string;
   price: number;
+  category: string;
   onAddToCart?: () => void;
 }
 
@@ -13,10 +15,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   image,
   title,
   price,
-  onAddToCart,
 }) => {
   return (
-    <div className="bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <Link
+      to={`/product/${id}`}
+      className="block bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+    >
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
         <img
           src={image}
@@ -29,14 +33,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <p className="mt-1 text-lg font-semibold text-gray-900">
           Rs. {price.toLocaleString()}
         </p>
-        {/* <button
-          onClick={onAddToCart}
-          className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
-        >
-          Add to Cart
-        </button> */}
       </div>
-    </div>
+    </Link>
   );
 };
 

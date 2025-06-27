@@ -1,60 +1,56 @@
 // src/Pages/ProductDetail.tsx
 import { useParams } from "react-router-dom";
-import products from "../../Data/Productsinfo.json";
-import ProductGallery from "../../Components/Ui/ProductGallery";
+import { useEffect, useState } from "react";
+import api from "../../utils/api";
 import ProductInfo from "../../Components/Ui/ProductInfo";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === Number(id));
+  const [product, setProduct] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!product) return <p className="text-center mt-20">Product not found.</p>;
-
-  // Function to handle adding product to cart
-  const handleAddToCart = (
-    selectedProduct: any,
-    selectedSize: string = "M",
-    quantity: number = 1
-  ) => {
-    const cartProduct = {
-      id: selectedProduct.id,
-      name: selectedProduct.title || selectedProduct.name,
-      price: selectedProduct.price,
-      selectedSize: selectedSize,
-      quantity: quantity,
-      images: {
-        main: selectedProduct.image || selectedProduct.images?.main,
-      },
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await api.get(`/products/${id}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.error("Failed to load product", err);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    // Get existing cart items
-    const existingCart = JSON.parse(
-      localStorage.getItem("cartProducts") || "[]"
-    );
+    fetchProduct();
+  }, [id]);
 
-    // Check if product with same ID and size already exists
-    const existingItemIndex = existingCart.findIndex(
-      (item: any) =>
-        item.id === selectedProduct.id && item.selectedSize === selectedSize
-    );
+  if (loading) return <p className="text-center mt-20">Loading product...</p>;
+  if (!product) return <p className="text-center mt-20">Product not found.</p>;
 
-    if (existingItemIndex > -1) {
-      // Update quantity if item exists
-      existingCart[existingItemIndex].quantity += quantity;
-    } else {
-      // Add new item to cart
-      existingCart.push(cartProduct);
-    }
+  const handleAddToCart = async (
+  selectedProduct: any,
+  selectedSize: string = "M",
+  quantity: number = 1
+) => {
+  try {
+    await api.post("/cart", {
+      productId: selectedProduct._id,
+      size: selectedSize,
+      quantity,
+    });
 
-    // Save to localStorage
-    localStorage.setItem("cartProducts", JSON.stringify(existingCart));
+    alert(`${selectedProduct.title} added to cart!`);
+  } catch (err) {
+    console.error("Failed to add to cart", err);
+    alert("Failed to add to cart.");
+  }
+};
 
-    // Optional: Show confirmation message
-    alert(`${selectedProduct.title || selectedProduct.name} added to cart!`);
-  };
 
   return (
     <div className="max-w-6xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-10">
+      {/* You can enable ProductGallery later if needed */}
       {/* <ProductGallery product={product} /> */}
       <ProductInfo product={product} onAddToCart={handleAddToCart} />
     </div>
