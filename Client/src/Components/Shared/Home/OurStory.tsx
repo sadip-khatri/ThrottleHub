@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionHeading, ShopNowLink, ViewAllLink } from "../../Ui/Typography";
+import { SectionHeading, ViewAllLink } from "../../Ui/Typography";
 
 const OurStory: React.FC = () => {
   return (
@@ -14,7 +14,9 @@ const OurStory: React.FC = () => {
             Comfortable & convenient, the bag is an essential.
           </p>
         </div>
-        <ShopNowLink href="#" />
+        <h4>
+          <a href="our-story">Learn More →</a>
+        </h4>
       </div>
 
       {/* Image Grid */}

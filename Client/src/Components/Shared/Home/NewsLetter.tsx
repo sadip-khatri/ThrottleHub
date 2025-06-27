@@ -1,4 +1,5 @@
 import React from "react";
+import { FaArrowRight, FaInstagram, FaFacebook } from "react-icons/fa";
 
 function NewsLetter() {
   return (
@@ -12,7 +13,7 @@ function NewsLetter() {
             Receive first access to the very best of REVEILED products,
             inspiration and services.
           </p>
-          <form className="flex items-center gap-3 mt-2" method="post">
+          <form className="flex items-center gap-0 mt-2" method="post">
             <label htmlFor="email" className="sr-only">
               Emails
             </label>
@@ -22,14 +23,14 @@ function NewsLetter() {
               name="email"
               placeholder="Email"
               required
-              className="border border-gray-300 rounded-md px-4 py-2 w-64"
+              className="border border-gray-300 rounded-bl-lg rounded-tl-lg px-4 py-2 w-64"
             />
-            <button type="submit" aria-label="Subscribe" className="p-2">
-              <img
-                src="img/arrow-right.svg"
-                alt="Submit arrow"
-                className="w-5 h-5"
-              />
+            <button
+              type="submit"
+              aria-label="Subscribe"
+              className="px-4 py-2 bg-[#B48B65]"
+            >
+              <FaArrowRight className="text-white h-[4vh] rounded-br-lg rounded-tr-lg" />
             </button>
           </form>
         </div>
@@ -46,20 +47,12 @@ function NewsLetter() {
           </div>
           <div>
             <h3 className="text-sm font-semibold text-black mb-1">FOLLOW US</h3>
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-3">
               <a href="#" aria-label="Instagram">
-                <img
-                  src="img/akar-icons-instagram-fill.svg"
-                  alt="Instagram icon"
-                  className="w-5 h-5"
-                />
+                <FaInstagram className="w-5 h-5" />
               </a>
               <a href="#" aria-label="Facebook">
-                <img
-                  src="img/fa-facebook-square.svg"
-                  alt="Facebook icon"
-                  className="w-5 h-5"
-                />
+                <FaFacebook className="w-5 h-5" />
               </a>
             </div>
           </div>
