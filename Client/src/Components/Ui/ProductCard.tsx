@@ -1,10 +1,11 @@
 import React from "react";
+import { useCountry } from "../../Contexts/CountryContext"; // adjust the path if needed
 
 interface ProductCardProps {
   id: number;
   image: string;
   title: string;
-  price: number;
+  price: number; // base price in USD
   category?: string;
   onAddToCart?: () => void;
 }
@@ -17,12 +18,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
   category,
   onAddToCart,
 }) => {
+  const { selectedCountry } = useCountry();
+
+  // Convert base USD price to local currency
+  const localPrice = (price * selectedCountry.rate).toFixed(2);
+
   const isExclusive = category?.toLowerCase() === "exclusive";
 
   return (
     <div className="relative bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       {/* Exclusive Badge */}
-      {category?.toLowerCase() === "exclusive" && (
+      {isExclusive && (
         <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded z-10">
           EXCLUSIVE
         </span>
@@ -41,18 +47,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="p-4">
         <h3 className="text-sm font-medium text-[#754C29]">{title}</h3>
         <p className="mt-1 text-lg font-semibold text-gray-900">
-          Rs. {price.toLocaleString()}
+          {selectedCountry.currency} {Number(localPrice).toLocaleString()}
         </p>
 
         {/* Optional Add to Cart Button */}
-        {/* 
-        <button
-          onClick={onAddToCart}
-          className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
-        >
-          Add to Cart
-        </button> 
-        */}
+        {onAddToCart && (
+          <button
+            onClick={onAddToCart}
+            className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+          >
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   );
