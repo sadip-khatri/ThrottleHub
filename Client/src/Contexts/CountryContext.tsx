@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useState, type ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  type ReactNode,
+} from "react";
 
 type Country = {
   name: string;
@@ -9,10 +14,10 @@ type Country = {
 };
 
 const countries: Country[] = [
-  { name: "Nepal", code: "NP", emoji: "🇳🇵", currency: "NPR", rate: 130 },
-  { name: "India", code: "IN", emoji: "🇮🇳", currency: "INR", rate: 83 },
-  { name: "USA", code: "US", emoji: "🇺🇸", currency: "USD", rate: 1 },
-  { name: "UK", code: "GB", emoji: "🇬🇧", currency: "GBP", rate: 0.78 },
+  { name: "Nepal", code: "NP", emoji: "🇳🇵", currency: "NPR", rate: 1 },
+  { name: "India", code: "IN", emoji: "🇮🇳", currency: "INR", rate: 0.62 },
+  { name: "USA", code: "US", emoji: "🇺🇸", currency: "USD", rate: 0.0073 },
+  { name: "UK", code: "GB", emoji: "🇬🇧", currency: "GBP", rate: 0.0053 },
 ];
 
 type CountryContextType = {

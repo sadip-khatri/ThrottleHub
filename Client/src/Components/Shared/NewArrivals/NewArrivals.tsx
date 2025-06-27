@@ -64,7 +64,7 @@ const allProducts: Product[] = [
     id: 8,
     image: "/assets/images/product7.jpg",
     title: "Bag",
-    price: 2900,
+    price: 2100,
     category: "Bags",
   },
 ];
