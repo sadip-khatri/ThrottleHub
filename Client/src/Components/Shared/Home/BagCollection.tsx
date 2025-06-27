@@ -133,10 +133,7 @@ const BagCollection = () => {
           {bags.map((bag, index) => (
             <div key={index} className="min-w-[220px] shrink-0">
               <Link to={`/product/${bag.id}`} className="block">
-                <ProductCard
-                  {...bag}
-                  onAddToCart={() => handleAddToCart(bag)}
-                />
+                <ProductCard {...bag} />
               </Link>
             </div>
           ))}
