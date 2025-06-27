@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
-import { FaChevronRight } from "react-icons/fa";
-import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useCountry } from "../../../Contexts/CountryContext";
+import { formatPrice } from "../../../Utils/formatPrice";
 
 const items = [
   {
@@ -50,6 +51,7 @@ const items = [
 
 const YouMightAlsoLike: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { selectedCountry } = useCountry();
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -81,7 +83,7 @@ const YouMightAlsoLike: React.FC = () => {
 
       {/* Scrollable Cards */}
       <div className="relative">
-        {/* Scroll Right Button */}
+        {/* Arrows */}
         <button
           onClick={() => scroll("left")}
           className="absolute -left-12 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 z-10 shadow-md hover:bg-gray-100 cursor-pointer"
@@ -100,24 +102,27 @@ const YouMightAlsoLike: React.FC = () => {
           className="flex gap-4 overflow-x-auto scroll-smooth hide-scrollbar pr-6"
           ref={scrollRef}
         >
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="min-w-[220px] bg-[#f7f2ec] rounded-md overflow-hidden shadow-sm shrink-0"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-[250px] object-cover"
-              />
-              <div className="p-3">
-                <p className="text-sm text-gray-800">{item.title}</p>
-                <p className="font-semibold mt-1">
-                  Rs. {item.price.toLocaleString()}
-                </p>
+          {items.map((item) => {
+            const convertedPrice = item.price * selectedCountry.rate;
+            return (
+              <div
+                key={item.id}
+                className="min-w-[220px] bg-[#f7f2ec] rounded-md overflow-hidden shadow-sm shrink-0"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-[250px] object-cover"
+                />
+                <div className="p-3">
+                  <p className="text-sm text-gray-800">{item.title}</p>
+                  <p className="font-semibold mt-1">
+                    {formatPrice(convertedPrice, selectedCountry.currency)}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
