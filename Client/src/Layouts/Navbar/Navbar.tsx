@@ -1,26 +1,34 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
 import {
   FaSearch,
   FaUserPlus,
   FaUser,
   FaSignInAlt,
+  FaSignOutAlt,
   FaShoppingCart,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { TbFlag3 } from "react-icons/tb";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flag from "react-world-flags";
 import { useCountry } from "../../Contexts/CountryContext";
+
+interface User {
+  name: string;
+  email: string;
+}
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { selectedCountry, setSelectedCountry, countries } = useCountry();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [user, setUser] = useState<User | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { label: "End of Season Event", path: "/season-event" },
@@ -30,6 +38,18 @@ const Navbar = () => {
     { label: "Exclusive", path: "/exclusive" },
     { label: "Accessories", path: "/accessories" },
   ];
+
+  useEffect(() => {
+    const stored = localStorage.getItem("user");
+    if (stored) setUser(JSON.parse(stored));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login");
+  };
 
   // Handle outside dropdown click
   useEffect(() => {
@@ -47,7 +67,7 @@ const Navbar = () => {
     };
   }, []);
 
-  // ✅ Update cart count on route change or event
+  // Update cart count
   useEffect(() => {
     const updateCartCount = () => {
       const existingCart = JSON.parse(
@@ -140,17 +160,29 @@ const Navbar = () => {
               )}
             </div>
 
-            <Link to="/register" title="Register">
-              <FaUserPlus />
-            </Link>
-            <Link to="/profile" title="Profile">
-              <FaUser />
-            </Link>
-            <Link to="/login" title="Login">
-              <FaSignInAlt />
-            </Link>
+            {!user ? (
+              <>
+                <Link to="/register" title="Register">
+                  <FaUserPlus />
+                </Link>
+                <Link to="/login" title="Login">
+                  <FaSignInAlt />
+                </Link>
+              </>
+            ) : (
+              <>
+                <span className="text-sm font-medium">
+                  Hi, {user.name.split(" ")[0]}
+                </span>
+                <Link to="/profile" title="Profile">
+                  <FaUser />
+                </Link>
+                <button onClick={handleLogout} title="Logout">
+                  <FaSignOutAlt />
+                </button>
+              </>
+            )}
 
-            {/* ✅ Cart icon with badge */}
             <Link to="/cart" title="Cart" className="relative">
               <FaShoppingCart />
               {cartCount > 0 && (
@@ -162,7 +194,18 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile version below omitted for brevity - you can apply similar cartCount badge */}
+        <div className="border-t border-gray-200 md:flex justify-center gap-8 text-sm py-3 px-4 md:px-0 md:block">
+          {navItems.map((item, idx) => (
+            <Link
+              key={idx}
+              to={item.path}
+              className="block md:inline-block hover:text-[#4b2d18] transition-colors duration-200 py-1"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
