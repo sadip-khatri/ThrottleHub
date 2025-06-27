@@ -12,7 +12,7 @@ interface CartItem {
   name: string;
   brand: string;
   size: string;
-  price: number; // base price in USD
+  price: number;
   originalPrice: number;
   quantity: number;
   image: string;
@@ -32,7 +32,7 @@ export default function CartPage() {
       price: product.price,
       originalPrice: product.price,
       quantity: product.quantity || 1,
-      image: product.images?.main || "/assets/images/default-product.png", // safe access with fallback
+      image: product.images?.main || "/assets/images/default-product.png",
     }));
   });
 
@@ -48,6 +48,7 @@ export default function CartPage() {
 
     setCartItems(newItems);
     localStorage.setItem("cartProducts", JSON.stringify(newItems));
+    window.dispatchEvent(new Event("cartUpdated")); // ✅ Trigger Navbar update
   };
 
   const removeItem = (id: number, size: string) => {
@@ -56,18 +57,18 @@ export default function CartPage() {
     );
     setCartItems(updatedItems);
     localStorage.setItem("cartProducts", JSON.stringify(updatedItems));
+    window.dispatchEvent(new Event("cartUpdated")); // ✅ Trigger Navbar update
   };
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const shipping = cartItems.length > 0 ? 4 : 0; // 4 USD shipping fee
+  const shipping = cartItems.length > 0 ? 4 : 0;
   const total = subtotal + shipping;
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
       <div className="bg-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center text-sm text-gray-600">
@@ -80,7 +81,6 @@ export default function CartPage() {
         </div>
       </div>
 
-      {/* Empty Cart */}
       {cartItems.length === 0 ? (
         <div className="p-6 text-center text-gray-700 text-lg">
           Your cart is empty.
@@ -222,6 +222,7 @@ export default function CartPage() {
                     alert("Proceeding to checkout...");
                     localStorage.removeItem("cartProducts");
                     setCartItems([]);
+                    window.dispatchEvent(new Event("cartUpdated")); // ✅ Clear badge in Navbar
                   }}
                 >
                   PROCEED TO CHECKOUT
