@@ -61,7 +61,7 @@ const Blog = () => {
             Comfortable & convenient, the bag is an essential.
           </p>
         </div>
-        <ViewAllLink href="#" />
+        <ViewAllLink href="blog" />
       </div>
 
       {/* Scroll Buttons */}

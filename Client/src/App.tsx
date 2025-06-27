@@ -18,6 +18,7 @@ import ProductDetail from "./Pages/ProductDetails/ProductDetails";
 import CartTry from "./Pages/Cart/CartTry";
 import BagCollection from "./Pages/BagCollection/BagCollection";
 import MensCollection from "./Pages/MensCollection/MensCollection";
+import Blogs from "./Pages/Blogs/Blogs";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="cart" element={<CartPage />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cartTry" element={<CartTry />} />
+          <Route path="blog" element={<Blogs />} />
         </Route>
       </Routes>
     </Router>
