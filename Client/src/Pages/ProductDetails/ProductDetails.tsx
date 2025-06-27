@@ -1,42 +1,54 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// src/Pages/ProductDetail.tsx
 import { useParams } from "react-router-dom";
 import products from "../../Data/Productsinfo.json";
 import ProductGallery from "../../Components/Ui/ProductGallery";
-import ProductInfo from "../../Components/Ui/ProductInfo";
+import ProductPage from "../../Components/Ui/ProductInfo"; // renamed ProductInfo to ProductPage as per your code
 import SimilarItems from "../../Components/Shared/SimilarItems/SimilarItems";
 import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
+import { useCountry } from "../../Contexts/CountryContext"; // Adjust if needed
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const { selectedCountry } = useCountry();
+
   const product = products.find((p) => Number(p.id) === Number(id));
-  console.log(product);
 
   if (!product) return <p className="text-center mt-20">Product not found.</p>;
+
+  // Calculate converted price but keep original price intact
+  const convertedPrice = product.price * selectedCountry.rate;
 
   const handleAddToCart = (
     selectedProduct: any,
     selectedSize: string = "M",
-    quantity: number = 1
+    quantity: number = 1,
+    selectedColor: string = ""
   ) => {
     const cartProduct = {
       id: selectedProduct.id,
       name: selectedProduct.title || selectedProduct.name,
-      price: selectedProduct.price,
-      selectedSize: selectedSize,
-      quantity: quantity,
+      price: selectedProduct.price, // store original USD price here
+      selectedSize,
+      quantity,
+      selectedColor,
       images: {
-        main: selectedProduct.image || selectedProduct.images?.main,
+        main:
+          selectedProduct.image ||
+          selectedProduct.images?.main ||
+          "/assets/images/default-product.png",
       },
     };
 
     const existingCart = JSON.parse(
       localStorage.getItem("cartProducts") || "[]"
     );
+
     const existingItemIndex = existingCart.findIndex(
       (item: any) =>
-        item.id === selectedProduct.id && item.selectedSize === selectedSize
+        item.id === selectedProduct.id &&
+        item.selectedSize === selectedSize &&
+        item.selectedColor === selectedColor
     );
 
     if (existingItemIndex > -1) {
@@ -58,7 +70,11 @@ const ProductDetail = () => {
         </div>
 
         {/* RIGHT: PRODUCT INFO */}
-        <ProductInfo product={product} onAddToCart={handleAddToCart} />
+        <ProductPage
+          product={{ ...product, convertedPrice }}
+          currencyCode={selectedCountry.currency} // e.g. "NPR", "USD"
+          onAddToCart={handleAddToCart}
+        />
       </div>
       <SimilarItems />
       <YouMightAlsoLike />

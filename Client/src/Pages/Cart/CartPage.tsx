@@ -4,19 +4,23 @@ import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
+import { useCountry } from "../../Contexts/CountryContext";
+import { formatPrice } from "../../Utils/formatPrice";
 
 interface CartItem {
   id: number;
   name: string;
   brand: string;
   size: string;
-  price: number;
+  price: number; // base price in USD
   originalPrice: number;
   quantity: number;
   image: string;
 }
 
 export default function CartPage() {
+  const { selectedCountry } = useCountry();
+
   const localCart = JSON.parse(localStorage.getItem("cartProducts") || "[]");
 
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
@@ -28,7 +32,7 @@ export default function CartPage() {
       price: product.price,
       originalPrice: product.price,
       quantity: product.quantity || 1,
-      image: product.images.main,
+      image: product.images?.main || "/assets/images/default-product.png", // safe access with fallback
     }));
   });
 
@@ -58,11 +62,12 @@ export default function CartPage() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const shipping = cartItems.length > 0 ? 400 : 0;
+  const shipping = cartItems.length > 0 ? 4 : 0; // 4 USD shipping fee
   const total = subtotal + shipping;
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Breadcrumb */}
       <div className="bg-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center text-sm text-gray-600">
@@ -75,6 +80,7 @@ export default function CartPage() {
         </div>
       </div>
 
+      {/* Empty Cart */}
       {cartItems.length === 0 ? (
         <div className="p-6 text-center text-gray-700 text-lg">
           Your cart is empty.
@@ -82,6 +88,7 @@ export default function CartPage() {
       ) : (
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Cart Items */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="grid grid-cols-12 gap-4 p-6 border-b text-sm font-medium text-gray-600 uppercase">
@@ -120,11 +127,16 @@ export default function CartPage() {
                         </button>
                       </div>
                     </div>
+
                     <div className="col-span-2 text-center">
                       <span className="text-gray-900">
-                        Rs. {item.price.toLocaleString()}
+                        {formatPrice(
+                          item.price * selectedCountry.rate,
+                          selectedCountry.currency
+                        )}
                       </span>
                     </div>
+
                     <div className="col-span-2 text-center">
                       <div className="flex items-center justify-center space-x-2">
                         <button
@@ -154,9 +166,13 @@ export default function CartPage() {
                         </button>
                       </div>
                     </div>
+
                     <div className="col-span-2 text-center">
                       <span className="text-gray-900">
-                        Rs. {(item.price * item.quantity).toLocaleString()}
+                        {formatPrice(
+                          item.price * item.quantity * selectedCountry.rate,
+                          selectedCountry.currency
+                        )}
                       </span>
                     </div>
                   </div>
@@ -164,6 +180,7 @@ export default function CartPage() {
               </div>
             </div>
 
+            {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-6">
@@ -173,18 +190,29 @@ export default function CartPage() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">Sub Total</span>
                     <span className="text-gray-900">
-                      Rs. {subtotal.toLocaleString()}
+                      {formatPrice(
+                        subtotal * selectedCountry.rate,
+                        selectedCountry.currency
+                      )}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Shipping</span>
-                    <span className="text-gray-900">Rs. {shipping}</span>
+                    <span className="text-gray-900">
+                      {formatPrice(
+                        shipping * selectedCountry.rate,
+                        selectedCountry.currency
+                      )}
+                    </span>
                   </div>
                   <hr className="my-4" />
                   <div className="flex justify-between text-lg font-semibold">
                     <span className="text-gray-900">Total</span>
                     <span className="text-gray-900">
-                      Rs. {total.toLocaleString()}
+                      {formatPrice(
+                        total * selectedCountry.rate,
+                        selectedCountry.currency
+                      )}
                     </span>
                   </div>
                 </div>

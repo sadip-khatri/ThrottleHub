@@ -1,5 +1,7 @@
+// src/Ui/ProductCard.tsx
 import React from "react";
-import { useCountry } from "../../Contexts/CountryContext"; // adjust the path if needed
+import { formatPrice } from "../../Utils/formatPrice";
+import { useCountry } from "../../Contexts/CountryContext"; // Adjust if path is different
 
 interface ProductCardProps {
   id: number;
@@ -20,9 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const { selectedCountry } = useCountry();
 
-  // Convert base USD price to local currency
-  const localPrice = (price * selectedCountry.rate).toFixed(2);
-
+  const localPrice = price * selectedCountry.rate;
   const isExclusive = category?.toLowerCase() === "exclusive";
 
   return (
@@ -47,10 +47,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="p-4">
         <h3 className="text-sm font-medium text-[#754C29]">{title}</h3>
         <p className="mt-1 text-lg font-semibold text-gray-900">
-          {selectedCountry.currency} {Number(localPrice).toLocaleString()}
+          {formatPrice(localPrice, selectedCountry.currency)}
         </p>
 
-        {/* Optional Add to Cart Button */}
         {onAddToCart && (
           <button
             onClick={onAddToCart}
@@ -65,3 +64,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
 };
 
 export default ProductCard;
+  
