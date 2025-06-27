@@ -9,7 +9,6 @@ export const getCart = async (req: Request, res: Response) => {
     const user = await User.findById(userId).populate("cart.product");
 
     if (!user) return res.status(404).json({ message: "User not found" });
-
     res.json(user.cart);
   } catch (err) {
     res.status(500).json({ error: "Failed to get cart" });

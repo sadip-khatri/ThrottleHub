@@ -15,7 +15,7 @@ connectDB();
 router.get('/', home);
 router.use('/auth', authRoutes);
 router.use('/products', productRoutes);
-router.use("/api/cart", cartRoutes);
+router.use("/cart", cartRoutes);
 
 
 router.get("/profile", authenticate, getProfile);

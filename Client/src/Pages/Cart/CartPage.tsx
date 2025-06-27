@@ -25,6 +25,7 @@ export default function CartPage() {
     const res = await api.get("/cart");
     const data = Array.isArray(res.data) ? res.data : [];
     setCartItems(data);
+    console.log(data)
   } catch (err) {
     console.error("Failed to fetch cart", err);
     setCartItems([]); 
