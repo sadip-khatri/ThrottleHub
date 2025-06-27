@@ -6,7 +6,7 @@ import ProductPage from "../../Components/Ui/ProductInfo"; // renamed ProductInf
 import SimilarItems from "../../Components/Shared/SimilarItems/SimilarItems";
 import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
-import { useCountry } from "../../Contexts/CountryContext"; // Adjust if needed
+import { useCountry } from "../../Contexts/CountryContext";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +16,6 @@ const ProductDetail = () => {
 
   if (!product) return <p className="text-center mt-20">Product not found.</p>;
 
-  // Calculate converted price but keep original price intact
   const convertedPrice = product.price * selectedCountry.rate;
 
   const handleAddToCart = (
@@ -28,7 +27,7 @@ const ProductDetail = () => {
     const cartProduct = {
       id: selectedProduct.id,
       name: selectedProduct.title || selectedProduct.name,
-      price: selectedProduct.price, // store original USD price here
+      price: selectedProduct.price,
       selectedSize,
       quantity,
       selectedColor,
@@ -58,7 +57,9 @@ const ProductDetail = () => {
     }
 
     localStorage.setItem("cartProducts", JSON.stringify(existingCart));
-    alert(`${selectedProduct.title || selectedProduct.name} added to cart!`);
+
+    // ✅ Dispatch custom event to update navbar cart count
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   return (
@@ -72,7 +73,7 @@ const ProductDetail = () => {
         {/* RIGHT: PRODUCT INFO */}
         <ProductPage
           product={{ ...product, convertedPrice }}
-          currencyCode={selectedCountry.currency} // e.g. "NPR", "USD"
+          currencyCode={selectedCountry.currency}
           onAddToCart={handleAddToCart}
         />
       </div>
