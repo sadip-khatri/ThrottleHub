@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
+import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
+import NewsLetter from "../../Components/Shared/Home/NewsLetter";
 
 interface CartItem {
   id: number;
@@ -201,6 +203,8 @@ export default function CartPage() {
           </div>
         </div>
       )}
+      <YouMightAlsoLike />
+      <NewsLetter />
     </div>
   );
 }
