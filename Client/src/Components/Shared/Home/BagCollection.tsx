@@ -22,7 +22,7 @@ const BagCollection = () => {
 
   const fetchBags = async () => {
     try {
-      const res = await api.get("/products?category=bag"); // Make sure your API supports category filtering
+      const res = await api.get("/products");
       setBags(res.data);
     } catch (err) {
       console.error("Failed to fetch bags", err);
