@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import api from "../../../utils/api"; // Make sure the path is correct
 
 interface Product {
-  id: number;
+  _id: number;
   image: string;
   title: string;
   price: number;
@@ -38,7 +38,7 @@ const NewIn: React.FC<NewInProps> = ({
 
   const fetchNewArrivals = async () => {
     try {
-      const res = await api.get("/products?tag=new"); // adjust this to your backend
+      const res = await api.get("/products?tag=new");
       setProducts(res.data);
     } catch (err) {
       console.error("Failed to fetch new arrivals", err);
@@ -54,7 +54,7 @@ const NewIn: React.FC<NewInProps> = ({
 
   const handleAddToCart = (product: Product, selectedSize: string = "M") => {
     const cartProduct = {
-      id: product.id,
+      id: product._id,
       name: product.title,
       price: product.price,
       selectedSize,
@@ -70,7 +70,7 @@ const NewIn: React.FC<NewInProps> = ({
 
     const existingItemIndex = existingCart.findIndex(
       (item: any) =>
-        item.id === product.id && item.selectedSize === selectedSize
+        item.id === product._id && item.selectedSize === selectedSize
     );
 
     if (existingItemIndex > -1) {
@@ -124,7 +124,7 @@ const NewIn: React.FC<NewInProps> = ({
             products.map((product, index) => (
               <div key={index} className="min-w-[220px] shrink-0">
                 <Link to={`/product/${product.id}`} className="block">
-                  <ProductCard {...product} />
+                  <ProductCard  {...product} />
                 </Link>
               </div>
             ))

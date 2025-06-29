@@ -5,16 +5,16 @@ import { formatPrice } from "../../utils/formatPrice";
 import { useCountry } from "../../Contexts/CountryContext";
 
 interface ProductCardProps {
-  _id: string;
+  id: string; // use `id` consistently everywhere
   image: string;
   title: string;
-  price: number;  
+  price: number;
   category?: string;
   onAddToCart?: () => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  _id,
+  id,
   image,
   title,
   price,
@@ -27,17 +27,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Link
-      to={`/product/${_id}`}
+      to={`/product/${id}`}
       className="relative block bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
     >
-      {/* Exclusive Badge */}
       {isExclusive && (
         <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded z-10">
-          EXCLUSIVE 
+          EXCLUSIVE
         </span>
       )}
 
-      {/* Product Image */}
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
         <img
           src={image}
@@ -46,7 +44,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       </div>
 
-      {/* Product Info */}
       <div className="p-4">
         <h3 className="text-sm font-medium text-[#754C29]">{title}</h3>
         <p className="mt-1 text-lg font-semibold text-gray-900">
@@ -56,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {onAddToCart && (
           <button
             onClick={(e) => {
-              e.preventDefault(); 
+              e.preventDefault();
               onAddToCart();
             }}
             className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"

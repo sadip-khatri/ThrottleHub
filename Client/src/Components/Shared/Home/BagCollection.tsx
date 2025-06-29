@@ -36,7 +36,7 @@ const BagCollection = () => {
     fetchBags();
   }, []);
 
-  // Optional Add to Cart Logic (Not used currently)
+
   const handleAddToCart = (product: any, selectedSize: string = "M") => {
     const cartProduct = {
       id: product.id,
@@ -94,13 +94,18 @@ const BagCollection = () => {
           {loading ? (
             <p>Loading...</p>
           ) : bags.length > 0 ? (
-            bags.map((bag, index) => (
-              <div key={index} className="min-w-[220px] shrink-0">
-                <Link to={`/product/${bag.id}`} className="block">
-                  <ProductCard {...bag} />
-                </Link>
-              </div>
-            ))
+        bags.map((bag) => (
+  <div key={bag._id} className="min-w-[220px] shrink-0">
+    <ProductCard
+      id={bag._id}
+      image={bag.mainImage}
+      title={bag.title}
+      price={bag.price}
+      category={bag.category}
+    />
+  </div>
+))
+
           ) : (
             <p>No bags found.</p>
           )}

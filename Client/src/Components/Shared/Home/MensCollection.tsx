@@ -22,7 +22,7 @@ function MensCollection() {
 
   const fetchMensProducts = async () => {
     try {
-      const res = await api.get("/products?category=men"); // Change as per your backend filtering
+      const res = await api.get("/products");
       setMensProducts(res.data);
     } catch (err) {
       console.error("Failed to fetch men's products", err);

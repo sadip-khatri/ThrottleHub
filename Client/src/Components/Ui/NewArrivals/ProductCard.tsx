@@ -1,7 +1,7 @@
 // src/Ui/ProductCard.tsx
 import React from "react";
-import { formatPrice } from "../../../Utils/formatPrice";
-import { useCountry } from "../../../Contexts/CountryContext"; // Adjust the path if needed
+import { formatPrice } from "../../../utils/formatPrice";
+import { useCountry } from "../../../Contexts/CountryContext"; 
 
 interface ProductCardProps {
   image: string;
