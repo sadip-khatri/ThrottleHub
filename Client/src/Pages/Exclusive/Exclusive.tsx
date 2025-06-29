@@ -1,7 +1,13 @@
-import React from "react";
+import ExclusiveCollections from "../../Components/Shared/Exclusive/ExclusiveCollections";
+import TopHead from "../../Components/Shared/Exclusive/TopHead";
 
 function Exclusive() {
-  return <div>Exclusive</div>;
+  return (
+    <>
+      <TopHead />
+      <ExclusiveCollections />
+    </>
+  );
 }
 
 export default Exclusive;

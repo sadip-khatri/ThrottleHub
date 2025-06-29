@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { formatPrice } from "../../Utils/formatPrice";
 
-// Product type definition
 interface Product {
-  id: string;
+  id: number;
   title: string;
-  price: number;
+  price: number; // original USD price
+  convertedPrice?: number; // passed from ProductDetail, in selected currency
   originalPrice?: number;
   discount?: number;
   category?: string;
@@ -19,6 +21,7 @@ interface Product {
 
 interface ProductPageProps {
   product: Product;
+  currencyCode: string; // e.g. "NPR", "USD"
   onAddToCart: (
     product: Product,
     size?: string,
@@ -27,7 +30,11 @@ interface ProductPageProps {
   ) => void;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
+const ProductPage: React.FC<ProductPageProps> = ({
+  product,
+  currencyCode,
+  onAddToCart,
+}) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.size?.[0] || "M");
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "");
@@ -98,7 +105,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
             )}
             {product.discount && (
               <div className="absolute top-4 left-4 bg-black text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                S
+                {product.discount}%
               </div>
             )}
           </div>
@@ -125,15 +132,33 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
           {/* Price */}
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-xl text-red-600">Rs. {product.price}</span>
+              <span className="text-xl text-red-600">
+                {formatPrice(
+                  product.convertedPrice ?? product.price,
+                  currencyCode
+                )}
+              </span>
               {product.originalPrice && (
                 <>
                   <span className="text-sm text-gray-500 line-through">
-                    Rs. {product.originalPrice}
+                    {formatPrice(
+                      product.originalPrice *
+                        (product.convertedPrice
+                          ? product.convertedPrice / product.price
+                          : 1),
+                      currencyCode
+                    )}
                   </span>
                   {product.discount && (
                     <span className="text-sm text-red-600">
-                      {product.discount}% off on Rs. {product.originalPrice}
+                      {product.discount}% off on{" "}
+                      {formatPrice(
+                        product.originalPrice *
+                          (product.convertedPrice
+                            ? product.convertedPrice / product.price
+                            : 1),
+                        currencyCode
+                      )}
                     </span>
                   )}
                 </>

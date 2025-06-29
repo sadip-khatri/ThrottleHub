@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import TopSection from "../../Components/Shared/Trending/TopSection";
+import TrendingSection from "../../Components/Shared/Trending/TrendingSection";
 
 function Trending() {
   return (
-    <div>Trending</div>
-  )
+    <div>
+      <TopSection />
+      <TrendingSection />
+    </div>
+  );
 }
 
-export default Trending
+export default Trending;

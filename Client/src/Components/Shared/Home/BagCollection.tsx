@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -133,10 +135,7 @@ const BagCollection = () => {
           {bags.map((bag, index) => (
             <div key={index} className="min-w-[220px] shrink-0">
               <Link to={`/product/${bag.id}`} className="block">
-                <ProductCard
-                  {...bag}
-                  onAddToCart={() => handleAddToCart(bag)}
-                />
+                <ProductCard {...bag} />
               </Link>
             </div>
           ))}

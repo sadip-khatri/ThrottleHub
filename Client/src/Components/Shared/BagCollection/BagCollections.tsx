@@ -22,7 +22,7 @@ const BagCollections: React.FC = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await api.get("/products"); 
+      const res = await api.get("/products");
       setProducts(res.data);
     } catch (err) {
       console.error("Failed to fetch products", err);
@@ -39,7 +39,9 @@ const BagCollections: React.FC = () => {
   const handleCategoryChange = (category: string) => {
     setCurrentPage(1);
     setSelectedCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [category]
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [category]
     );
   };
 
@@ -82,10 +84,7 @@ const BagCollections: React.FC = () => {
               <h3 className="text-sm font-medium mb-2">CATEGORIES</h3>
               <div className="space-y-1 text-sm text-gray-600">
                 {categories.map((cat) => (
-                  <label
-                    key={cat}
-                    className="flex items-center gap-2 cursor-pointer"
-                  >
+                  <label key={cat} className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={selectedCategories.includes(cat)}
@@ -99,11 +98,12 @@ const BagCollections: React.FC = () => {
           </aside>
 
           {/* Main Content */}
-          <div className="flex-1 -mt-24">
+          <div className="flex-1 -mt-24 md:mt-0">
             {/* Sorting */}
             <div className="flex justify-end py-4 mb-8">
               <select
                 className="border px-3 py-2 rounded text-sm"
+                value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
               >
                 <option value="relevance">Sort by Relevance</option>
@@ -112,7 +112,7 @@ const BagCollections: React.FC = () => {
               </select>
             </div>
 
-            {/* Grid or message */}
+            {/* Product Grid */}
             {displayedProducts.length === 0 ? (
               <div className="text-center text-gray-500 mt-10">
                 No products found.
@@ -122,14 +122,13 @@ const BagCollections: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {displayedProducts.map((product) => (
                     <ProductCard
-  key={product._id}
-  id={product._id}
-  image={product.mainImage}
-  title={product.title}
-  price={product.price}
-  category={product.category}
-/>
-
+                      key={product._id}
+                      id={product._id}
+                      image={product.mainImage}
+                      title={product.title}
+                      price={product.price}
+                      category={product.category}
+                    />
                   ))}
                 </div>
 

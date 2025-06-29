@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
+
+import api from "../../utils/api";
+
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
-import api from "../../utils/api";
+import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
+import NewsLetter from "../../Components/Shared/Home/NewsLetter";
+import { useCountry } from "../../Contexts/CountryContext";
+import { formatPrice } from "../../utils/formatPrice";
 
 interface CartItem {
   _id: string;
@@ -19,21 +25,20 @@ interface CartItem {
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const { selectedCountry } = useCountry();
 
- const fetchCart = async () => {
-  try {
-    const res = await api.get("/cart");
-    const data = Array.isArray(res.data) ? res.data : [];
-    setCartItems(data);
-    console.log(data)
-  } catch (err) {
-    console.error("Failed to fetch cart", err);
-    setCartItems([]); 
-  } finally {
-    setLoading(false);
-  }
-};
-
+  const fetchCart = async () => {
+    try {
+      const res = await api.get("/cart");
+      const data = Array.isArray(res.data) ? res.data : [];
+      setCartItems(data);
+    } catch (err) {
+      console.error("Failed to fetch cart", err);
+      setCartItems([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchCart();
@@ -62,18 +67,28 @@ export default function CartPage() {
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
-  const shipping = cartItems.length > 0 ? 400 : 0;
+  const shipping = cartItems.length > 0 ? 4 : 0;
   const total = subtotal + shipping;
 
   if (!localStorage.getItem("authToken")) {
     return (
       <div className="text-center p-10 text-gray-700">
-        Please <Link to="/login" className="text-blue-600 underline">log in</Link> to view your cart.
+        Please{" "}
+        <Link to="/login" className="text-blue-600 underline">
+          log in
+        </Link>{" "}
+        to view your cart.
       </div>
     );
   }
 
   if (loading) return <div className="p-10 text-center">Loading cart...</div>;
+
+  if (!selectedCountry) {
+    return (
+      <div className="p-10 text-center">Loading country information...</div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -94,6 +109,7 @@ export default function CartPage() {
       ) : (
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Cart Items */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="grid grid-cols-12 gap-4 p-6 border-b text-sm font-medium text-gray-600 uppercase">
@@ -131,9 +147,16 @@ export default function CartPage() {
                         </button>
                       </div>
                     </div>
+
                     <div className="col-span-2 text-center">
-                      Rs. {item.product.price.toLocaleString()}
+                      <span className="text-gray-900">
+                        {formatPrice(
+                          item.product.price * selectedCountry.rate,
+                          selectedCountry.currency
+                        )}
+                      </span>
                     </div>
+
                     <div className="col-span-2 text-center">
                       <div className="flex items-center justify-center space-x-2">
                         <button
@@ -155,14 +178,23 @@ export default function CartPage() {
                         </button>
                       </div>
                     </div>
+
                     <div className="col-span-2 text-center">
-                      Rs. {(item.product.price * item.quantity).toLocaleString()}
+                      <span className="text-gray-900">
+                        {formatPrice(
+                          item.product.price *
+                            item.quantity *
+                            selectedCountry.rate,
+                          selectedCountry.currency
+                        )}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-6">
@@ -172,24 +204,40 @@ export default function CartPage() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">Sub Total</span>
                     <span className="text-gray-900">
-                      Rs. {subtotal.toLocaleString()}
+                      {formatPrice(
+                        subtotal * selectedCountry.rate,
+                        selectedCountry.currency
+                      )}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Shipping</span>
-                    <span className="text-gray-900">Rs. {shipping}</span>
+                    <span className="text-gray-900">
+                      {formatPrice(
+                        shipping * selectedCountry.rate,
+                        selectedCountry.currency
+                      )}
+                    </span>
                   </div>
                   <hr className="my-4" />
                   <div className="flex justify-between text-lg font-semibold">
                     <span className="text-gray-900">Total</span>
                     <span className="text-gray-900">
-                      Rs. {total.toLocaleString()}
+                      {formatPrice(
+                        total * selectedCountry.rate,
+                        selectedCountry.currency
+                      )}
                     </span>
                   </div>
                 </div>
                 <button
-                  className="w-full bg-[#8B5D3B] hover:bg-[#754C29] text-white font-medium py-3 px-4 rounded-lg mt-6"
-                  onClick={() => alert("Proceeding to checkout...")}
+                  className="w-full bg-[#8B5D3B] hover:bg-[#754C29] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors"
+                  onClick={() => {
+                    alert("Proceeding to checkout...");
+                    localStorage.removeItem("cartProducts");
+                    setCartItems([]);
+                    window.dispatchEvent(new Event("cartUpdated"));
+                  }}
                 >
                   PROCEED TO CHECKOUT
                 </button>
@@ -198,6 +246,8 @@ export default function CartPage() {
           </div>
         </div>
       )}
+      <YouMightAlsoLike />
+      <NewsLetter />
     </div>
   );
 }

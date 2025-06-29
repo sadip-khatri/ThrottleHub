@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
+
 type Product = {
   id: number;
   image: string;
@@ -11,59 +12,73 @@ type Product = {
 
 const allProducts: Product[] = [
   {
-    id: 13,
-    image: "/assets/images/mens1.jpg",
-    title: "Denim Utility Jacket",
-    price: 4500,
-    category: "Jackets",
+    id: 1,
+    image: "/assets/images/product1.jpg",
+    title: "Emerald Leather Dress",
+    price: 3200,
+    category: "Dresses",
   },
   {
-    id: 14,
-    image: "/assets/images/mens2.jpg",
-    title: "Classic Fit Cotton Shirt",
-    price: 2200,
-    category: "Shirts",
+    id: 2,
+    image: "/assets/images/product2.jpg",
+    title: "Maroon Puff Sleeve Dress",
+    price: 2800,
+    category: "Dresses",
   },
   {
-    id: 15,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-    category: "Jeans",
+    id: 3,
+    image: "/assets/images/product3.jpg",
+    title: "Beige Bodycon Dress",
+    price: 2500,
+    category: "Dresses",
   },
   {
-    id: 16,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-    category: "Jeans",
+    id: 4,
+    image: "/assets/images/product4.jpg",
+    title: "Polka Dot Mini Dress",
+    price: 2100,
+    category: "Dresses",
   },
   {
-    id: 17,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-    category: "Jeans",
+    id: 5,
+    image: "/assets/images/product5.jpg",
+    title: "Sunset Maxi Dress",
+    price: 3600,
+    category: "Dresses",
   },
   {
-    id: 18,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-    category: "Jeans",
+    id: 6,
+    image: "/assets/images/product6.jpg",
+    title: "Vintage Denim Dress",
+    price: 3100,
+    category: "Dresses",
+  },
+  {
+    id: 7,
+    image: "/assets/images/product7.jpg",
+    title: "Chic Wrap Dress",
+    price: 2900,
+    category: "Dresses",
+  },
+  {
+    id: 8,
+    image: "/assets/images/product7.jpg",
+    title: "Bag",
+    price: 2900,
+    category: "Bags",
   },
 ];
 
-const categories = ["Shirts", "Jackets", "Shoes", "Jeans", "T-Shirts"];
+const categories = ["Dresses", "Bags", "Shoes", "Jewelry & Accessories"];
 const itemsPerPage = 6;
 
-const MensCollections: React.FC = () => {
+const EndofSeason: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleCategoryChange = (category: string) => {
-    setCurrentPage(1);
+    setCurrentPage(1); // reset pagination on filter
     setSelectedCategories((prev) =>
       prev.includes(category) ? prev.filter((c) => c !== category) : [category]
     );
@@ -95,9 +110,9 @@ const MensCollections: React.FC = () => {
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
-      <h2 className="text-2xl font-bold mb-1">MEN'S COLLECTION</h2>
+      <h2 className="text-2xl font-bold mb-1">END OF SEASON</h2>
       <p className="text-sm text-gray-500 mb-6">
-        {sortedAndFiltered.length} items found
+        {sortedAndFiltered.length} new items
       </p>
 
       <div className="flex flex-col md:flex-row gap-6">
@@ -174,4 +189,4 @@ const MensCollections: React.FC = () => {
   );
 };
 
-export default MensCollections;
+export default EndofSeason;
