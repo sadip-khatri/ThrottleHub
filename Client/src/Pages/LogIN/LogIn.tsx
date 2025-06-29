@@ -4,6 +4,9 @@ import api from "../../Utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebookF } from "react-icons/fa";
+// import { Link } from "react-router-dom";
 
 interface User {
   name: string;
@@ -66,7 +69,7 @@ const LogIn: React.FC = () => {
       )}
 
       <p>
-        New user? <a href="/create-account">Create an account</a>
+        New user? <a href="/register">Create an account</a>
       </p>
 
       <form className="login-form" onSubmit={handleSubmit}>
@@ -127,11 +130,11 @@ const LogIn: React.FC = () => {
 
       <div className="social-login">
         <button className="google-login">
-          <img src="img/flat-color-icons-google.svg" alt="Google logo" />
+          <FcGoogle />
           Continue with Google
         </button>
         <button className="facebook-login">
-          <img src="img/bxl-facebook.svg" alt="Facebook logo" />
+          <FaFacebookF />
           Continue with Facebook
         </button>
       </div>
