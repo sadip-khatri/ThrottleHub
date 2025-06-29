@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
-import api from "../../../utils/api";
+import api from "../../../Utils/api";
 
 type Product = {
   _id: string;
@@ -121,14 +121,14 @@ const BagCollections: React.FC = () => {
               <>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {displayedProducts.map((product) => (
-                    <ProductCard
-                      key={product._id}
-                      id={product._id}
-                      image={product.mainImage}
-                      title={product.title}
-                      price={product.price}
-                      category={product.category}
-                    />
+                   <ProductCard
+  id={product._id} 
+  image={product.mainImage}
+  title={product.title}
+  price={product.price}
+  category={product.category}
+/>
+
                   ))}
                 </div>
 

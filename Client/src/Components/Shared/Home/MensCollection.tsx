@@ -2,8 +2,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import ProductCard from "../../Ui/ProductCard"; // Adjust path if needed
-import api from "../../../utils/api"; // Adjust this import path if necessary
+import ProductCard from "../../Ui/ProductCard"; 
+import api from "../../../Utils/api";
+
 
 function MensCollection() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ function MensCollection() {
 
   const fetchMensProducts = async () => {
     try {
-      const res = await api.get("/products?category=men"); // Change as per your backend filtering
+      const res = await api.get("/products");
       setMensProducts(res.data);
     } catch (err) {
       console.error("Failed to fetch men's products", err);
@@ -83,7 +84,13 @@ function MensCollection() {
                 className="min-w-[220px] shrink-0"
               >
                 <Link to={`/product/${product.id}`} className="block">
-                  <ProductCard {...product} />
+                  <ProductCard
+  id={product._id} 
+  image={product.mainImage}
+  title={product.title}
+  price={product.price}
+  category={product.category}
+/>
                 </Link>
               </div>
             ))

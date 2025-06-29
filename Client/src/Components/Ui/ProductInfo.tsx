@@ -21,7 +21,7 @@ interface Product {
 
 interface ProductPageProps {
   product: Product;
-  currencyCode: string; // e.g. "NPR", "USD"
+  currencyCode: string; 
   onAddToCart: (
     product: Product,
     size?: string,
@@ -133,6 +133,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
               <span className="text-xl text-red-600">
+                
                 {formatPrice(
                   product.convertedPrice ?? product.price,
                   currencyCode

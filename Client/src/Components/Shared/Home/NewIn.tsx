@@ -4,14 +4,14 @@ import React, { useRef, useEffect, useState } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import api from "../../../utils/api"; // Make sure the path is correct
-
-interface Product {
-  id: number;
-  image: string;
+import api from "../../../Utils/api";
+type Product = {
+  _id: string;
+  mainImage: string;
   title: string;
   price: number;
-}
+  category: string;
+};
 
 interface NewInProps {
   heading?: string;
@@ -38,7 +38,7 @@ const NewIn: React.FC<NewInProps> = ({
 
   const fetchNewArrivals = async () => {
     try {
-      const res = await api.get("/products?tag=new"); // adjust this to your backend
+      const res = await api.get("/products?tag=new");
       setProducts(res.data);
     } catch (err) {
       console.error("Failed to fetch new arrivals", err);
@@ -54,7 +54,7 @@ const NewIn: React.FC<NewInProps> = ({
 
   const handleAddToCart = (product: Product, selectedSize: string = "M") => {
     const cartProduct = {
-      id: product.id,
+      id: product._id,
       name: product.title,
       price: product.price,
       selectedSize,
@@ -70,7 +70,7 @@ const NewIn: React.FC<NewInProps> = ({
 
     const existingItemIndex = existingCart.findIndex(
       (item: any) =>
-        item.id === product.id && item.selectedSize === selectedSize
+        item.id === product._id && item.selectedSize === selectedSize
     );
 
     if (existingItemIndex > -1) {
@@ -123,8 +123,14 @@ const NewIn: React.FC<NewInProps> = ({
           ) : products.length > 0 ? (
             products.map((product, index) => (
               <div key={index} className="min-w-[220px] shrink-0">
-                <Link to={`/product/${product.id}`} className="block">
-                  <ProductCard {...product} />
+                <Link to={`/product/${product._id}`} className="block">
+                  <ProductCard
+  id={product._id} 
+  image={product.mainImage}
+  title={product.title}
+  price={product.price}
+  category={product.category}
+/>
                 </Link>
               </div>
             ))
