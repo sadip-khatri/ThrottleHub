@@ -5,7 +5,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { useCountry } from "../../Contexts/CountryContext";
 
 interface ProductCardProps {
-  id: string;
+  _id: string;
   image: string;
   title: string;
   price: number;  
@@ -14,7 +14,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  id,
+  _id,
   image,
   title,
   price,
@@ -27,13 +27,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Link
-      to={`/product/${id}`}
+      to={`/product/${_id}`}
       className="relative block bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
     >
       {/* Exclusive Badge */}
       {isExclusive && (
         <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded z-10">
-          EXCLUSIVE
+          EXCLUSIVE 
         </span>
       )}
 

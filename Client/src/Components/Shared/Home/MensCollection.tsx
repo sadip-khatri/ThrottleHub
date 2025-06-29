@@ -1,49 +1,14 @@
-import React, { useRef } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ProductCard from "../../Ui/ProductCard"; // Adjust path if needed
-
-const mensProducts = [
-  {
-    id: 13,
-    image: "/assets/images/mens1.jpg",
-    title: "Denim Utility Jacket",
-    price: 4500,
-  },
-  {
-    id: 14,
-    image: "/assets/images/mens2.jpg",
-    title: "Classic Fit Cotton Shirt",
-    price: 2200,
-  },
-  {
-    id: 15,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-  },
-  {
-    id: 16,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-  },
-  {
-    id: 17,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-  },
-  {
-    id: 18,
-    image: "/assets/images/mens3.jpg",
-    title: "Slim Fit Blazer",
-    price: 5000,
-  },
-];
+import api from "../../../utils/api"; // Adjust this import path if necessary
 
 function MensCollection() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [mensProducts, setMensProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -54,6 +19,22 @@ function MensCollection() {
       });
     }
   };
+
+  const fetchMensProducts = async () => {
+    try {
+      const res = await api.get("/products?category=men"); // Change as per your backend filtering
+      setMensProducts(res.data);
+    } catch (err) {
+      console.error("Failed to fetch men's products", err);
+      setMensProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMensProducts();
+  }, []);
 
   const heading = "Men’s Collection";
   const description = "Discover premium styles for every occasion.";
@@ -93,16 +74,22 @@ function MensCollection() {
           </div>
 
           {/* Product Cards */}
-          {mensProducts.map((product, index) => (
-            <div
-              key={`${product.id}-${index}`}
-              className="min-w-[220px] shrink-0"
-            >
-              <Link to={`/product/${product.id}`} className="block">
-                <ProductCard {...product} key={product.id} />
-              </Link>
-            </div>
-          ))}
+          {loading ? (
+            <p className="text-gray-500">Loading...</p>
+          ) : mensProducts.length > 0 ? (
+            mensProducts.map((product, index) => (
+              <div
+                key={`${product.id}-${index}`}
+                className="min-w-[220px] shrink-0"
+              >
+                <Link to={`/product/${product.id}`} className="block">
+                  <ProductCard {...product} />
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500">No men's products found.</p>
+          )}
         </div>
       </div>
 

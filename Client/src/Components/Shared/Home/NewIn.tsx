@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import api from "../../../utils/api"; // Make sure the path is correct
 
 interface Product {
   id: number;
@@ -13,62 +14,17 @@ interface Product {
 }
 
 interface NewInProps {
-  products?: Product[];
   heading?: string;
   description?: string;
 }
 
-const defaultProducts: Product[] = [
-  {
-    id: 1,
-    image: "/assets/images/product1.jpg",
-    title: "Emerald Leather Dress",
-    price: 3200,
-  },
-  {
-    id: 2,
-    image: "/assets/images/product2.jpg",
-    title: "Maroon Puff Sleeve Dress",
-    price: 2800,
-  },
-  {
-    id: 3,
-    image: "/assets/images/product3.jpg",
-    title: "Beige Bodycon Dress",
-    price: 2500,
-  },
-  {
-    id: 4,
-    image: "/assets/images/product4.jpg",
-    title: "Polka Dot Mini Dress",
-    price: 2100,
-  },
-  {
-    id: 5,
-    image: "/assets/images/product5.jpg",
-    title: "Sunset Maxi Dress",
-    price: 3600,
-  },
-  {
-    id: 6,
-    image: "/assets/images/product6.jpg",
-    title: "Vintage Denim Dress",
-    price: 3100,
-  },
-  {
-    id: 7,
-    image: "/assets/images/product7.jpg",
-    title: "Chic Wrap Dress",
-    price: 2900,
-  },
-];
-
 const NewIn: React.FC<NewInProps> = ({
-  products = defaultProducts,
   heading = "NEW IN",
   description = "Discover all-new arrivals.",
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -80,42 +36,50 @@ const NewIn: React.FC<NewInProps> = ({
     }
   };
 
-  // Function to handle adding product to cart
+  const fetchNewArrivals = async () => {
+    try {
+      const res = await api.get("/products?tag=new"); // adjust this to your backend
+      setProducts(res.data);
+    } catch (err) {
+      console.error("Failed to fetch new arrivals", err);
+      setProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNewArrivals();
+  }, []);
+
   const handleAddToCart = (product: Product, selectedSize: string = "M") => {
     const cartProduct = {
       id: product.id,
       name: product.title,
       price: product.price,
-      selectedSize: selectedSize,
+      selectedSize,
       quantity: 1,
       images: {
         main: product.image,
       },
     };
 
-    // Get existing cart items
     const existingCart = JSON.parse(
       localStorage.getItem("cartProducts") || "[]"
     );
 
-    // Check if product with same ID and size already exists
     const existingItemIndex = existingCart.findIndex(
       (item: any) =>
         item.id === product.id && item.selectedSize === selectedSize
     );
 
     if (existingItemIndex > -1) {
-      // Update quantity if item exists
       existingCart[existingItemIndex].quantity += 1;
     } else {
-      // Add new item to cart
       existingCart.push(cartProduct);
     }
 
-    // Save to localStorage
     localStorage.setItem("cartProducts", JSON.stringify(existingCart));
-
-    // Optional: Show confirmation message
     alert(`${product.title} added to cart!`);
   };
 
@@ -154,13 +118,19 @@ const NewIn: React.FC<NewInProps> = ({
           </div>
 
           {/* Product Cards */}
-          {products.map((product, index) => (
-            <div key={index} className="min-w-[220px] shrink-0">
-              <Link to={`/product/${product.id}`} className="block">
-                <ProductCard {...product} />
-              </Link>
-            </div>
-          ))}
+          {loading ? (
+            <p>Loading...</p>
+          ) : products.length > 0 ? (
+            products.map((product, index) => (
+              <div key={index} className="min-w-[220px] shrink-0">
+                <Link to={`/product/${product.id}`} className="block">
+                  <ProductCard {...product} />
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>No new arrivals found.</p>
+          )}
         </div>
       </div>
 
