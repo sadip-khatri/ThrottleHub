@@ -97,7 +97,6 @@ const YouMightAlsoLike: React.FC = () => {
         >
           <FaChevronRight />
         </button>
-
         <div
           className="flex gap-4 overflow-x-auto scroll-smooth hide-scrollbar pr-6"
           ref={scrollRef}
