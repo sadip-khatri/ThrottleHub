@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { formatPrice } from "../../Utils/formatPrice";
+import { formatPrice } from "../../utils/formatPrice";
 
 interface Product {
   id: number;
   title: string;
-  price: number; // original USD price
-  convertedPrice?: number; // passed from ProductDetail, in selected currency
+  price: number; 
+  convertedPrice?: number; 
   originalPrice?: number;
   discount?: number;
   category?: string;

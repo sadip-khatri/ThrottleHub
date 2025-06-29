@@ -8,7 +8,7 @@ interface ProductCardProps {
   id: string;
   image: string;
   title: string;
-  price: number; 
+  price: number;  
   category?: string;
   onAddToCart?: () => void;
 }

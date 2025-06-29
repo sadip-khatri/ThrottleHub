@@ -15,6 +15,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flag from "react-world-flags";
 import { useCountry } from "../../Contexts/CountryContext";
+import api from "../../utils/api"
 
 interface User {
   name: string;
@@ -78,22 +79,26 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const updateCartCount = () => {
-      const existingCart = JSON.parse(
-        localStorage.getItem("cartProducts") || "[]"
-      );
-      const total = existingCart.reduce(
-        (sum: number, item: any) => sum + item.quantity,
+ useEffect(() => {
+  const fetchCartCount = async () => {
+    try {
+      const res = await api.get("/cart"); 
+      const cartItems = res.data;
+
+      const total = cartItems.reduce(
+        (sum: number, item: any) => sum + (item.quantity || 1),
         0
       );
-      setCartCount(total);
-    };
 
-    updateCartCount();
-    window.addEventListener("cartUpdated", updateCartCount);
-    return () => window.removeEventListener("cartUpdated", updateCartCount);
-  }, [location]);
+      setCartCount(total);
+    } catch (err) {
+      console.error("Failed to fetch cart count", err);
+      setCartCount(0); // fallback
+    }
+  };
+
+  fetchCartCount();
+}, [location]);
 
   return (
     <div className="w-full">
