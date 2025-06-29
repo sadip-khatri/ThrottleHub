@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
-import api from "../../../utils/api";
+import api from "../../../Utils/api";
 
 type Product = {
   _id: string;

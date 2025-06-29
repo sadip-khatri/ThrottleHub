@@ -1,7 +1,8 @@
 import React, { useState, type FormEvent } from "react";
-import api from "../../utils/api";
+import api from "../../Utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 const Register: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -33,7 +34,7 @@ const Register: React.FC = () => {
       setName("");
       setEmail("");
       setPassword("");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error("Registration error:", err);
       const message =
@@ -102,7 +103,7 @@ const Register: React.FC = () => {
             onClick={() => setShowPassword((prev) => !prev)}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
-            <img src="img/eye.svg" alt="Toggle password visibility" />
+            {showPassword ? <RiEyeOffLine /> : <RiEyeLine />}
           </button>
         </div>
 

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, type FormEvent } from "react";
-import api from "../../utils/api";
+import api from "../../Utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 interface User {
   name: string;
@@ -30,7 +32,6 @@ const LogIn: React.FC = () => {
 
       const { token, user } = response.data;
 
-      // Store token and user in localStorage
       localStorage.setItem("authToken", token);
       localStorage.setItem("user", JSON.stringify(user));
 
@@ -38,9 +39,7 @@ const LogIn: React.FC = () => {
 
       toast.success(`Welcome, ${user.name}!`);
 
-     
       window.location.href = "/";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const message =
         err.response?.data?.message ||
@@ -59,11 +58,13 @@ const LogIn: React.FC = () => {
       <ToastContainer position="top-right" autoClose={3000} />
 
       <h1>LOGIN</h1>
+
       {user && (
         <p className="user-greeting">
-           Logged in as <strong>{user.name}</strong>
+          Logged in as <strong>{user.name}</strong>
         </p>
       )}
+
       <p>
         New user? <a href="/create-account">Create an account</a>
       </p>
@@ -87,22 +88,24 @@ const LogIn: React.FC = () => {
           <label htmlFor="password" className="visually-hidden">
             Password
           </label>
-          <input
-            id="password"
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="button"
-            className="toggle-password"
-            onClick={togglePasswordVisibility}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-          >
-            <img src="img/eye.svg" alt="Toggle password visibility" />
-          </button>
+          <div className="password-wrapper">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={togglePasswordVisibility}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <RiEyeOffLine /> : <RiEyeLine />}
+            </button>
+          </div>
         </div>
 
         <div className="form-options">

@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
+import api from "../../../Utils/api"; // Adjust path if needed
 
 type Product = {
   id: number;
@@ -10,82 +11,43 @@ type Product = {
   category: string;
 };
 
-const allProducts: Product[] = [
-  {
-    id: 1,
-    image: "/assets/images/product1.jpg",
-    title: "Emerald Leather Dress",
-    price: 3200,
-    category: "Dresses",
-  },
-  {
-    id: 2,
-    image: "/assets/images/product2.jpg",
-    title: "Maroon Puff Sleeve Dress",
-    price: 2800,
-    category: "Dresses",
-  },
-  {
-    id: 3,
-    image: "/assets/images/product3.jpg",
-    title: "Beige Bodycon Dress",
-    price: 2500,
-    category: "Dresses",
-  },
-  {
-    id: 4,
-    image: "/assets/images/product4.jpg",
-    title: "Polka Dot Mini Dress",
-    price: 2100,
-    category: "Dresses",
-  },
-  {
-    id: 5,
-    image: "/assets/images/product5.jpg",
-    title: "Sunset Maxi Dress",
-    price: 3600,
-    category: "Dresses",
-  },
-  {
-    id: 6,
-    image: "/assets/images/product6.jpg",
-    title: "Vintage Denim Dress",
-    price: 3100,
-    category: "Dresses",
-  },
-  {
-    id: 7,
-    image: "/assets/images/product7.jpg",
-    title: "Chic Wrap Dress",
-    price: 2900,
-    category: "Dresses",
-  },
-  {
-    id: 8,
-    image: "/assets/images/product7.jpg",
-    title: "Bag",
-    price: 2900,
-    category: "Bags",
-  },
-];
-
 const categories = ["Dresses", "Bags", "Shoes", "Jewelry & Accessories"];
 const itemsPerPage = 6;
 
 const EndofSeason: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await api.get("/products?tag=end-season"); // Adjust endpoint as per your backend
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Failed to fetch end of season products", err);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleCategoryChange = (category: string) => {
-    setCurrentPage(1); // reset pagination on filter
+    setCurrentPage(1);
     setSelectedCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [category]
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
     );
   };
 
   const sortedAndFiltered = useMemo(() => {
-    let filtered = allProducts;
+    let filtered = products;
 
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((p) =>
@@ -100,7 +62,7 @@ const EndofSeason: React.FC = () => {
     }
 
     return filtered;
-  }, [selectedCategories, sortOption]);
+  }, [products, selectedCategories, sortOption]);
 
   const totalPages = Math.ceil(sortedAndFiltered.length / itemsPerPage);
   const displayedProducts = sortedAndFiltered.slice(
@@ -112,7 +74,7 @@ const EndofSeason: React.FC = () => {
     <div className="px-4 md:px-16 py-10 bg-white">
       <h2 className="text-2xl font-bold mb-1">END OF SEASON</h2>
       <p className="text-sm text-gray-500 mb-6">
-        {sortedAndFiltered.length} new items
+        {loading ? "Loading..." : `${sortedAndFiltered.length} new items`}
       </p>
 
       <div className="flex flex-col md:flex-row gap-6">
@@ -144,6 +106,7 @@ const EndofSeason: React.FC = () => {
           <div className="flex justify-end py-4 mb-8">
             <select
               className="border px-3 py-2 rounded text-sm"
+              value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
             >
               <option value="relevance">Sort by Relevance</option>
@@ -153,7 +116,11 @@ const EndofSeason: React.FC = () => {
           </div>
 
           {/* Product Grid or Message */}
-          {displayedProducts.length === 0 ? (
+          {loading ? (
+            <div className="text-center text-gray-500 mt-10">
+              Loading products...
+            </div>
+          ) : displayedProducts.length === 0 ? (
             <div className="text-center text-gray-500 mt-10">
               No products found.
             </div>
@@ -161,8 +128,12 @@ const EndofSeason: React.FC = () => {
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {displayedProducts.map((product) => (
-                  <Link to={`/product/${product.id}`} className="block">
-                    <ProductCard key={product.id} {...product} />
+                  <Link
+                    to={`/product/${product.id}`}
+                    key={product.id}
+                    className="block"
+                  >
+                    <ProductCard {...product} />
                   </Link>
                 ))}
               </div>
