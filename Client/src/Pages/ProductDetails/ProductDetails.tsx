@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
-import products from "../../Data/Productsinfo.json";
+import { useEffect, useState } from "react";
+import api from "../../utils/api";
 import ProductGallery from "../../Components/Ui/ProductGallery";
-import ProductPage from "../../Components/Ui/ProductInfo"; // renamed ProductInfo to ProductPage as per your code
+import ProductInfo from "../../Components/Ui/ProductInfo";
 import SimilarItems from "../../Components/Shared/SimilarItems/SimilarItems";
 import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
@@ -12,8 +13,26 @@ const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { selectedCountry } = useCountry();
 
-  const product = products.find((p) => Number(p.id) === Number(id));
+  const [product, setProduct] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await api.get(`/products/${id}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.error("Failed to load product", err);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  if (loading) return <p className="text-center mt-20">Loading product...</p>;
   if (!product) return <p className="text-center mt-20">Product not found.</p>;
 
   const convertedPrice = product.price * selectedCountry.rate;
@@ -25,7 +44,7 @@ const ProductDetail = () => {
     selectedColor: string = ""
   ) => {
     const cartProduct = {
-      id: selectedProduct.id,
+      id: selectedProduct._id,
       name: selectedProduct.title || selectedProduct.name,
       price: selectedProduct.price,
       selectedSize,
@@ -35,6 +54,7 @@ const ProductDetail = () => {
         main:
           selectedProduct.image ||
           selectedProduct.images?.main ||
+          selectedProduct.mainImage ||
           "/assets/images/default-product.png",
       },
     };
@@ -45,7 +65,7 @@ const ProductDetail = () => {
 
     const existingItemIndex = existingCart.findIndex(
       (item: any) =>
-        item.id === selectedProduct.id &&
+        item.id === selectedProduct._id &&
         item.selectedSize === selectedSize &&
         item.selectedColor === selectedColor
     );
@@ -58,8 +78,10 @@ const ProductDetail = () => {
 
     localStorage.setItem("cartProducts", JSON.stringify(existingCart));
 
-    // ✅ Dispatch custom event to update navbar cart count
+    // 🔄 Notify navbar or global state to update cart count
     window.dispatchEvent(new Event("cartUpdated"));
+
+    alert(`${selectedProduct.title} added to cart!`);
   };
 
   return (
@@ -71,12 +93,14 @@ const ProductDetail = () => {
         </div>
 
         {/* RIGHT: PRODUCT INFO */}
-        <ProductPage
+        <ProductInfo
           product={{ ...product, convertedPrice }}
           currencyCode={selectedCountry.currency}
           onAddToCart={handleAddToCart}
         />
       </div>
+
+      {/* Related Sections */}
       <SimilarItems />
       <YouMightAlsoLike />
       <NewsLetter />

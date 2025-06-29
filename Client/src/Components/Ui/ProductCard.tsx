@@ -1,13 +1,14 @@
 // src/Ui/ProductCard.tsx
 import React from "react";
-import { formatPrice } from "../../Utils/formatPrice";
-import { useCountry } from "../../Contexts/CountryContext"; // Adjust if path is different
+import { Link } from "react-router-dom";
+import { formatPrice } from "../../utils/formatPrice";
+import { useCountry } from "../../Contexts/CountryContext";
 
 interface ProductCardProps {
-  id: number;
+  id: string;
   image: string;
   title: string;
-  price: number; // base price in USD
+  price: number; 
   category?: string;
   onAddToCart?: () => void;
 }
@@ -21,12 +22,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onAddToCart,
 }) => {
   const { selectedCountry } = useCountry();
-
   const localPrice = price * selectedCountry.rate;
   const isExclusive = category?.toLowerCase() === "exclusive";
 
   return (
-    <div className="relative bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <Link
+      to={`/product/${id}`}
+      className="relative block bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+    >
       {/* Exclusive Badge */}
       {isExclusive && (
         <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded z-10">
@@ -34,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </span>
       )}
 
-      {/* Image Section */}
+      {/* Product Image */}
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
         <img
           src={image}
@@ -43,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       </div>
 
-      {/* Info Section */}
+      {/* Product Info */}
       <div className="p-4">
         <h3 className="text-sm font-medium text-[#754C29]">{title}</h3>
         <p className="mt-1 text-lg font-semibold text-gray-900">
@@ -52,16 +55,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {onAddToCart && (
           <button
-            onClick={onAddToCart}
+            onClick={(e) => {
+              e.preventDefault(); 
+              onAddToCart();
+            }}
             className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
           >
             Add to Cart
           </button>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 
 export default ProductCard;
-  

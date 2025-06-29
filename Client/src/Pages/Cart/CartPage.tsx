@@ -1,80 +1,101 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from "react";
+
+import api from "../../utils/api";
+
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
 import { useCountry } from "../../Contexts/CountryContext";
-import { formatPrice } from "../../Utils/formatPrice";
+import { formatPrice } from "../../utils/formatPrice";
 
 interface CartItem {
-  id: number;
-  name: string;
-  brand: string;
-  size: string;
-  price: number;
-  originalPrice: number;
+  _id: string;
+  product: {
+    _id: string;
+    title: string;
+    mainImage: string;
+    price: number;
+    size?: string[];
+  };
   quantity: number;
-  image: string;
 }
 
 export default function CartPage() {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const { selectedCountry } = useCountry();
 
-  const localCart = JSON.parse(localStorage.getItem("cartProducts") || "[]");
-
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    return localCart.map((product: any) => ({
-      id: product.id,
-      name: product.name,
-      brand: "Lulu M",
-      size: product.selectedSize || "",
-      price: product.price,
-      originalPrice: product.price,
-      quantity: product.quantity || 1,
-      image: product.images?.main || "/assets/images/default-product.png",
-    }));
-  });
-
-  const updateQuantity = (id: number, newQuantity: number, size: string) => {
-    const newItems =
-      newQuantity === 0
-        ? cartItems.filter((item) => !(item.id === id && item.size === size))
-        : cartItems.map((item) =>
-            item.id === id && item.size === size
-              ? { ...item, quantity: newQuantity }
-              : item
-          );
-
-    setCartItems(newItems);
-    localStorage.setItem("cartProducts", JSON.stringify(newItems));
-    window.dispatchEvent(new Event("cartUpdated")); // ✅ Trigger Navbar update
+  const fetchCart = async () => {
+    try {
+      const res = await api.get("/cart");
+      const data = Array.isArray(res.data) ? res.data : [];
+      setCartItems(data);
+    } catch (err) {
+      console.error("Failed to fetch cart", err);
+      setCartItems([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const removeItem = (id: number, size: string) => {
-    const updatedItems = cartItems.filter(
-      (item) => !(item.id === id && item.size === size)
-    );
-    setCartItems(updatedItems);
-    localStorage.setItem("cartProducts", JSON.stringify(updatedItems));
-    window.dispatchEvent(new Event("cartUpdated")); // ✅ Trigger Navbar update
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const updateQuantity = async (productId: string, quantity: number) => {
+    if (quantity <= 0) return removeItem(productId);
+    try {
+      await api.patch(`/cart/${productId}`, { quantity });
+      fetchCart();
+    } catch (err) {
+      console.error("Failed to update quantity");
+    }
+  };
+
+  const removeItem = async (productId: string) => {
+    try {
+      await api.delete(`/cart/${productId}`);
+      fetchCart();
+    } catch (err) {
+      console.error("Failed to remove item");
+    }
   };
 
   const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item.product.price * item.quantity,
     0
   );
   const shipping = cartItems.length > 0 ? 4 : 0;
   const total = subtotal + shipping;
+
+  if (!localStorage.getItem("authToken")) {
+    return (
+      <div className="text-center p-10 text-gray-700">
+        Please{" "}
+        <Link to="/login" className="text-blue-600 underline">
+          log in
+        </Link>{" "}
+        to view your cart.
+      </div>
+    );
+  }
+
+  if (loading) return <div className="p-10 text-center">Loading cart...</div>;
+
+  if (!selectedCountry) {
+    return (
+      <div className="p-10 text-center">Loading country information...</div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center text-sm text-gray-600">
-            <Link to="/">
-              <span>Home</span>
-            </Link>
+            <Link to="/">Home</Link>
             <span className="mx-2">/</span>
             <span className="text-gray-900">Cart</span>
           </div>
@@ -97,33 +118,32 @@ export default function CartPage() {
                   <div className="col-span-2 text-center">Quantity</div>
                   <div className="col-span-2 text-center">Subtotal</div>
                 </div>
-                {cartItems.map((item: CartItem) => (
+                {cartItems.map((item) => (
                   <div
-                    key={`${item.id}-${item.size}`}
+                    key={item.product._id}
                     className="grid grid-cols-12 gap-4 p-6 border-b items-center"
                   >
                     <div className="col-span-6 flex items-center space-x-4">
                       <div className="w-20 h-24 bg-gray-100 rounded-lg overflow-hidden">
                         <img
-                          src={item.image}
-                          alt={item.name}
+                          src={item.product.mainImage}
+                          alt={item.product.title}
                           className="object-cover w-full h-full"
                         />
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900">
-                          {item.name}
+                          {item.product.title}
                         </h3>
-                        <p className="text-sm text-gray-600">{item.brand}</p>
                         <p className="text-sm text-gray-600">
-                          Size {item.size}
+                          Size: {item.product.size?.[0] || "Default"}
                         </p>
                         <button
-                          onClick={() => removeItem(item.id, item.size)}
+                          onClick={() => removeItem(item.product._id)}
                           className="text-sm text-red-600 hover:text-red-800 flex items-center mt-2"
                         >
                           <Trash2 className="w-4 h-4 mr-1" />
-                          Delete From List
+                          Delete
                         </button>
                       </div>
                     </div>
@@ -131,7 +151,7 @@ export default function CartPage() {
                     <div className="col-span-2 text-center">
                       <span className="text-gray-900">
                         {formatPrice(
-                          item.price * selectedCountry.rate,
+                          item.product.price * selectedCountry.rate,
                           selectedCountry.currency
                         )}
                       </span>
@@ -141,26 +161,18 @@ export default function CartPage() {
                       <div className="flex items-center justify-center space-x-2">
                         <button
                           onClick={() =>
-                            updateQuantity(
-                              item.id,
-                              item.quantity - 1,
-                              item.size
-                            )
+                            updateQuantity(item.product._id, item.quantity - 1)
                           }
-                          className="w-8 h-8 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-50"
+                          className="w-8 h-8 border border-gray-300 rounded-md"
                         >
                           -
                         </button>
-                        <span className="w-8 text-center">{item.quantity}</span>
+                        <span>{item.quantity}</span>
                         <button
                           onClick={() =>
-                            updateQuantity(
-                              item.id,
-                              item.quantity + 1,
-                              item.size
-                            )
+                            updateQuantity(item.product._id, item.quantity + 1)
                           }
-                          className="w-8 h-8 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-50"
+                          className="w-8 h-8 border border-gray-300 rounded-md"
                         >
                           +
                         </button>
@@ -170,7 +182,9 @@ export default function CartPage() {
                     <div className="col-span-2 text-center">
                       <span className="text-gray-900">
                         {formatPrice(
-                          item.price * item.quantity * selectedCountry.rate,
+                          item.product.price *
+                            item.quantity *
+                            selectedCountry.rate,
                           selectedCountry.currency
                         )}
                       </span>
@@ -222,7 +236,7 @@ export default function CartPage() {
                     alert("Proceeding to checkout...");
                     localStorage.removeItem("cartProducts");
                     setCartItems([]);
-                    window.dispatchEvent(new Event("cartUpdated")); // ✅ Clear badge in Navbar
+                    window.dispatchEvent(new Event("cartUpdated"));
                   }}
                 >
                   PROCEED TO CHECKOUT

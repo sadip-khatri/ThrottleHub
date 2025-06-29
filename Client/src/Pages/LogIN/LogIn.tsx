@@ -39,7 +39,7 @@ const LogIn: React.FC = () => {
       toast.success(`Welcome, ${user.name}!`);
 
      
-      // window.location.href = "/dashboard";
+      window.location.href = "/";
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const message =

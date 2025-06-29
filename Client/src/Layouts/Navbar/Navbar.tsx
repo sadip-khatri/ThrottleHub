@@ -12,7 +12,6 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TbFlag3 } from "react-icons/tb";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flag from "react-world-flags";
 import { useCountry } from "../../Contexts/CountryContext";
@@ -23,11 +22,12 @@ interface User {
 }
 
 const Navbar = () => {
+  const [user, setUser] = useState<User | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { selectedCountry, setSelectedCountry, countries } = useCountry();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const [user, setUser] = useState<User | null>(null);
+
+  const { selectedCountry, setSelectedCountry, countries } = useCountry();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,7 +53,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // Handle outside dropdown click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -69,7 +68,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Update cart count
   useEffect(() => {
     const updateCartCount = () => {
       const existingCart = JSON.parse(
@@ -89,12 +87,15 @@ const Navbar = () => {
 
   return (
     <div className="w-full">
+      {/* Announcement Banner */}
       <div className="bg-[#e1c3a1] text-center py-1 text-sm text-[#333] font-light">
         Join the community
       </div>
 
+      {/* Top Navbar */}
       <div className="bg-white shadow-sm container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between py-3">
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-[#4b2d18] text-xl"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -103,6 +104,7 @@ const Navbar = () => {
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
 
+          {/* Search Input (hidden on mobile) */}
           <div className="hidden md:flex items-center gap-2 w-1/3">
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 w-full max-w-xs">
               <FaSearch className="text-gray-400" />
@@ -114,6 +116,7 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* Logo */}
           <div className="flex-1 flex justify-center md:justify-center">
             <Link to="/" className="flex items-center gap-2">
               <img
@@ -127,7 +130,9 @@ const Navbar = () => {
             </Link>
           </div>
 
+          {/* Icons Section */}
           <div className="hidden md:flex items-center gap-5 w-1/3 justify-end text-[#4b2d18]">
+            {/* Country Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -162,6 +167,7 @@ const Navbar = () => {
               )}
             </div>
 
+            {/* User Auth */}
             {!user ? (
               <>
                 <Link to="/register" title="Register">
@@ -185,6 +191,7 @@ const Navbar = () => {
               </>
             )}
 
+            {/* Cart */}
             <Link to="/cart" title="Cart" className="relative">
               <FaShoppingCart />
               {cartCount > 0 && (
@@ -196,7 +203,12 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 md:flex justify-center gap-8 text-sm py-3 px-4 md:px-0 md:block">
+        {/* Navigation Links */}
+        <div
+          className={`${
+            mobileMenuOpen ? "block" : "hidden"
+          } md:flex justify-center gap-8 text-sm py-3 border-t border-gray-200 px-4 md:px-0`}
+        >
           {navItems.map((item, idx) => (
             <Link
               key={idx}
