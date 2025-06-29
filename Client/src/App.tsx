@@ -19,6 +19,7 @@ import CartTry from "./Pages/Cart/CartTry";
 import BagCollection from "./Pages/BagCollection/BagCollection";
 import MensCollection from "./Pages/MensCollection/MensCollection";
 import Blogs from "./Pages/Blogs/Blogs";
+import Search from "./Pages/Search/Search";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cartTry" element={<CartTry />} />
           <Route path="blog" element={<Blogs />} />
+          <Route path="search" element={<Search />} />
         </Route>
       </Routes>
     </Router>

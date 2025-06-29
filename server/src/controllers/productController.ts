@@ -22,6 +22,32 @@ export const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
+// GET /api/products/search?q=searchTerm
+export const searchProducts = async (req: Request, res: Response) => {
+  try {
+    const { q } = req.query;
+    
+    if (!q || typeof q !== 'string') {
+      return res.status(400).json({ error: "Search query is required" });
+    }
+
+    const searchRegex = new RegExp(q, 'i'); // case-insensitive search
+    
+    const products = await Product.find({
+      $or: [
+        { title: searchRegex },
+        { category: searchRegex },
+        { description: searchRegex }
+      ]
+    });
+
+    res.json(products);
+  } catch (err) {
+    console.error("Failed to search products:", err);
+    res.status(500).json({ error: "Failed to search products" });
+  }
+};
+
 export const getProductById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -45,6 +71,7 @@ export const createProduct = async (req: Request, res: Response) => {
       title,
       description,
       price,
+      category,
       size,
       color,
       mainImage,
@@ -58,6 +85,7 @@ export const createProduct = async (req: Request, res: Response) => {
       title,
       description,
       price,
+      category,
       size,
       color,
       mainImage,
@@ -87,6 +115,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       title,
       description,
       price,
+      category,
       size,
       color,
       mainImage,
@@ -99,6 +128,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     if (title !== undefined) product.title = title;
     if (description !== undefined) product.description = description;
     if (price !== undefined) product.price = price;
+    if (category !== undefined) product.category = category;
     if (size !== undefined) product.size = size;
     if (color !== undefined) product.color = color;
     if (mainImage !== undefined) product.mainImage = mainImage;

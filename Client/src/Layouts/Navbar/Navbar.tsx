@@ -26,6 +26,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { selectedCountry, setSelectedCountry, countries } = useCountry();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -51,6 +52,15 @@ const Navbar = () => {
     localStorage.removeItem("user");
     setUser(null);
     navigate("/login");
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+      setMobileMenuOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -106,14 +116,18 @@ const Navbar = () => {
 
           {/* Search Input (hidden on mobile) */}
           <div className="hidden md:flex items-center gap-2 w-1/3">
-            <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 w-full max-w-xs">
-              <FaSearch className="text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="bg-transparent outline-none px-2 py-1 text-sm w-full"
-              />
-            </div>
+            <form onSubmit={handleSearch} className="w-full max-w-xs">
+              <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 w-full">
+                <FaSearch className="text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-transparent outline-none px-2 py-1 text-sm w-full"
+                />
+              </div>
+            </form>
           </div>
 
           {/* Logo */}
@@ -209,6 +223,22 @@ const Navbar = () => {
             mobileMenuOpen ? "block" : "hidden"
           } md:flex justify-center gap-8 text-sm py-3 border-t border-gray-200 px-4 md:px-0`}
         >
+          {/* Mobile Search Input */}
+          <div className="md:hidden mb-4">
+            <form onSubmit={handleSearch}>
+              <div className="flex items-center bg-gray-100 rounded-full px-3 py-2">
+                <FaSearch className="text-gray-400 mr-2" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-transparent outline-none text-sm w-full"
+                />
+              </div>
+            </form>
+          </div>
+
           {navItems.map((item, idx) => (
             <Link
               key={idx}
