@@ -138,11 +138,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-1 flex justify-center md:justify-center">
             <Link to="/" className="flex items-center gap-2">
-              <img
-                src="/assets/images/logo.png"
-                alt="Dangiz"
-                className="w-6 h-6 object-contain"
-              />
+              <img src="/" alt="Dangiz" className="w-6 h-6 object-contain" />
               <span className="text-2xl font-semibold text-[#4b2d18]">
                 Dangiz
               </span>

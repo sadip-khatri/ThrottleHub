@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useCountry } from "../../../Contexts/CountryContext";
-import { formatPrice } from "../../../Utils/formatPrice";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const items = [
   {
@@ -97,7 +97,6 @@ const YouMightAlsoLike: React.FC = () => {
         >
           <FaChevronRight />
         </button>
-
         <div
           className="flex gap-4 overflow-x-auto scroll-smooth hide-scrollbar pr-6"
           ref={scrollRef}
