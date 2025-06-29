@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
+import api from "../../../Utils/api"; // Adjust path as per your project
 
 type Product = {
   id: number;
@@ -10,63 +11,56 @@ type Product = {
   category: string;
 };
 
-const allProducts: Product[] = [
-  {
-    id: 15,
-    image: "/bags/extra.jpg",
-    title: "Exclusive Item 1",
-    price: 2000,
-    category: "exclusive",
-  },
-  {
-    id: 16,
-    image: "/bags/extra.jpg",
-    title: "Exclusive Item 2",
-    price: 2200,
-    category: "exclusive",
-  },
-  {
-    id: 17,
-    image: "/bags/extra.jpg",
-    title: "Exclusive Item 3",
-    price: 1800,
-    category: "exclusive",
-  },
-  // Add more if needed
-];
-
 const itemsPerPage = 6;
 
 const ExclusiveCollections: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [sortOption, setSortOption] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
-  const filtered = useMemo(() => {
-    let result = allProducts;
+  useEffect(() => {
+    const fetchExclusiveProducts = async () => {
+      try {
+        const response = await api.get("/products?tag=exclusive");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Failed to fetch exclusive products", error);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchExclusiveProducts();
+  }, []);
+
+  const sortedProducts = useMemo(() => {
+    let sorted = [...products];
     if (sortOption === "low") {
-      result = [...result].sort((a, b) => a.price - b.price);
+      sorted.sort((a, b) => a.price - b.price);
     } else if (sortOption === "high") {
-      result = [...result].sort((a, b) => b.price - a.price);
+      sorted.sort((a, b) => b.price - a.price);
     }
+    return sorted;
+  }, [products, sortOption]);
 
-    return result;
-  }, [sortOption]);
-
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
-  const displayedProducts = filtered.slice(
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+  const displayedProducts = sortedProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
-      {/* Heading + Sort Dropdown on Same Line */}
+      {/* Heading + Sort */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold">EXCLUSIVE COLLECTIONS</h2>
           <p className="text-sm text-gray-500">
-            {filtered.length} exclusive items
+            {loading
+              ? "Loading..."
+              : `${sortedProducts.length} exclusive items`}
           </p>
         </div>
 
@@ -84,7 +78,7 @@ const ExclusiveCollections: React.FC = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Sidebar (Static for now) */}
+        {/* Static Sidebar */}
         <aside className="w-full md:w-1/5 space-y-6">
           <div>
             <h3 className="text-sm font-medium mb-2">CATEGORY</h3>
@@ -92,10 +86,13 @@ const ExclusiveCollections: React.FC = () => {
           </div>
         </aside>
 
-        {/* Main Content */}
+        {/* Main Product Grid */}
         <div className="flex-1 -mt-24 md:mt-0">
-          {/* Product Grid */}
-          {displayedProducts.length === 0 ? (
+          {loading ? (
+            <div className="text-center text-gray-500 mt-10">
+              Loading products...
+            </div>
+          ) : displayedProducts.length === 0 ? (
             <div className="text-center text-gray-500 mt-10">
               No exclusive items found.
             </div>
@@ -103,7 +100,7 @@ const ExclusiveCollections: React.FC = () => {
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {displayedProducts.map((product) => (
-                  <Link key={product.id} to="">
+                  <Link key={product.id} to={`/product/${product.id}`}>
                     <ProductCard {...product} />
                   </Link>
                 ))}
