@@ -1,45 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-const bags = [
-  {
-    id: 8,
-    image: "/bags/black.jpg",
-    title: "Crinkle Stripe Dress",
-    price: 2000,
-  },
-  {
-    id: 9,
-    image: "/bags/brown.jpg",
-    title: "Crinkle Stripe Dress",
-    price: 2000,
-  },
-  {
-    id: 10,
-    image: "/bags/blue.jpg",
-    title: "Crinkle Stripe Dress",
-    price: 2000,
-  },
-  {
-    id: 11,
-    image: "/bags/orange.jpg",
-    title: "Crinkle Stripe Dress",
-    price: 2000,
-  },
-  {
-    id: 12,
-    image: "/bags/extra.jpg",
-    title: "Crinkle Stripe Dress",
-    price: 2000,
-  },
-];
+import api from "../../../utils/api"; // Adjust the import path as needed
 
 const BagCollection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [bags, setBags] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -51,42 +20,32 @@ const BagCollection = () => {
     }
   };
 
-  // Function to handle adding product to cart
+  const fetchBags = async () => {
+    try {
+      const res = await api.get("/products?category=bag"); // Make sure your API supports category filtering
+      setBags(res.data);
+    } catch (err) {
+      console.error("Failed to fetch bags", err);
+      setBags([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBags();
+  }, []);
+
+  // Optional Add to Cart Logic (Not used currently)
   const handleAddToCart = (product: any, selectedSize: string = "M") => {
     const cartProduct = {
       id: product.id,
       name: product.title,
       price: product.price,
-      selectedSize: selectedSize,
+      selectedSize,
       quantity: 1,
-      images: {
-        main: product.image,
-      },
+      images: { main: product.image },
     };
-
-    // Get existing cart items
-    const existingCart = JSON.parse(
-      localStorage.getItem("cartProducts") || "[]"
-    );
-
-    // Check if product with same ID and size already exists
-    const existingItemIndex = existingCart.findIndex(
-      (item: any) =>
-        item.id === product.id && item.selectedSize === selectedSize
-    );
-
-    if (existingItemIndex > -1) {
-      // Update quantity if item exists
-      existingCart[existingItemIndex].quantity += 1;
-    } else {
-      // Add new item to cart
-      existingCart.push(cartProduct);
-    }
-
-    // Save to localStorage
-    localStorage.setItem("cartProducts", JSON.stringify(existingCart));
-
-    // Optional: Show confirmation message
     alert(`${product.title} added to cart!`);
   };
 
@@ -114,14 +73,14 @@ const BagCollection = () => {
       {/* Arrow Buttons */}
       <button
         onClick={() => scroll("left")}
-        className="absolute left-2 top-[60%]  transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 z-10 shadow-md hover:bg-gray-100 cursor-pointer"
+        className="absolute left-2 top-[60%] transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 z-10 shadow-md hover:bg-gray-100 cursor-pointer"
       >
         <FaChevronLeft />
       </button>
 
       <button
         onClick={() => scroll("right")}
-        className="absolute right-2 top-[60%]  transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 z-10 shadow-md hover:bg-gray-100 cursor-pointer"
+        className="absolute right-2 top-[60%] transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 z-10 shadow-md hover:bg-gray-100 cursor-pointer"
       >
         <FaChevronRight />
       </button>
@@ -132,13 +91,19 @@ const BagCollection = () => {
         ref={scrollRef}
       >
         <div className="flex items-start w-max gap-4">
-          {bags.map((bag, index) => (
-            <div key={index} className="min-w-[220px] shrink-0">
-              <Link to={`/product/${bag.id}`} className="block">
-                <ProductCard {...bag} />
-              </Link>
-            </div>
-          ))}
+          {loading ? (
+            <p>Loading...</p>
+          ) : bags.length > 0 ? (
+            bags.map((bag, index) => (
+              <div key={index} className="min-w-[220px] shrink-0">
+                <Link to={`/product/${bag.id}`} className="block">
+                  <ProductCard {...bag} />
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>No bags found.</p>
+          )}
         </div>
       </div>
 
