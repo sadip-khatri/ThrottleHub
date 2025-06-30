@@ -5,7 +5,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { useCountry } from "../../Contexts/CountryContext";
 
 interface ProductCardProps {
-  id: string; // use `id` consistently everywhere
+  id: string; 
   image: string;
   title: string;
   price: number;
