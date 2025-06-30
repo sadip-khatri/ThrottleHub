@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+// src/pages/ProductPage.tsx
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { formatPrice } from "../../utils/formatPrice";
+import SimilarItems from "../Shared/SimilarItems/SimilarItems";
 
 interface Product {
   id: number;
   title: string;
-  price: number; 
-  convertedPrice?: number; 
+  price: number;
+  convertedPrice?: number;
   originalPrice?: number;
   discount?: number;
   category?: string;
@@ -21,7 +23,7 @@ interface Product {
 
 interface ProductPageProps {
   product: Product;
-  currencyCode: string; 
+  currencyCode: string;
   onAddToCart: (
     product: Product,
     size?: string,
@@ -62,13 +64,12 @@ const ProductPage: React.FC<ProductPageProps> = ({
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Breadcrumb */}
       <div className="px-6 py-4 text-sm text-gray-500">
         Home / {product.category || "Products"}
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 px-6 pb-8">
-        {/* Left - Thumbnails */}
+        {/* Thumbnails */}
         {productImages.length > 1 && (
           <div className="flex lg:flex-col gap-2 order-2 lg:order-1">
             {productImages.map((image, index) => (
@@ -89,7 +90,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
           </div>
         )}
 
-        {/* Center - Main Image */}
+        {/* Main Image */}
         <div className="flex-1 order-1 lg:order-2">
           <div className="relative bg-gray-100 aspect-[3/4] max-w-md mx-auto">
             {productImages.length > 0 ? (
@@ -111,16 +112,9 @@ const ProductPage: React.FC<ProductPageProps> = ({
           </div>
         </div>
 
-        {/* Right - Product Details */}
+        {/* Product Info */}
         <div className="flex-1 space-y-6 order-3">
-          {product.discount && (
-            <div className="text-xs text-gray-500 uppercase tracking-wide">
-              Exclusive
-            </div>
-          )}
-
           <h1 className="text-2xl font-light tracking-wide">{product.title}</h1>
-
           {(product.category || product.subcategory) && (
             <div className="text-sm text-gray-600">
               {product.category && product.subcategory
@@ -133,7 +127,6 @@ const ProductPage: React.FC<ProductPageProps> = ({
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
               <span className="text-xl text-red-600">
-                
                 {formatPrice(
                   product.convertedPrice ?? product.price,
                   currencyCode
@@ -152,14 +145,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                   </span>
                   {product.discount && (
                     <span className="text-sm text-red-600">
-                      {product.discount}% off on{" "}
-                      {formatPrice(
-                        product.originalPrice *
-                          (product.convertedPrice
-                            ? product.convertedPrice / product.price
-                            : 1),
-                        currencyCode
-                      )}
+                      {product.discount}% off
                     </span>
                   )}
                 </>
@@ -172,13 +158,10 @@ const ProductPage: React.FC<ProductPageProps> = ({
             )}
           </div>
 
-          {/* Color */}
+          {/* Colors */}
           {product.colors && product.colors.length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium">COLOUR</span>
-                <div className="w-4 h-4 bg-gray-300 rounded-full"></div>
-              </div>
+              <span className="text-sm font-medium">COLOUR</span>
               <div className="flex gap-2">
                 {product.colors.map((color) => (
                   <div
@@ -187,18 +170,8 @@ const ProductPage: React.FC<ProductPageProps> = ({
                       selectedColor === color
                         ? "border-black"
                         : "border-gray-300"
-                    } ${
-                      color.toLowerCase() === "red"
-                        ? "bg-red-600"
-                        : color.toLowerCase() === "ivory" ||
-                          color.toLowerCase() === "white"
-                        ? "bg-gray-100"
-                        : color.toLowerCase() === "black"
-                        ? "bg-black"
-                        : color.toLowerCase() === "blue"
-                        ? "bg-blue-600"
-                        : "bg-gray-400"
                     }`}
+                    style={{ backgroundColor: color }}
                     onClick={() => setSelectedColor(color)}
                     title={color}
                   ></div>
@@ -208,13 +181,10 @@ const ProductPage: React.FC<ProductPageProps> = ({
             </div>
           )}
 
-          {/* Size */}
+          {/* Sizes */}
           {product.size && product.size.length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium">SIZE</span>
-                <div className="w-4 h-4 bg-gray-300 rounded-full"></div>
-              </div>
+              <span className="text-sm font-medium">SIZE</span>
               <select
                 value={selectedSize}
                 onChange={(e) => setSelectedSize(e.target.value)}
@@ -229,7 +199,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
             </div>
           )}
 
-          {/* Add to Cart Button */}
+          {/* Add to Cart */}
           <button
             onClick={handleAddToCart}
             className="w-full bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors"
@@ -271,6 +241,8 @@ const ProductPage: React.FC<ProductPageProps> = ({
           </div>
         </div>
       </div>
+
+      <SimilarItems currentProduct={product} />
     </div>
   );
 };
