@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import api from "../../../utils/api"; // Adjust the import path as needed
+import api from "../../../Utils/api"; // Adjust the import path as needed
+import { toast } from "react-toastify";
 
 const BagCollection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -44,9 +45,9 @@ const BagCollection = () => {
       price: product.price,
       selectedSize,
       quantity: 1,
-      images: { main: product.image },
+      images: { main: product.mainImage },
     };
-    alert(`${product.title} added to cart!`);
+    toast.success(`${product.title} added to cart!`);
   };
 
   return (
