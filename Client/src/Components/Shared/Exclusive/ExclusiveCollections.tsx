@@ -104,7 +104,7 @@ const ExclusiveCollections: React.FC = () => {
                     <ProductCard {...product} />
                   </Link>
                 ))}
-              </div>
+              </div>    
 
               {/* Pagination */}
               <div className="flex justify-center items-center mt-10 space-x-2">
