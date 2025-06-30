@@ -202,7 +202,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
           {/* Add to Cart */}
           <button
             onClick={handleAddToCart}
-            className="w-full bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors"
+            className="w-full bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors cursor-pointer"
           >
             ADD TO CART
           </button>

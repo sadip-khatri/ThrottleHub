@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               e.preventDefault();
               onAddToCart();
             }}
-            className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+            className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer"
           >
             Add to Cart
           </button>
