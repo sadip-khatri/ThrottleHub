@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
-import api from "../../../Utils/api"; // Adjust path based on your project
+import api from "../../../Utils/api";
 
 type Product = {
   _id: string;
