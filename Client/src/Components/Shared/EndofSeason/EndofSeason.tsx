@@ -24,7 +24,7 @@ const EndofSeason: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await api.get("/products?tag=end-season"); // Adjust endpoint as per your backend
+        const res = await api.get("/products"); 
         setProducts(res.data);
       } catch (err) {
         console.error("Failed to fetch end of season products", err);

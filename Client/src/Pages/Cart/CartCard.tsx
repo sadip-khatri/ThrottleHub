@@ -94,9 +94,9 @@ function CartCard() {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 py-8">
-          {/* Cart Items and Order Summary as vertical stack on small screens */}
+          
           <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
-            {/* Cart Items */}
+           
             <div className="flex-1">
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b text-sm font-medium text-gray-600 uppercase">
