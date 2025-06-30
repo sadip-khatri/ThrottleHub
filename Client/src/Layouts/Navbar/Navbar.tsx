@@ -15,7 +15,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flag from "react-world-flags";
 import { useCountry } from "../../Contexts/CountryContext";
-import api from "../../utils/api"
+import api from "../../Utils/api"
 
 interface User {
   name: string;
