@@ -5,6 +5,8 @@ import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import api from "../../../Utils/api";
+import { toast } from "react-toastify";
+
 type Product = {
   _id: string;
   mainImage: string;
@@ -60,7 +62,7 @@ const NewIn: React.FC<NewInProps> = ({
       selectedSize,
       quantity: 1,
       images: {
-        main: product.image,
+        main: product.mainImage,
       },
     };
 
@@ -80,7 +82,7 @@ const NewIn: React.FC<NewInProps> = ({
     }
 
     localStorage.setItem("cartProducts", JSON.stringify(existingCart));
-    alert(`${product.title} added to cart!`);
+    toast.success(`${product.title} added to cart!`);
   };
 
   return (

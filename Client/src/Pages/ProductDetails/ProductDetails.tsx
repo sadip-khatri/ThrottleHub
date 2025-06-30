@@ -6,6 +6,7 @@ import api from "../../Utils/api";
 import ProductInfo from "../../Components/Ui/ProductInfo";
 // import SimilarItems from "../../Components/Shared/SimilarItems/SimilarItems";
 import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
+import { toast } from "react-toastify";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -43,10 +44,10 @@ const ProductDetail = () => {
         quantity,
       });
 
-      alert(`${selectedProduct.title} added to cart!`);
+      toast.success(`${selectedProduct.title} added to cart!`);
     } catch (err) {
       console.error("Failed to add to cart", err);
-      alert("Failed to add to cart.");
+      toast.error("Failed to add to cart.");
     }
   };
 
