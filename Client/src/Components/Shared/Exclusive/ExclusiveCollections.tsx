@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import React, { useMemo, useState, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
@@ -23,6 +24,7 @@ const ExclusiveCollections: React.FC = () => {
     const fetchExclusiveProducts = async () => {
       try {
         const response = await api.get("/products?tag=exclusive");
+        // Adjust if response shape differs (e.g., response.data.data)
         setProducts(response.data);
       } catch (error) {
         console.error("Failed to fetch exclusive products", error);
@@ -34,6 +36,11 @@ const ExclusiveCollections: React.FC = () => {
 
     fetchExclusiveProducts();
   }, []);
+
+  useEffect(() => {
+    // Reset to first page when products or sort changes
+    setCurrentPage(1);
+  }, [products, sortOption]);
 
   const sortedProducts = useMemo(() => {
     let sorted = [...products];
@@ -87,7 +94,7 @@ const ExclusiveCollections: React.FC = () => {
         </aside>
 
         {/* Main Product Grid */}
-        <div className="flex-1 -mt-24 md:mt-0">
+        <div className="flex-1 mt-0">
           {loading ? (
             <div className="text-center text-gray-500 mt-10">
               Loading products...
@@ -104,7 +111,7 @@ const ExclusiveCollections: React.FC = () => {
                     <ProductCard {...product} />
                   </Link>
                 ))}
-              </div>    
+              </div>
 
               {/* Pagination */}
               <div className="flex justify-center items-center mt-10 space-x-2">
