@@ -413,11 +413,10 @@ const PrivacyAndPolicy: React.FC = () => {
           13. Changes to this Privacy Policy
         </h2>
         <p>
-          From time to time it may be necessary for us to review and revise our
-          Privacy Policy. We may notify you about changes to this Privacy Policy
-          by posting an updated version on our website. We encourage you to
-          check our website from time to time to ensure you are familiar with
-          our latest Privacy Policy.
+          We may occasionally need to update or revise our Privacy Policy. When
+          we make changes, we will post the updated version on our website. We
+          recommend that you visit our website periodically to stay informed
+          about our most current Privacy Policy.
         </p>
       </section>
     </section>
