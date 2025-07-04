@@ -75,23 +75,35 @@ const Footer = () => {
               <h4 className="text-base text-black font-medium">CATEGORIES</h4>
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="/bag-collection"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Bags
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Shoes
+                  <a
+                    href="mens-collection"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    Mens
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Dresses
+                  <a
+                    href="new-arrival"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    New Arrivals
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Jeweller & Accessories
+                  <a
+                    href="exclusive"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    Exclusive
                   </a>
                 </li>
               </ul>
@@ -115,7 +127,10 @@ const Footer = () => {
               <h4 className="text-base text-black font-medium">DANGIZ</h4>
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="our-story"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     About us
                   </a>
                 </li>
@@ -134,12 +149,18 @@ const Footer = () => {
             <div className="flex flex-col gap-2 mt-6 lg:mt-0">
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Sign in
+                  <a
+                    href="/login"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    Log in
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="/register"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Register
                   </a>
                 </li>

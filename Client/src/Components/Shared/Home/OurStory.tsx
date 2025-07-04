@@ -9,9 +9,8 @@ const OurStory: React.FC = () => {
         <div>
           <SectionHeading text="OUR STORY" />
           <p className="max-w-xl text-gray-600">
-            Rooted in the concept of minimalism & re-usability, the bag is a
-            classic silhouette that represents a bag that can do it all.
-            Comfortable & convenient, the bag is an essential.
+            Built for everyday life, our bags blend simplicity, style, and
+            function. Timeless, versatile, and made to go wherever you do.
           </p>
         </div>
         <h4>
