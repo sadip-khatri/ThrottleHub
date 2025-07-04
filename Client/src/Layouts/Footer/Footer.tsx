@@ -214,7 +214,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/site-map" className="hover:underline">
                 Site map
               </a>
             </li>
