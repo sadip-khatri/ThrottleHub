@@ -29,9 +29,11 @@ import TermsAndCondition from "./Pages/TermsAndCondition/TermsAndCondition";
 import PrivacyAndPolicy from "./Pages/PrivacyAndPolicy/PrivacyAndPolicy";
 import ContactUs from "./Pages/Contact/ContactUs";
 import ReturnAndRefund from "./Pages/Return&Refund/ReturnAndRefund";
+
+import Dispute from "./Pages/Dispute/Dispute";
+
 import HowToBuy from "./Pages/HowToBuy/HowToBuy";
 import OrderLookUp from "./Pages/OrderLookUp/OrderLookUp";
-  
 import FAQ from "./Pages/FAQ/FAQ";
 
 import SiteMap from "./Pages/SiteMap/SiteMap";
@@ -67,10 +69,14 @@ function App() {
             <Route path="terms-and-condition" element={<TermsAndCondition />} />
             <Route path="privacy-and-policy" element={<PrivacyAndPolicy />} />
             <Route path="return-and-refund" element={<ReturnAndRefund />} />
+
+            <Route path="dispute" element={<Dispute />} />
+
             <Route path="how-to-buy" element={<HowToBuy />} />
             <Route path="order-look-up" element={<OrderLookUp />} />
             <Route path="faq" element={<FAQ />} />
             <Route path="site-map" element={<SiteMap />} />
+
           </Route>
         </Routes>
       </Router>
