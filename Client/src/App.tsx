@@ -19,12 +19,15 @@ import CartTry from "./Pages/Cart/CartTry";
 import BagCollection from "./Pages/BagCollection/BagCollection";
 import MensCollection from "./Pages/MensCollection/MensCollection";
 import Blogs from "./Pages/Blogs/Blogs";
+import BlogDetail from "./Pages/Blogs/BlogDetail";
 import Search from "./Pages/Search/Search";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import TermsAndCondition from "./Pages/TermsAndCondition/TermsAndCondition";
 import PrivacyAndPolicy from "./Pages/PrivacyAndPolicy/PrivacyAndPolicy";
+import ContactUs from "./Pages/Contact/ContactUs";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -51,6 +54,8 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cartTry" element={<CartTry />} />
             <Route path="blog" element={<Blogs />} />
+            <Route path="blog/:slug" element={<BlogDetail />} />
+            <Route path="contact" element={<ContactUs />} />
             <Route path="search" element={<Search />} />
             <Route path="terms-and-condition" element={<TermsAndCondition />} />
             <Route path="privacy-and-policy" element={<PrivacyAndPolicy />} />
