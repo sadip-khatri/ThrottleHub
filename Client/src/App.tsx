@@ -24,6 +24,9 @@ import Search from "./Pages/Search/Search";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import TermsAndCondition from "./Pages/TermsAndCondition/TermsAndCondition";
+import PrivacyAndPolicy from "./Pages/PrivacyAndPolicy/PrivacyAndPolicy";
 import ContactUs from "./Pages/Contact/ContactUs";
 
 // import Home from "./Pages/Home/Hero";
@@ -54,6 +57,8 @@ function App() {
             <Route path="blog/:slug" element={<BlogDetail />} />
             <Route path="contact" element={<ContactUs />} />
             <Route path="search" element={<Search />} />
+            <Route path="terms-and-condition" element={<TermsAndCondition />} />
+            <Route path="privacy-and-policy" element={<PrivacyAndPolicy />} />
           </Route>
         </Routes>
       </Router>

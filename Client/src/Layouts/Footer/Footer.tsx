@@ -200,7 +200,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/privacy-and-policy" className="hover:underline">
                 Privacy
               </a>
             </li>
