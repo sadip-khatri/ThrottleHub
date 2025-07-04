@@ -2,39 +2,8 @@ import React, { useRef } from "react";
 import { SectionHeading, ViewAllLink } from "../../Ui/Typography";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import BlogCard from "../../Ui/BlogCard";
-
-const blog = [
-  {
-    image: "/bags/black.jpg",
-    name: "Baibhav Nepal",
-    title: "How does writing Influence your personal",
-    date: "24 jun 2022",
-  },
-  {
-    image: "/bags/black.jpg",
-    name: "Baibhav Nepal",
-    title: "How does writing Influence your personal",
-    date: "24 jun 2022",
-  },
-  {
-    image: "/bags/black.jpg",
-    name: "Baibhav Nepal",
-    title: "How does writing Influence your personal",
-    date: "24 jun 2022",
-  },
-  {
-    image: "/bags/black.jpg",
-    name: "Baibhav Nepal",
-    title: "How does writing Influence your personal",
-    date: "24 jun 2022",
-  },
-  {
-    image: "/bags/black.jpg",
-    name: "Baibhav Nepal",
-    title: "How does writing Influence your personal",
-    date: "24 jun 2022",
-  },
-];
+import { blogs } from "../../../Data/BlogsData";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -48,6 +17,9 @@ const Blog = () => {
       });
     }
   };
+
+  // Show all blogs
+  // const latestBlogs = blogs.slice(0, 3);
 
   return (
     <section className="relative px-6 md:px-20 py-10">
@@ -85,9 +57,24 @@ const Blog = () => {
         ref={scrollRef}
       >
         <div className="flex items-start w-max gap-4">
-          {blog.map((blog, index) => (
-            <div key={index} className="min-w-[220px] shrink-0">
-              <BlogCard {...blog} />
+          {blogs.map((blog) => (
+            <div key={blog.id} className="w-[240px] h-[370px] bg-[#f8f5f1] rounded-md overflow-hidden shadow-sm flex flex-col">
+              <Link to={`/blog/${blog.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="w-full h-[180px] object-cover"
+                />
+                <div className="p-3 flex flex-col justify-between h-[170px]">
+                  <p className="text-sm text-gray-500 pb-2">{blog.author}</p>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider pb-2 line-clamp-2">
+                    {blog.title}
+                  </h4>
+                  <p className="text-base font-semibold mt-1 text-gray-500">
+                    {new Date(blog.date).toLocaleDateString()}
+                  </p>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
