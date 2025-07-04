@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import TopHead from "../../Components/Shared/ReturnAndRefund/TopHead";
+import MainContent from "../../Components/Shared/ReturnAndRefund/MainContent";
 
 function ReturnAndRefund() {
   return (
-    <div>ReturnAndRefund</div>
-  )
+    <>
+      <TopHead />
+      <MainContent />
+    </>
+  );
 }
 
-export default ReturnAndRefund
+export default ReturnAndRefund;
