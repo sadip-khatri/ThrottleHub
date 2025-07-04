@@ -39,9 +39,7 @@ const BagCollections: React.FC = () => {
   const handleCategoryChange = (category: string) => {
     setCurrentPage(1);
     setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [category]
+      prev.includes(category) ? prev.filter((c) => c !== category) : [category]
     );
   };
 
@@ -49,7 +47,9 @@ const BagCollections: React.FC = () => {
     let filtered = products;
 
     if (selectedCategories.length > 0) {
-      filtered = filtered.filter((p) => selectedCategories.includes(p.category));
+      filtered = filtered.filter((p) =>
+        selectedCategories.includes(p.category)
+      );
     }
 
     if (sortOption === "low") {
@@ -84,7 +84,10 @@ const BagCollections: React.FC = () => {
               <h3 className="text-sm font-medium mb-2">CATEGORIES</h3>
               <div className="space-y-1 text-sm text-gray-600">
                 {categories.map((cat) => (
-                  <label key={cat} className="flex items-center gap-2 cursor-pointer">
+                  <label
+                    key={cat}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
                     <input
                       type="checkbox"
                       checked={selectedCategories.includes(cat)}
@@ -121,14 +124,13 @@ const BagCollections: React.FC = () => {
               <>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {displayedProducts.map((product) => (
-                   <ProductCard
-  id={product._id} 
-  image={product.mainImage}
-  title={product.title}
-  price={product.price}
-  category={product.category}
-/>
-
+                    <ProductCard
+                      id={product._id}
+                      image={product.mainImage}
+                      title={product.title}
+                      price={product.price}
+                      category={product.category}
+                    />
                   ))}
                 </div>
 
