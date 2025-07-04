@@ -199,7 +199,7 @@ const Footer = () => {
         <div className="flex justify-center">
           <ul className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/dispute" className="hover:underline">
                 Dispute
               </a>
             </li>
