@@ -24,6 +24,7 @@ import Search from "./Pages/Search/Search";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ContactUs from "./Pages/Contact/ContactUs";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -51,6 +52,7 @@ function App() {
             <Route path="/cartTry" element={<CartTry />} />
             <Route path="blog" element={<Blogs />} />
             <Route path="blog/:slug" element={<BlogDetail />} />
+            <Route path="contact" element={<ContactUs />} />
             <Route path="search" element={<Search />} />
           </Route>
         </Routes>
