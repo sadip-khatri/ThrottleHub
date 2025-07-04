@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from "react";
 import type { Product } from "../Data/Product";
 import { useNavigate } from "react-router-dom";

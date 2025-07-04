@@ -112,12 +112,18 @@ const Footer = () => {
               <h4 className="text-base text-black font-medium">SHOP</h4>
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="how-to-buy"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     How to buy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="order-look-up"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Look up order
                   </a>
                 </li>
@@ -171,7 +177,10 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="return-and-refund"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Return & Refund
                   </a>
                 </li>
