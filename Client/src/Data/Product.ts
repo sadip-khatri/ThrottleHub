@@ -12,6 +12,7 @@ export interface Product {
   condition: string;
   fit: string;
   story: string;
+  stock: number;
 }
 
 export const products: Product[] = [
@@ -32,6 +33,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+    stock: 10,
   },
   {
     id: 2,
@@ -50,6 +52,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 3,
@@ -68,6 +71,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 4,
@@ -86,6 +90,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 5,
@@ -104,6 +109,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 6,
@@ -122,6 +128,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 7,
@@ -140,6 +147,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   // Bag collection
   {
@@ -159,6 +167,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 9,
@@ -177,6 +186,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 10,
@@ -195,6 +205,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 11,
@@ -213,6 +224,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 12,
@@ -230,6 +242,7 @@ export const products: Product[] = [
     description: "Elegant red evening dress...",
     condition: "Brand New",
     fit: "Slim Fit",
+      stock: 10,
     story: "Worn by top celebrities on the red carpet...",
   },
   // Mens Collection
@@ -250,6 +263,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 14,
@@ -268,6 +282,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 15,
@@ -286,6 +301,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 16,
@@ -303,6 +319,7 @@ export const products: Product[] = [
     description: "Elegant red evening dress...",
     condition: "Brand New",
     fit: "Slim Fit",
+      stock: 10,
     story: "Worn by top celebrities on the red carpet...",
   },
   {
@@ -322,6 +339,7 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
   {
     id: 18,
@@ -340,5 +358,6 @@ export const products: Product[] = [
     condition: "Brand New",
     fit: "Slim Fit",
     story: "Worn by top celebrities on the red carpet...",
+      stock: 10,
   },
 ];

@@ -16,7 +16,8 @@
     "condition": "Brand New",
     "fit": "Slim Fit",
     "story": "Worn by top celebrities on the red carpet...",
-    "category": "Dresses"
+    "category": "Dresses",
+      "stock": 10
   },
   {
     "id": 2,

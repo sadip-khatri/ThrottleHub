@@ -31,11 +31,10 @@ import ContactUs from "./Pages/Contact/ContactUs";
 import ReturnAndRefund from "./Pages/Return&Refund/ReturnAndRefund";
 import HowToBuy from "./Pages/HowToBuy/HowToBuy";
 import OrderLookUp from "./Pages/OrderLookUp/OrderLookUp";
-<<<<<<< HEAD
+  
 import FAQ from "./Pages/FAQ/FAQ";
-=======
+
 import SiteMap from "./Pages/SiteMap/SiteMap";
->>>>>>> origin/main
 
 // import Home from "./Pages/Home/Hero";
 
@@ -70,11 +69,8 @@ function App() {
             <Route path="return-and-refund" element={<ReturnAndRefund />} />
             <Route path="how-to-buy" element={<HowToBuy />} />
             <Route path="order-look-up" element={<OrderLookUp />} />
-<<<<<<< HEAD
             <Route path="faq" element={<FAQ />} />
-=======
             <Route path="site-map" element={<SiteMap />} />
->>>>>>> origin/main
           </Route>
         </Routes>
       </Router>
