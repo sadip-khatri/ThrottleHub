@@ -31,6 +31,7 @@ import ContactUs from "./Pages/Contact/ContactUs";
 import ReturnAndRefund from "./Pages/Return&Refund/ReturnAndRefund";
 import HowToBuy from "./Pages/HowToBuy/HowToBuy";
 import OrderLookUp from "./Pages/OrderLookUp/OrderLookUp";
+import SiteMap from "./Pages/SiteMap/SiteMap";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -65,6 +66,7 @@ function App() {
             <Route path="return-and-refund" element={<ReturnAndRefund />} />
             <Route path="how-to-buy" element={<HowToBuy />} />
             <Route path="order-look-up" element={<OrderLookUp />} />
+            <Route path="site-map" element={<SiteMap />} />
           </Route>
         </Routes>
       </Router>
