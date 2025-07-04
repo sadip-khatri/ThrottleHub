@@ -28,6 +28,7 @@ import "react-toastify/dist/ReactToastify.css";
 import TermsAndCondition from "./Pages/TermsAndCondition/TermsAndCondition";
 import PrivacyAndPolicy from "./Pages/PrivacyAndPolicy/PrivacyAndPolicy";
 import ContactUs from "./Pages/Contact/ContactUs";
+import ReturnAndRefund from "./Pages/Return&Refund/ReturnAndRefund";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -59,6 +60,7 @@ function App() {
             <Route path="search" element={<Search />} />
             <Route path="terms-and-condition" element={<TermsAndCondition />} />
             <Route path="privacy-and-policy" element={<PrivacyAndPolicy />} />
+            <Route path="return-and-refund" element={<ReturnAndRefund />} />
           </Route>
         </Routes>
       </Router>

@@ -172,7 +172,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Refer & Earn
+                    Return & Refund
                   </a>
                 </li>
               </ul>
