@@ -111,7 +111,7 @@ const Profile: React.FC = () => {
                     onClick={() => setActiveTab("personal")}
                     className={`w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg transition-colors ${
                       activeTab === "personal"
-                        ? "bg-yellow-400 text-black font-medium"
+                        ? "bg-[#4b2d18] text-white font-medium"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -123,7 +123,7 @@ const Profile: React.FC = () => {
                     onClick={() => setActiveTab("cart")}
                     className={`w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg transition-colors ${
                       activeTab === "cart"
-                        ? "bg-yellow-400 text-black font-medium"
+                        ? "bg-[#4b2d18] text-white font-medium"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -149,12 +149,12 @@ const Profile: React.FC = () => {
               <div className="bg-white rounded-lg shadow-sm border">
                 <div className="p-6">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                      <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-[#4b2d18] rounded-full flex items-center justify-center">
                         <User className="text-white" size={24} />
                       </div>
                     </div>
-                    <div className="absolute ml-12 mt-8 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                    <div className="absolute ml-12 mt-8 w-6 h-6 bg-green-900 rounded-full flex items-center justify-center">
                       <span className="text-white text-xs">✓</span>
                     </div>
                   </div>
@@ -183,7 +183,7 @@ const Profile: React.FC = () => {
 
                       <button
                         onClick={() => setIsEditing(true)}
-                        className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+                        className="bg-[#4b2d18] text-white px-6 py-2 rounded-md hover:bg-gray-700 transition-colors"
                       >
                         Update Changes
                       </button>
