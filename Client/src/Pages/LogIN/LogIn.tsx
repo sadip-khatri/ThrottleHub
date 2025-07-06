@@ -116,7 +116,7 @@ const LogIn: React.FC = () => {
             <input type="checkbox" />
             <span>Remember me</span>
           </label>
-          <a href="/form-password">Forgot password?</a>
+          <a href="/forgot-password">Forgot password?</a>
         </div>
 
         <button type="submit" className="login-button" disabled={loading}>
