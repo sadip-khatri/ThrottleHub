@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 
-import api from "../../utils/api";
+import api from "../../Utils/api";
 
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// src/pages/ProductPage.tsx
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { formatPrice } from "../../utils/formatPrice";
 import SimilarItems from "../Shared/SimilarItems/SimilarItems";
+import { useCountry } from "../../Contexts/CountryContext";
 
 interface Product {
   id: number;
@@ -23,7 +23,6 @@ interface Product {
 
 interface ProductPageProps {
   product: Product;
-  currencyCode: string;
   onAddToCart: (
     product: Product,
     size?: string,
@@ -34,7 +33,6 @@ interface ProductPageProps {
 
 const ProductPage: React.FC<ProductPageProps> = ({
   product,
-  currencyCode,
   onAddToCart,
 }) => {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -48,8 +46,13 @@ const ProductPage: React.FC<ProductPageProps> = ({
     myLoveStory: false,
   });
 
-  const productImages =
-    product.images || (product.image ? [product.image] : []);
+  const { selectedCountry } = useCountry();
+
+  const productImages = product.images || (product.image ? [product.image] : []);
+  const localPrice = product.price * selectedCountry.rate;
+  const localOriginalPrice = product.originalPrice
+    ? product.originalPrice * selectedCountry.rate
+    : null;
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({
@@ -127,21 +130,12 @@ const ProductPage: React.FC<ProductPageProps> = ({
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
               <span className="text-xl text-red-600">
-                {formatPrice(
-                  product.convertedPrice ?? product.price,
-                  currencyCode
-                )}
+                {formatPrice(localPrice, selectedCountry.currency)}
               </span>
-              {product.originalPrice && (
+              {localOriginalPrice && (
                 <>
                   <span className="text-sm text-gray-500 line-through">
-                    {formatPrice(
-                      product.originalPrice *
-                        (product.convertedPrice
-                          ? product.convertedPrice / product.price
-                          : 1),
-                      currencyCode
-                    )}
+                    {formatPrice(localOriginalPrice, selectedCountry.currency)}
                   </span>
                   {product.discount && (
                     <span className="text-sm text-red-600">
@@ -202,7 +196,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
           {/* Add to Cart */}
           <button
             onClick={handleAddToCart}
-            className="w-full bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors"
+            className="w-full bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors cursor-pointer"
           >
             ADD TO CART
           </button>
