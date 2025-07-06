@@ -27,7 +27,6 @@ const BagCollections: React.FC = () => {
   const fetchProducts = async () => {
     try {
       const res = await api.get("/products");
-      // Add dummy stock if missing (for testing)
       const withStock = res.data.map((p: any) => ({
         ...p,
         stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
@@ -62,26 +61,22 @@ const BagCollections: React.FC = () => {
   const sortedAndFiltered = useMemo(() => {
     let filtered = products;
 
-    // Filter by category
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((p) =>
         selectedCategories.includes(p.category)
       );
     }
 
-    // Filter by stock
     if (stockFilter === "in") {
       filtered = filtered.filter((p) => (p.stock ?? 0) > 0);
     } else if (stockFilter === "out") {
       filtered = filtered.filter((p) => (p.stock ?? 0) === 0);
     }
 
-    // Filter by price range
     filtered = filtered.filter(
       (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
     );
 
-    // Sorting
     if (sortOption === "low") {
       filtered = [...filtered].sort((a, b) => a.price - b.price);
     } else if (sortOption === "high") {
@@ -124,6 +119,7 @@ const BagCollections: React.FC = () => {
                     >
                       <input
                         type="checkbox"
+                        className="accent-[#4b2d18]"
                         checked={selectedCategories.includes(cat)}
                         onChange={() => handleCategoryChange(cat)}
                       />
@@ -143,21 +139,17 @@ const BagCollections: React.FC = () => {
                   </div>
 
                   <div className="relative h-6">
-                    {/* Ranges */}
-                    <input
+                    {/* <input
                       type="range"
                       min={0}
                       max={10000}
                       step={100}
                       value={priceRange[0]}
                       onChange={(e) =>
-                        setPriceRange([
-                          Math.min(+e.target.value, priceRange[1] - 100),
-                          priceRange[1],
-                        ])
+                        setPriceRange([+e.target.value, priceRange[1]])
                       }
-                      className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-black"
-                    />
+                      className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#4b2d18]"
+                    /> */}
                     <input
                       type="range"
                       min={0}
@@ -165,16 +157,13 @@ const BagCollections: React.FC = () => {
                       step={100}
                       value={priceRange[1]}
                       onChange={(e) =>
-                        setPriceRange([
-                          priceRange[0],
-                          Math.max(+e.target.value, priceRange[0] + 100),
-                        ])
+                        setPriceRange([priceRange[0], +e.target.value])
                       }
-                      className="absolute z-20 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-black"
+                      className="absolute z-20 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#4b2d18]"
                     />
                     <div className="absolute top-1/2 transform -translate-y-1/2 w-full h-[2px] bg-gray-300 z-0" />
                     <div
-                      className="absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-black z-0"
+                      className="absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-[#4b2d18] z-0"
                       style={{
                         left: `${(priceRange[0] / 10000) * 100}%`,
                         width: `${
@@ -198,6 +187,7 @@ const BagCollections: React.FC = () => {
                       <input
                         type="radio"
                         name="stock"
+                        className="accent-[#4b2d18]"
                         value={status}
                         checked={stockFilter === status}
                         onChange={() => handleStockChange(status as any)}
@@ -256,7 +246,7 @@ const BagCollections: React.FC = () => {
                       key={i + 1}
                       onClick={() => setCurrentPage(i + 1)}
                       className={`px-3 py-1 border text-sm rounded hover:bg-gray-100 ${
-                        currentPage === i + 1 ? "bg-black text-white" : ""
+                        currentPage === i + 1 ? "bg-[#4b2d18] text-white" : ""
                       }`}
                     >
                       {i + 1}
