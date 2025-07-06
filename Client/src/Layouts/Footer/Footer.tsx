@@ -75,23 +75,35 @@ const Footer = () => {
               <h4 className="text-base text-black font-medium">CATEGORIES</h4>
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="/bag-collection"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Bags
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Shoes
+                  <a
+                    href="mens-collection"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    Mens
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Dresses
+                  <a
+                    href="new-arrival"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    New Arrivals
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Jeweller & Accessories
+                  <a
+                    href="exclusive"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    Exclusive
                   </a>
                 </li>
               </ul>
@@ -100,12 +112,18 @@ const Footer = () => {
               <h4 className="text-base text-black font-medium">SHOP</h4>
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="how-to-buy"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     How to buy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="order-look-up"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Look up order
                   </a>
                 </li>
@@ -115,17 +133,26 @@ const Footer = () => {
               <h4 className="text-base text-black font-medium">DANGIZ</h4>
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="our-story"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     About us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="contact"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Contact us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="/blog"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Blog
                   </a>
                 </li>
@@ -134,18 +161,27 @@ const Footer = () => {
             <div className="flex flex-col gap-2 mt-6 lg:mt-0">
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Sign in
+                  <a
+                    href="/login"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    Log in
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
+                  <a
+                    href="/register"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
                     Register
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-500 text-sm hover:underline">
-                    Refer & Earn
+                  <a
+                    href="return-and-refund"
+                    className="text-gray-500 text-sm hover:underline"
+                  >
+                    Return & Refund
                   </a>
                 </li>
               </ul>
@@ -163,27 +199,27 @@ const Footer = () => {
         <div className="flex justify-center">
           <ul className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/dispute" className="hover:underline">
                 Dispute
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="faq" className="hover:underline">
                 FAQ
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/privacy-and-policy" className="hover:underline">
                 Privacy
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/site-map" className="hover:underline">
                 Site map
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/terms-and-condition" className="hover:underline">
                 Terms & conditions
               </a>
             </li>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
@@ -9,6 +10,7 @@ type Product = {
   title: string;
   price: number;
   category: string;
+  stock: number;
 };
 
 const categories = ["Dresses", "Bags", "Shoes", "Jewelry & Accessories"];
@@ -17,15 +19,16 @@ const itemsPerPage = 6;
 const NewArrivals: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [stockFilter, setStockFilter] = useState<"all" | "in" | "out">("all");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [sortOption, setSortOption] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  // Fetch products on mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await api.get("/products?tag=new-arrival"); // Adjust API endpoint if needed
+        const res = await api.get("/products?tag=new-arrival");
         setProducts(res.data);
       } catch (error) {
         console.error("Failed to fetch new arrival products", error);
@@ -34,7 +37,6 @@ const NewArrivals: React.FC = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
@@ -47,15 +49,34 @@ const NewArrivals: React.FC = () => {
     );
   };
 
+  const handleStockChange = (status: "all" | "in" | "out") => {
+    setStockFilter(status);
+    setCurrentPage(1);
+  };
+
   const sortedAndFiltered = useMemo(() => {
     let filtered = products;
 
+    // Filter by category
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((p) =>
         selectedCategories.includes(p.category)
       );
     }
 
+    // Filter by stock
+    if (stockFilter === "in") {
+      filtered = filtered.filter((p) => p.stock > 0);
+    } else if (stockFilter === "out") {
+      filtered = filtered.filter((p) => p.stock === 0);
+    }
+
+    // Filter by price
+    filtered = filtered.filter(
+      (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
+    );
+
+    // Sort
     if (sortOption === "low") {
       filtered = [...filtered].sort((a, b) => a.price - b.price);
     } else if (sortOption === "high") {
@@ -63,7 +84,7 @@ const NewArrivals: React.FC = () => {
     }
 
     return filtered;
-  }, [products, selectedCategories, sortOption]);
+  }, [products, selectedCategories, stockFilter, priceRange, sortOption]);
 
   const totalPages = Math.ceil(sortedAndFiltered.length / itemsPerPage);
   const displayedProducts = sortedAndFiltered.slice(
@@ -73,14 +94,15 @@ const NewArrivals: React.FC = () => {
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
-      <h2 className="text-2xl font-bold mb-1">NEW ARRIVAL</h2>
-      <p className="text-sm text-gray-500 mb-6">
-        {loading ? "Loading..." : `${sortedAndFiltered.length} new items`}
-      </p>
-
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Sidebar */}
-        <aside className="w-full md:w-1/5 space-y-6">
+        {/* Sidebar: Sticky with Heading and Filters */}
+        <aside className="w-full md:w-1/5 space-y-6 sticky top-20 self-start h-fit">
+          <h2 className="text-2xl font-bold mb-1">NEW ARRIVAL</h2>
+          <p className="text-sm text-gray-500 mb-6">
+            {loading ? "Loading..." : `${sortedAndFiltered.length} new items`}
+          </p>
+
+          {/* Categories */}
           <div>
             <h3 className="text-sm font-medium mb-2">CATEGORIES</h3>
             <div className="space-y-1 text-sm text-gray-600">
@@ -93,8 +115,89 @@ const NewArrivals: React.FC = () => {
                     type="checkbox"
                     checked={selectedCategories.includes(cat)}
                     onChange={() => handleCategoryChange(cat)}
+                    className="accent-[#4b2d18]"
                   />
                   {cat}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Price Filter with Range Slider */}
+          <div>
+            <h3 className="text-sm font-medium mb-3">PRICE RANGE</h3>
+            <div className="space-y-2 text-sm text-gray-700">
+              <div className="flex justify-between items-center">
+                <span>Rs. {priceRange[0]}</span>
+                <span>Rs. {priceRange[1]}</span>
+              </div>
+
+              <div className="relative h-6">
+                {/* <input
+                  type="range"
+                  min={0}
+                  max={10000}
+                  step={100}
+                  value={priceRange[0]}
+                  onChange={(e) =>
+                    setPriceRange([
+                      Math.min(+e.target.value, priceRange[1] - 100),
+                      priceRange[1],
+                    ])
+                  }
+                  className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-black"
+                /> */}
+                <input
+                  type="range"
+                  min={0}
+                  max={10000}
+                  step={100}
+                  value={priceRange[1]}
+                  onChange={(e) =>
+                    setPriceRange([
+                      priceRange[0],
+                      Math.max(+e.target.value, priceRange[0] + 100),
+                    ])
+                  }
+                  className="absolute z-20 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-black"
+                />
+
+                <div className="absolute top-1/2 transform -translate-y-1/2 w-full h-[2px] bg-gray-300 z-0" />
+                <div
+                  className="absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-black z-0"
+                  style={{
+                    left: `${(priceRange[0] / 10000) * 100}%`,
+                    width: `${
+                      ((priceRange[1] - priceRange[0]) / 10000) * 100
+                    }%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Stock Filter */}
+          <div>
+            <h3 className="text-sm font-medium mb-2">AVAILABILITY</h3>
+            <div className="space-y-1 text-sm text-gray-600">
+              {["all", "in", "out"].map((status) => (
+                <label
+                  key={status}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <input
+                    type="radio"
+                    name="stock"
+                    value={status}
+                    checked={stockFilter === status}
+                    onChange={() => handleStockChange(status as any)}
+                    className="accent-[#4b2d18]"
+                  />
+                  {status === "all"
+                    ? "All"
+                    : status === "in"
+                    ? "In Stock"
+                    : "Out of Stock"}
                 </label>
               ))}
             </div>
@@ -102,7 +205,7 @@ const NewArrivals: React.FC = () => {
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1 -mt-24">
+        <div className="flex-1">
           {/* Sorting */}
           <div className="flex justify-end py-4 mb-8">
             <select
@@ -116,7 +219,7 @@ const NewArrivals: React.FC = () => {
             </select>
           </div>
 
-          {/* Product Grid or Message */}
+          {/* Product Grid */}
           {loading ? (
             <div className="text-center text-gray-500 mt-10">
               Loading products...
@@ -135,12 +238,12 @@ const NewArrivals: React.FC = () => {
                     className="block"
                   >
                     <ProductCard
-  id={product._id} 
-  image={product.mainImage}
-  title={product.title}
-  price={product.price}
-  category={product.category}
-/>
+                      id={product._id}
+                      image={product.mainImage}
+                      title={product.title}
+                      price={product.price}
+                      category={product.category}
+                    />
                   </Link>
                 ))}
               </div>

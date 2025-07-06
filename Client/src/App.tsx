@@ -19,10 +19,25 @@ import CartTry from "./Pages/Cart/CartTry";
 import BagCollection from "./Pages/BagCollection/BagCollection";
 import MensCollection from "./Pages/MensCollection/MensCollection";
 import Blogs from "./Pages/Blogs/Blogs";
+import BlogDetail from "./Pages/Blogs/BlogDetail";
 import Search from "./Pages/Search/Search";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import TermsAndCondition from "./Pages/TermsAndCondition/TermsAndCondition";
+import PrivacyAndPolicy from "./Pages/PrivacyAndPolicy/PrivacyAndPolicy";
+import ContactUs from "./Pages/Contact/ContactUs";
+import ReturnAndRefund from "./Pages/Return&Refund/ReturnAndRefund";
+
+import Dispute from "./Pages/Dispute/Dispute";
+
+import HowToBuy from "./Pages/HowToBuy/HowToBuy";
+import OrderLookUp from "./Pages/OrderLookUp/OrderLookUp";
+import FAQ from "./Pages/FAQ/FAQ";
+
+import SiteMap from "./Pages/SiteMap/SiteMap";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -49,7 +64,18 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cartTry" element={<CartTry />} />
             <Route path="blog" element={<Blogs />} />
+            <Route path="blog/:slug" element={<BlogDetail />} />
+            <Route path="contact" element={<ContactUs />} />
             <Route path="search" element={<Search />} />
+            <Route path="terms-and-condition" element={<TermsAndCondition />} />
+            <Route path="privacy-and-policy" element={<PrivacyAndPolicy />} />
+            <Route path="return-and-refund" element={<ReturnAndRefund />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="dispute" element={<Dispute />} />
+            <Route path="how-to-buy" element={<HowToBuy />} />
+            <Route path="order-look-up" element={<OrderLookUp />} />
+            <Route path="faq" element={<FAQ />} />
+            <Route path="site-map" element={<SiteMap />} />
           </Route>
         </Routes>
       </Router>
