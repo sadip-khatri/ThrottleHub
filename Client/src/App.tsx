@@ -37,6 +37,7 @@ import OrderLookUp from "./Pages/OrderLookUp/OrderLookUp";
 import FAQ from "./Pages/FAQ/FAQ";
 
 import SiteMap from "./Pages/SiteMap/SiteMap";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -69,14 +70,12 @@ function App() {
             <Route path="terms-and-condition" element={<TermsAndCondition />} />
             <Route path="privacy-and-policy" element={<PrivacyAndPolicy />} />
             <Route path="return-and-refund" element={<ReturnAndRefund />} />
-
+            <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="dispute" element={<Dispute />} />
-
             <Route path="how-to-buy" element={<HowToBuy />} />
             <Route path="order-look-up" element={<OrderLookUp />} />
             <Route path="faq" element={<FAQ />} />
             <Route path="site-map" element={<SiteMap />} />
-
           </Route>
         </Routes>
       </Router>
