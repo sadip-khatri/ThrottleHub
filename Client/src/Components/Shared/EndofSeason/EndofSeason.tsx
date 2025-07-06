@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
-import api from "../../../Utils/api";
+import api from "../../../utils/api";
 
 type Product = {
   id: number;
@@ -28,17 +28,12 @@ const EndofSeason: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        const res = await api.get("/products"); 
-=======
-        const res = await api.get("/products?tag=end-season");
->>>>>>> origin/main
-=======
 
         const res = await api.get("/products"); 
 
->>>>>>> b8e5b30e1b331ecda69123d800154583ecb4fe6a
+       
+
+
         setProducts(res.data);
       } catch (err) {
         console.error("Failed to fetch end of season products", err);
