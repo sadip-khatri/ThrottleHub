@@ -243,3 +243,6 @@
   font-size: 15px;
   cursor: pointer;
 }
+select>option:hover{
+background-color: #a97b50;
+}
