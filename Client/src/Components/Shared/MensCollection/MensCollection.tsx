@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
-import api from "../../../Utils/api";
+import api from "../../../utils/api";
 
 type Product = {
   _id: string;
