@@ -115,6 +115,7 @@ const NewArrivals: React.FC = () => {
                     type="checkbox"
                     checked={selectedCategories.includes(cat)}
                     onChange={() => handleCategoryChange(cat)}
+                    className="accent-[#4b2d18]"
                   />
                   {cat}
                 </label>
@@ -132,7 +133,7 @@ const NewArrivals: React.FC = () => {
               </div>
 
               <div className="relative h-6">
-                <input
+                {/* <input
                   type="range"
                   min={0}
                   max={10000}
@@ -145,7 +146,7 @@ const NewArrivals: React.FC = () => {
                     ])
                   }
                   className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-black"
-                />
+                /> */}
                 <input
                   type="range"
                   min={0}
@@ -190,6 +191,7 @@ const NewArrivals: React.FC = () => {
                     value={status}
                     checked={stockFilter === status}
                     onChange={() => handleStockChange(status as any)}
+                    className="accent-[#4b2d18]"
                   />
                   {status === "all"
                     ? "All"
