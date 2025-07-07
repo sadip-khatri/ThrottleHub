@@ -125,7 +125,7 @@ const YouMightAlsoLike: React.FC = () => {
         </div>
       </div>
 
-      {/* Hide Scrollbar */}
+      
       <style>{`
         .hide-scrollbar {
           -ms-overflow-style: none;

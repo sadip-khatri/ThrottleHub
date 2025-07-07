@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 
-import api from "../../Utils/api";
+import api from "../../utils/api";
 
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
@@ -63,10 +63,10 @@ export default function CartPage() {
     }
   };
 
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
+const subtotal = cartItems
+  .filter(item => item.product && typeof item.product.price === 'number')
+  .reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+
   const shipping = cartItems.length > 0 ? 4 : 0;
   const total = subtotal + shipping;
 
@@ -118,7 +118,10 @@ export default function CartPage() {
                   <div className="col-span-2 text-center">Quantity</div>
                   <div className="col-span-2 text-center">Subtotal</div>
                 </div>
-                {cartItems.map((item) => (
+                {cartItems.map((item) =>{ 
+                  if (!item.product) return null;
+                  return(
+                  
                   <div
                     key={item.product._id}
                     className="grid grid-cols-12 gap-4 p-6 border-b items-center"
@@ -140,7 +143,7 @@ export default function CartPage() {
                         </p>
                         <button
                           onClick={() => removeItem(item.product._id)}
-                          className="text-sm text-red-600 hover:text-red-800 flex items-center mt-2"
+                          className="text-sm text-red-600 hover:text-red-800 flex items-center mt-2 cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4 mr-1" />
                           Delete
@@ -157,13 +160,13 @@ export default function CartPage() {
                       </span>
                     </div>
 
-                    <div className="col-span-2 text-center">
-                      <div className="flex items-center justify-center space-x-2">
+                    <div className="col-span-2 text-center ">
+                      <div className="flex items-center justify-center space-x-2 ">
                         <button
                           onClick={() =>
                             updateQuantity(item.product._id, item.quantity - 1)
                           }
-                          className="w-8 h-8 border border-gray-300 rounded-md"
+                          className="w-8 h-8 border border-gray-300 rounded-md cursor-pointer"
                         >
                           -
                         </button>
@@ -172,7 +175,7 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.product._id, item.quantity + 1)
                           }
-                          className="w-8 h-8 border border-gray-300 rounded-md"
+                          className="w-8 h-8 border border-gray-300 rounded-md cursor-pointer"
                         >
                           +
                         </button>
@@ -190,7 +193,7 @@ export default function CartPage() {
                       </span>
                     </div>
                   </div>
-                ))}
+                )})}
               </div>
             </div>
 
