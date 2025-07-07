@@ -31,10 +31,7 @@ interface ProductPageProps {
   ) => void;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({
-  product,
-  onAddToCart,
-}) => {
+const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.size?.[0] || "M");
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "");
@@ -48,7 +45,8 @@ const ProductPage: React.FC<ProductPageProps> = ({
 
   const { selectedCountry } = useCountry();
 
-  const productImages = product.images || (product.image ? [product.image] : []);
+  const productImages =
+    product.images || (product.image ? [product.image] : []);
   const localPrice = product.price * selectedCountry.rate;
   const localOriginalPrice = product.originalPrice
     ? product.originalPrice * selectedCountry.rate
@@ -182,7 +180,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
               <select
                 value={selectedSize}
                 onChange={(e) => setSelectedSize(e.target.value)}
-                className="border border-gray-300 px-3 py-2 w-20 text-center bg-white"
+                className="border border-gray-300  ml-3 px-3 py-2 w-20 text-center bg-white"
               >
                 {product.size.map((size) => (
                   <option key={size} value={size}>
