@@ -6,7 +6,7 @@ const MainContent: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 py-10 text-[#000000] space-y-10">
       {/* How to Buy Section */}
       <section>
-        <h2 className="text-3xl font-bold mb-4">How to Buy</h2>
+        <h2 className="text-3xl font-bold mb-4">How to Buy ?</h2>
 
         <div className="space-y-4">
           <div>
