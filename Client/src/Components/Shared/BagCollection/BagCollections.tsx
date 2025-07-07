@@ -12,7 +12,17 @@ type Product = {
   stock: number;
 };
 
-const categories = ["Bags", "Backpacks", "Totes"];
+// ✅ Bag subcategories
+const categories = [
+  "Totes",
+  "Backpacks",
+  "Handbags",
+  "Crossbody",
+  "Shoulder Bags",
+  "Satchels",
+  "Clutches",
+];
+
 const itemsPerPage = 6;
 
 const BagCollections: React.FC = () => {
@@ -27,10 +37,14 @@ const BagCollections: React.FC = () => {
   const fetchProducts = async () => {
     try {
       const res = await api.get("/products");
-      const withStock = res.data.map((p: any) => ({
-        ...p,
-        stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
-      }));
+
+      const withStock = res.data
+        .map((p: any) => ({
+          ...p,
+          stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
+        }))
+        .filter((p: Product) => categories.includes(p.category)); // ✅ Only bag categories
+
       setProducts(withStock);
     } catch (err) {
       console.error("Failed to fetch products", err);
@@ -101,9 +115,7 @@ const BagCollections: React.FC = () => {
           {/* Sidebar */}
           <aside className="w-full md:w-1/5">
             <div className="space-y-6 sticky top-20">
-              <h2 className="text-2xl font-bold mb-1">
-                YOUR PRODUCT COLLECTION
-              </h2>
+              <h2 className="text-2xl font-bold mb-1">BAG COLLECTIONS</h2>
               <p className="text-sm text-gray-500 mb-6">
                 {sortedAndFiltered.length} items
               </p>
@@ -139,17 +151,6 @@ const BagCollections: React.FC = () => {
                   </div>
 
                   <div className="relative h-6">
-                    {/* <input
-                      type="range"
-                      min={0}
-                      max={10000}
-                      step={100}
-                      value={priceRange[0]}
-                      onChange={(e) =>
-                        setPriceRange([+e.target.value, priceRange[1]])
-                      }
-                      className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#4b2d18]"
-                    /> */}
                     <input
                       type="range"
                       min={0}
