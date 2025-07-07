@@ -3,69 +3,68 @@ import { FaArrowRight, FaInstagram, FaFacebook } from "react-icons/fa";
 
 function NewsLetter() {
   return (
-    <section className="flex flex-col lg:flex-row justify-between gap-10 px-4 sm:px-6 md:px-10 lg:px-20 py-10 bg-white max-w-screen-xl mx-auto">
-      {/* Left side: Heading + form */}
-      <div className="flex flex-col gap-4 w-full lg:max-w-xl">
-        <h2 className="text-2xl md:text-3xl font-semibold">
-          Become part of the community.
-        </h2>
-        <p className="text-gray-600 text-sm md:text-base">
-          Receive first access to the very best of REVEILED products,
-          inspiration and services.
-        </p>
-        <form
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-0 mt-2"
-          method="post"
-        >
-          <label htmlFor="email" className="sr-only">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            required
-            className="border border-gray-300 rounded-lg sm:rounded-l-lg px-4 py-2 w-full sm:w-64"
-          />
-          <button
-            type="submit"
-            aria-label="Subscribe"
-            className="bg-[#B48B65] px-4 py-2 rounded-lg sm:rounded-r-lg text-white flex items-center justify-center"
-          >
-            <FaArrowRight />
-          </button>
-        </form>
-      </div>
+    <section className="bg-[#f8f6f3] py-14 px-6 md:px-10 lg:px-20">
+      <div className="max-w-screen-xl mx-auto bg-white/90 shadow-md rounded-2xl p-8 md:p-12 flex flex-col lg:flex-row justify-between items-center gap-10">
+        {/* Left: Heading + form */}
+        <div className="w-full lg:max-w-xl text-center lg:text-left">
+          <h2 className="text-3xl md:text-4xl font-semibold">
+            Join Our Community
+          </h2>
+          <p className="text-gray-600 text-base md:text-lg mt-2">
+            Get exclusive access to new products, design inspiration, and more.
+          </p>
 
-      {/* Right side: Contact info + social */}
-      <div className="flex flex-col gap-6 w-full lg:w-auto">
-        <div>
-          <h3 className="text-sm font-semibold text-black mb-1">EMAIL US</h3>
-          <a
-            href="mailto:hello@dangiz.com.au"
-            className="text-gray-600 text-sm hover:underline break-all"
+          <form
+            className="flex flex-col sm:flex-row items-center gap-3 mt-6"
+            method="post"
           >
-            hello@dangiz.com.au
-          </a>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              className="w-full sm:w-72 px-5 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#B48B65]"
+            />
+            <button
+              type="submit"
+              className="bg-[#B48B65] text-white px-5 py-3 rounded-full hover:bg-[#a07755] transition flex items-center gap-2 cursor-pointer"
+            >
+              Subscribe <FaArrowRight />
+            </button>
+          </form>
         </div>
-        <div>
-          <h3 className="text-sm font-semibold text-black mb-1">FOLLOW US</h3>
-          <div className="flex gap-4 mt-2">
+
+        {/* Right: Contact & social */}
+        <div className="w-full lg:w-auto text-center lg:text-left">
+          <div className="mb-6">
+            <h3 className="text-sm font-semibold text-black">EMAIL US</h3>
             <a
-              href="#"
-              aria-label="Instagram"
-              className="text-gray-700 hover:text-black"
+              href="mailto:hello@dangiz.com.au"
+              className="text-gray-600 text-sm hover:underline break-words"
             >
-              <FaInstagram className="w-5 h-5" />
+              hello@dangiz.com.au
             </a>
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="text-gray-700 hover:text-black"
-            >
-              <FaFacebook className="w-5 h-5" />
-            </a>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-black mb-2">FOLLOW US</h3>
+            <div className="flex justify-center lg:justify-start gap-5">
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="text-gray-600 hover:text-[#B48B65] transition"
+              >
+                <FaInstagram className="w-6 h-6" />
+              </a>
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="text-gray-600 hover:text-[#B48B65] transition"
+              >
+                <FaFacebook className="w-6 h-6" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
