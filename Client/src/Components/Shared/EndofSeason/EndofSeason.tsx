@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 import api from "../../../utils/api";
 
 type Product = {
-  id: number;
-  image: string;
+  _id: string;
+  mainImage: string;
   title: string;
   price: number;
   category: string;
-  stock: number; // add stock to match NewArrivals
+  stock: number;
 };
-
 const categories = ["Dresses", "Bags", "Shoes", "Jewelry & Accessories"];
 const itemsPerPage = 6;
 
@@ -237,11 +236,18 @@ const EndofSeason: React.FC = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {displayedProducts.map((product) => (
                   <Link
-                    to={`/product/${product.id}`}
-                    key={product.id}
+                    to={`/product/${product._id}`}
+                    key={product._id}
                     className="block"
                   >
-                    <ProductCard {...product} />
+                   <ProductCard
+                      key={product._id}
+                      id={product._id}
+                      image={product.mainImage}
+                      title={product.title}
+                      price={product.price}
+                      category={product.category}
+                    />
                   </Link>
                 ))}
               </div>
