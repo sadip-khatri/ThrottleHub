@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
-import api from "../../../Utils/api";
+import api from "../../../utils/api";
 
 type Product = {
   _id: string;
