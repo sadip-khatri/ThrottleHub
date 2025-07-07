@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/Components/Shared/SimilarItems/SimilarItems.tsx
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
 
   // Fetch products from API
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProducts = async () => {  
       setLoading(true);
       try {
         const res = await api.get<Product[]>("/products");
