@@ -28,7 +28,7 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
 
   // Fetch products from API
   useEffect(() => {
-    const fetchProducts = async () => {  
+    const fetchProducts = async () => {
       setLoading(true);
       try {
         const res = await api.get<Product[]>("/products");
@@ -59,7 +59,7 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
   if (!currentProduct) return null;
 
   return (
-    <section className="relative px-4 md:px-16 py-10 bg-white">
+    <section className="relative px-4 md:px-16 py-10 bg-gray-50">
       <button onClick={() => scroll("left")} className="arrow left">
         <FaChevronLeft />
       </button>
@@ -67,7 +67,10 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
         <FaChevronRight />
       </button>
 
-      <div ref={scrollRef} className="overflow-x-auto scroll-smooth hide-scrollbar">
+      <div
+        ref={scrollRef}
+        className="overflow-x-auto scroll-smooth hide-scrollbar"
+      >
         <div className="flex items-start w-max gap-4">
           <div className="min-w-[200px] shrink-0">
             <h2 className="text-2xl font-bold mt-1">Similar Items</h2>
@@ -82,17 +85,19 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
           </div>
 
           {loading ? (
-            <div className="flex items-center justify-center p-10">Loading...</div>
+            <div className="flex items-center justify-center p-10">
+              Loading...
+            </div>
           ) : similar.length > 0 ? (
             similar.map((item) => (
               <div key={item._id} className="min-w-[220px] shrink-0">
-                 <ProductCard
-                      id={item._id}
-                      image={item.mainImage}
-                      title={item.title}
-                      price={item.price}
-                      category={item.category}
-                    />
+                <ProductCard
+                  id={item._id}
+                  image={item.mainImage}
+                  title={item.title}
+                  price={item.price}
+                  category={item.category}
+                />
               </div>
             ))
           ) : (
