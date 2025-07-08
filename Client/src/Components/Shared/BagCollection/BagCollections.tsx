@@ -12,7 +12,7 @@ type Product = {
   stock: number;
 };
 
-// ✅ Bag subcategories
+
 const categories = [
   "Totes",
   "Backpacks",
@@ -34,25 +34,29 @@ const BagCollections: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const fetchProducts = async () => {
-    try {
-      const res = await api.get("/products");
+ const fetchProducts = async () => {
+  try {
 
-      const withStock = res.data
-        .map((p: any) => ({
-          ...p,
-          stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
-        }))
-        .filter((p: Product) => categories.includes(p.category)); // ✅ Only bag categories
+    const res = await api.get("/products");
 
-      setProducts(withStock);
-    } catch (err) {
-      console.error("Failed to fetch products", err);
-      setProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    console.log("back",res.data)
+    const withStock = res.data
+      .map((p: any) => ({
+        ...p,
+        stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
+      }))
+        .filter((p: Product) => p.category?.toLowerCase().includes("bag"));
+console.log("withstock",withStock)
+
+    setProducts(withStock);
+  } catch (err) {
+    console.error("Failed to fetch products", err);
+    setProducts([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchProducts();
@@ -105,6 +109,7 @@ const BagCollections: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  console.log("dispalay",displayedProducts)
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
