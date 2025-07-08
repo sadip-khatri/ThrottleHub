@@ -12,7 +12,17 @@ type Product = {
   stock: number;
 };
 
-const categories = ["Bags", "Backpacks", "Totes"];
+
+const categories = [
+  "Totes",
+  "Backpacks",
+  "Handbags",
+  "Crossbody",
+  "Shoulder Bags",
+  "Satchels",
+  "Clutches",
+];
+
 const itemsPerPage = 6;
 
 const BagCollections: React.FC = () => {
@@ -24,21 +34,29 @@ const BagCollections: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const fetchProducts = async () => {
-    try {
-      const res = await api.get("/products");
-      const withStock = res.data.map((p: any) => ({
+ const fetchProducts = async () => {
+  try {
+
+    const res = await api.get("/products");
+
+    console.log("back",res.data)
+    const withStock = res.data
+      .map((p: any) => ({
         ...p,
         stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
-      }));
-      setProducts(withStock);
-    } catch (err) {
-      console.error("Failed to fetch products", err);
-      setProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+      }))
+        .filter((p: Product) => p.category?.toLowerCase().includes("bag"));
+console.log("withstock",withStock)
+
+    setProducts(withStock);
+  } catch (err) {
+    console.error("Failed to fetch products", err);
+    setProducts([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchProducts();
@@ -91,6 +109,7 @@ const BagCollections: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  console.log("dispalay",displayedProducts)
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
@@ -101,9 +120,7 @@ const BagCollections: React.FC = () => {
           {/* Sidebar */}
           <aside className="w-full md:w-1/5">
             <div className="space-y-6 sticky top-20">
-              <h2 className="text-2xl font-bold mb-1">
-                YOUR PRODUCT COLLECTION
-              </h2>
+              <h2 className="text-2xl font-bold mb-1">BAG COLLECTIONS</h2>
               <p className="text-sm text-gray-500 mb-6">
                 {sortedAndFiltered.length} items
               </p>
@@ -139,17 +156,6 @@ const BagCollections: React.FC = () => {
                   </div>
 
                   <div className="relative h-6">
-                    {/* <input
-                      type="range"
-                      min={0}
-                      max={10000}
-                      step={100}
-                      value={priceRange[0]}
-                      onChange={(e) =>
-                        setPriceRange([+e.target.value, priceRange[1]])
-                      }
-                      className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#4b2d18]"
-                    /> */}
                     <input
                       type="range"
                       min={0}
