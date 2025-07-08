@@ -42,6 +42,14 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
     styleAndFit: false,
     myLoveStory: false,
   });
+  //Clculate the date
+  const deliveryDate = new Date();
+  deliveryDate.setDate(deliveryDate.getDate() + 5);
+  const formattedDeliveryDate = deliveryDate.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   const { selectedCountry } = useCountry();
 
@@ -192,12 +200,32 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
           )}
 
           {/* Add to Cart */}
-          <button
-            onClick={handleAddToCart}
-            className="w-full bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors cursor-pointer"
-          >
-            ADD TO CART
-          </button>
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={handleAddToCart}
+              className="flex-1 bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors cursor-pointer"
+            >
+              ADD TO CART
+            </button>
+            <button
+              onClick={() => {
+                onAddToCart(product, selectedSize, quantity, selectedColor);
+                // Example: navigate("/checkout")
+              }}
+              className="flex-1 bg-transparent text-amber-700 border-2 border-amber-700 py-3 px-6 font-medium tracking-wide hover:bg-amber-700 hover:text-white transition-colors cursor-pointer"
+            >
+              BUY NOW
+            </button>
+          </div>
+
+          {/* Estimated Delivery */}
+          <p className="text-sm text-gray-600 mt-2">
+            Your order will arrive by{" "}
+            <span className="font-medium text-amber-700">
+              {formattedDeliveryDate}!
+            </span>
+          </p>
 
           {/* Expandable Sections */}
           <div className="space-y-4 border-t pt-6">
