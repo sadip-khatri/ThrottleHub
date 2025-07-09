@@ -31,7 +31,7 @@ export const searchProducts = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Search query is required" });
     }
 
-    const searchRegex = new RegExp(q, 'i'); // case-insensitive search
+    const searchRegex = new RegExp(q, 'i'); 
     
     const products = await Product.find({
       $or: [

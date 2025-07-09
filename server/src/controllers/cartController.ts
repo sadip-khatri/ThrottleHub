@@ -37,7 +37,6 @@ const { productId, size = "M", quantity = 1 } = req.body;
 } else {
   user.cart.push({ product: productId, size, quantity });
 }
-
     await user.save();
     res.status(200).json({ message: "Product added to cart" });
   } catch (err) {
@@ -57,7 +56,6 @@ export const removeFromCart = async (req: Request, res: Response) => {
     user.cart = user.cart.filter(
       (item) => item.product.toString() !== productId
     );
-
     await user.save();
     res.status(200).json({ message: "Product removed from cart" });
   } catch (err) {
@@ -80,7 +78,7 @@ export const updateCartItemQuantity = async (req: Request, res: Response) => {
 
     if (quantity <= 0) {
       user.cart = user.cart.filter(
-        (item) => item.product.toString() !== productId
+        (item) => item.product.toString() !== productId 
       );
     } else {
       item.quantity = quantity;
