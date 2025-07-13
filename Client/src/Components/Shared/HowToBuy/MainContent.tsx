@@ -12,9 +12,7 @@ const MainContent: React.FC = () => {
           <div>
             <h3 className="text-xl font-semibold">1. Browse Our Products</h3>
             <p>
-              Navigate through categories like Men, Women, Electronics, and
-              Accessories. You can also use the search bar or filters to quickly
-              find what you're looking for.
+              Navigate through categories like Mobiles, Laptops, Accessories, and other electronics. You can also use the search bar or filters to quickly find the latest tech products.
             </p>
           </div>
 
@@ -46,7 +44,7 @@ const MainContent: React.FC = () => {
           <div>
             <h3 className="text-xl font-semibold">5. Enter Shipping Details</h3>
             <p>
-              Fill in your delivery address including name, phone, email, and
+              Fill in your delivery address including name, phone (9869946896), email (246Impex@gmail.com), and
               city. Add any delivery instructions if needed.
             </p>
           </div>
@@ -208,7 +206,7 @@ const MainContent: React.FC = () => {
           <li>
             An{" "}
             <span className="font-semibold">
-              incomplete or incorrect address
+              incomplete or incorrect address (Tamrakar Complex, New Road)
             </span>{" "}
             was provided
           </li>

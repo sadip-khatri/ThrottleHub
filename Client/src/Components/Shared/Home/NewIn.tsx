@@ -41,7 +41,11 @@ const NewIn: React.FC<NewInProps> = ({
   const fetchNewArrivals = async () => {
     try {
       const res = await api.get("/products?tag=new");
-      setProducts(res.data);
+
+      // ✅ Only keep products with id <= 10
+      const filtered = res.data.filter((p: any) => p.id && p.id <= 10);
+
+      setProducts(filtered);
     } catch (err) {
       console.error("Failed to fetch new arrivals", err);
       setProducts([]);
@@ -113,7 +117,7 @@ const NewIn: React.FC<NewInProps> = ({
             <h2 className="text-2xl font-bold mt-1">{heading}</h2>
             <p className="text-sm text-gray-500 mt-2">{description}</p>
             <Link to="new-arrival">
-              <button className="mt-4 px-5 py-2 border cursor-pointer border-black text-sm rounded-full hover:bg-black hover:text-white transition">
+              <button className="mt-4 px-5 py-2 border cursor-pointer border-[#2563eb] text-sm rounded-full hover:bg-[#2563eb] hover:text-white transition">
                 Shop Now →
               </button>
             </Link>
@@ -127,12 +131,12 @@ const NewIn: React.FC<NewInProps> = ({
               <div key={index} className="min-w-[220px] shrink-0">
                 <Link to={`/product/${product._id}`} className="block">
                   <ProductCard
-  id={product._id} 
-  image={product.mainImage}
-  title={product.title}
-  price={product.price}
-  category={product.category}
-/>
+                    id={product._id}
+                    image={product.mainImage}
+                    title={product.title}
+                    price={product.price}
+                    category={product.category}
+                  />
                 </Link>
               </div>
             ))

@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import api from "../../../utils/api";
+import api from "../../../Utils/api";
 import ProductCard from "../../Ui/ProductCard";
 import { useCountry } from "../../../Contexts/CountryContext";
 
@@ -74,7 +74,7 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
               Discover new arrivals in this category.
             </p>
             <Link to={`/${currentProduct.category?.toLowerCase()}`}>
-              <button className="mt-4 px-5 py-2 border rounded-full hover:bg-black hover:text-white transition">
+                              <button className="mt-4 px-5 py-2 border rounded-full hover:bg-[#2563eb] hover:text-white transition">
                 Shop Category →
               </button>
             </Link>
@@ -86,11 +86,11 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
             similar.map((item) => (
               <div key={item._id} className="min-w-[220px] shrink-0">
                  <ProductCard
-                      id={product._id}
-                      image={product.mainImage}
-                      title={product.title}
-                      price={product.price}
-                      category={product.category}
+                      id={item._id}
+                      image={item.mainImage}
+                      title={item.title}
+                      price={item.price}
+                      category={item.category}
                     />
               </div>
             ))

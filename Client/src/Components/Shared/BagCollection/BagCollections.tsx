@@ -12,12 +12,10 @@ type Product = {
   stock: number;
 };
 
-const categories = ["Bags", "Backpacks", "Totes"];
 const itemsPerPage = 6;
 
 const BagCollections: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [stockFilter, setStockFilter] = useState<"all" | "in" | "out">("all");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [sortOption, setSortOption] = useState("relevance");
@@ -27,11 +25,13 @@ const BagCollections: React.FC = () => {
   const fetchProducts = async () => {
     try {
       const res = await api.get("/products");
-      const withStock = res.data.map((p: any) => ({
-        ...p,
-        stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
-      }));
-      setProducts(withStock);
+      const laptops = res.data
+        .filter((p: any) => p.category === "Laptops")
+        .map((p: any) => ({
+          ...p,
+          stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
+        }));
+      setProducts(laptops);
     } catch (err) {
       console.error("Failed to fetch products", err);
       setProducts([]);
@@ -44,15 +44,6 @@ const BagCollections: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const handleCategoryChange = (category: string) => {
-    setCurrentPage(1);
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
-  };
-
   const handleStockChange = (status: "all" | "in" | "out") => {
     setStockFilter(status);
     setCurrentPage(1);
@@ -60,12 +51,6 @@ const BagCollections: React.FC = () => {
 
   const sortedAndFiltered = useMemo(() => {
     let filtered = products;
-
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter((p) =>
-        selectedCategories.includes(p.category)
-      );
-    }
 
     if (stockFilter === "in") {
       filtered = filtered.filter((p) => (p.stock ?? 0) > 0);
@@ -84,7 +69,7 @@ const BagCollections: React.FC = () => {
     }
 
     return filtered;
-  }, [products, selectedCategories, stockFilter, priceRange, sortOption]);
+  }, [products, stockFilter, priceRange, sortOption]);
 
   const totalPages = Math.ceil(sortedAndFiltered.length / itemsPerPage);
   const displayedProducts = sortedAndFiltered.slice(
@@ -101,33 +86,10 @@ const BagCollections: React.FC = () => {
           {/* Sidebar */}
           <aside className="w-full md:w-1/5">
             <div className="space-y-6 sticky top-20">
-              <h2 className="text-2xl font-bold mb-1">
-                YOUR PRODUCT COLLECTION
-              </h2>
+              <h2 className="text-2xl font-bold mb-1">LAPTOP COLLECTION</h2>
               <p className="text-sm text-gray-500 mb-6">
                 {sortedAndFiltered.length} items
               </p>
-
-              {/* Categories */}
-              <div>
-                <h3 className="text-sm font-medium mb-2">CATEGORIES</h3>
-                <div className="space-y-1 text-sm text-gray-600">
-                  {categories.map((cat) => (
-                    <label
-                      key={cat}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        className="accent-[#4b2d18]"
-                        checked={selectedCategories.includes(cat)}
-                        onChange={() => handleCategoryChange(cat)}
-                      />
-                      {cat}
-                    </label>
-                  ))}
-                </div>
-              </div>
 
               {/* Price Range */}
               <div>
@@ -139,17 +101,6 @@ const BagCollections: React.FC = () => {
                   </div>
 
                   <div className="relative h-6">
-                    {/* <input
-                      type="range"
-                      min={0}
-                      max={10000}
-                      step={100}
-                      value={priceRange[0]}
-                      onChange={(e) =>
-                        setPriceRange([+e.target.value, priceRange[1]])
-                      }
-                      className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#4b2d18]"
-                    /> */}
                     <input
                       type="range"
                       min={0}
@@ -159,11 +110,11 @@ const BagCollections: React.FC = () => {
                       onChange={(e) =>
                         setPriceRange([priceRange[0], +e.target.value])
                       }
-                      className="absolute z-20 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#4b2d18]"
+                      className="absolute z-20 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#2563eb]"
                     />
                     <div className="absolute top-1/2 transform -translate-y-1/2 w-full h-[2px] bg-gray-300 z-0" />
                     <div
-                      className="absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-[#4b2d18] z-0"
+                      className="absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-[#2563eb] z-0"
                       style={{
                         left: `${(priceRange[0] / 10000) * 100}%`,
                         width: `${
@@ -187,7 +138,7 @@ const BagCollections: React.FC = () => {
                       <input
                         type="radio"
                         name="stock"
-                        className="accent-[#4b2d18]"
+                        className="accent-[#2563eb]"
                         value={status}
                         checked={stockFilter === status}
                         onChange={() => handleStockChange(status as any)}
@@ -222,7 +173,7 @@ const BagCollections: React.FC = () => {
             {/* Product Grid */}
             {displayedProducts.length === 0 ? (
               <div className="text-center text-gray-500 mt-10">
-                No products found.
+                No laptops found.
               </div>
             ) : (
               <>
@@ -246,7 +197,7 @@ const BagCollections: React.FC = () => {
                       key={i + 1}
                       onClick={() => setCurrentPage(i + 1)}
                       className={`px-3 py-1 border text-sm rounded hover:bg-gray-100 ${
-                        currentPage === i + 1 ? "bg-[#4b2d18] text-white" : ""
+                        currentPage === i + 1 ? "bg-[#2563eb] text-white" : ""
                       }`}
                     >
                       {i + 1}

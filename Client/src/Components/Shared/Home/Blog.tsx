@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef } from "react";
 import { SectionHeading, ViewAllLink } from "../../Ui/Typography";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -28,9 +29,13 @@ const Blog = () => {
         <div>
           <SectionHeading text="OUR BLOGS" />
           <p className="max-w-xl text-gray-600">
-            Rooted in the concept of minimalism & re-usability, the bag is a
-            classic silhouette that represents a bag that can do it all.
-            Comfortable & convenient, the bag is an essential.
+            At 246 Impex, our blog is crafted to bring you clear, reliable, and
+            practical tech knowledge. Whether you're exploring the latest
+            smartphones, laptops, or accessories, we provide easy-to-understand
+            insights, reviews, and how-to guides. From setting up your new
+            device to choosing the right gear for your needs, our content is
+            designed to empower your everyday tech decisions. Stay connected.
+            Stay ahead.
           </p>
         </div>
         <ViewAllLink href="blog" />
@@ -58,8 +63,14 @@ const Blog = () => {
       >
         <div className="flex items-start w-max gap-4">
           {blogs.map((blog) => (
-            <div key={blog.id} className="w-[240px] h-[370px] bg-[#f8f5f1] rounded-md overflow-hidden shadow-sm flex flex-col">
-              <Link to={`/blog/${blog.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <div
+              key={blog.id}
+              className="w-[240px] h-[370px] bg-[#f8f5f1] rounded-md overflow-hidden shadow-sm flex flex-col"
+            >
+              <Link
+                to={`/blog/${blog.slug}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
                 <img
                   src={blog.image}
                   alt={blog.title}

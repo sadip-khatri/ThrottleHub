@@ -8,26 +8,24 @@ const AboutUs: React.FC = () => {
         <div className="md:w-1/2 text-left">
           <h2 className="text-xl font-semibold mb-4">ABOUT US</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            At <strong>246 Impex</strong>, we’re passionate about connecting people with the latest in technology. From cutting-edge smartphones and high-performance laptops to essential accessories and audio gear, we curate products that enhance your everyday life.
+          </p>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            Our mission is to bring trusted brands and unbeatable value under one digital roof. Whether you're a professional, a gamer, or a casual tech lover — our store is built with your needs in mind. We stand for quality, fast delivery, and reliable customer support.
           </p>
           <p className="text-sm text-black font-medium">
-            Phasellus accumsan imperdiet tempor.{" "}
-            <em className="italic text-gray-800">Cras tincidunt</em>, arcu nec
-            eleifend porttitor, orci est vehicula
+            Innovation meets convenience —{" "}
+            <em className="italic text-gray-800">
+              your trusted destination for all things tech.
+            </em>
           </p>
         </div>
 
         {/* Right Image */}
         <div className="md:w-1/2 flex justify-center">
           <img
-            src="/assets/img/ourstory/aboutus.png"
-            alt="About Person"
+            src="/assets/img/ourstory/about.jpg"
+            alt="Tech Products Display"
             className="rounded-xl max-w-sm w-full object-cover"
           />
         </div>

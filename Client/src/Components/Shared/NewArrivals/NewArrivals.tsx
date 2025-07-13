@@ -6,6 +6,7 @@ import api from "../../../Utils/api";
 
 type Product = {
   _id: string;
+  id: number;
   mainImage: string;
   title: string;
   price: number;
@@ -13,7 +14,7 @@ type Product = {
   stock: number;
 };
 
-const categories = ["Dresses", "Bags", "Shoes", "Jewelry & Accessories"];
+const categories = ["Mobiles", "Laptops", "Headphones", "Phone Cases"];
 const itemsPerPage = 6;
 
 const NewArrivals: React.FC = () => {
@@ -29,7 +30,11 @@ const NewArrivals: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const res = await api.get("/products?tag=new-arrival");
-        setProducts(res.data);
+
+        // ✅ Only take products with id <= 14
+        const filtered = res.data.filter((p: any) => p.id <= 14);
+
+        setProducts(filtered);
       } catch (error) {
         console.error("Failed to fetch new arrival products", error);
         setProducts([]);
@@ -57,26 +62,22 @@ const NewArrivals: React.FC = () => {
   const sortedAndFiltered = useMemo(() => {
     let filtered = products;
 
-    // Filter by category
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((p) =>
         selectedCategories.includes(p.category)
       );
     }
 
-    // Filter by stock
     if (stockFilter === "in") {
       filtered = filtered.filter((p) => p.stock > 0);
     } else if (stockFilter === "out") {
       filtered = filtered.filter((p) => p.stock === 0);
     }
 
-    // Filter by price
     filtered = filtered.filter(
       (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
     );
 
-    // Sort
     if (sortOption === "low") {
       filtered = [...filtered].sort((a, b) => a.price - b.price);
     } else if (sortOption === "high") {
@@ -95,7 +96,7 @@ const NewArrivals: React.FC = () => {
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Sidebar: Sticky with Heading and Filters */}
+        {/* Sidebar */}
         <aside className="w-full md:w-1/5 space-y-6 sticky top-20 self-start h-fit">
           <h2 className="text-2xl font-bold mb-1">NEW ARRIVAL</h2>
           <p className="text-sm text-gray-500 mb-6">
@@ -115,7 +116,7 @@ const NewArrivals: React.FC = () => {
                     type="checkbox"
                     checked={selectedCategories.includes(cat)}
                     onChange={() => handleCategoryChange(cat)}
-                    className="accent-[#4b2d18]"
+                    className="accent-[#2563eb]"
                   />
                   {cat}
                 </label>
@@ -123,7 +124,7 @@ const NewArrivals: React.FC = () => {
             </div>
           </div>
 
-          {/* Price Filter with Range Slider */}
+          {/* Price Filter */}
           <div>
             <h3 className="text-sm font-medium mb-3">PRICE RANGE</h3>
             <div className="space-y-2 text-sm text-gray-700">
@@ -133,20 +134,6 @@ const NewArrivals: React.FC = () => {
               </div>
 
               <div className="relative h-6">
-                {/* <input
-                  type="range"
-                  min={0}
-                  max={10000}
-                  step={100}
-                  value={priceRange[0]}
-                  onChange={(e) =>
-                    setPriceRange([
-                      Math.min(+e.target.value, priceRange[1] - 100),
-                      priceRange[1],
-                    ])
-                  }
-                  className="absolute z-10 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-black"
-                /> */}
                 <input
                   type="range"
                   min={0}
@@ -191,7 +178,7 @@ const NewArrivals: React.FC = () => {
                     value={status}
                     checked={stockFilter === status}
                     onChange={() => handleStockChange(status as any)}
-                    className="accent-[#4b2d18]"
+                    className="accent-[#2563eb]"
                   />
                   {status === "all"
                     ? "All"
@@ -209,11 +196,11 @@ const NewArrivals: React.FC = () => {
           {/* Sorting */}
           <div className="flex justify-end py-4 mb-8">
             <select
-              className={`border px-3 py-2 rounded text-sm `}
+              className="border px-3 py-2 rounded text-sm"
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-            > 
-              <option value="relevance" >Sort by Relevance</option>
+            >
+              <option value="relevance">Sort by Relevance</option>
               <option value="low">Price: Low to High</option>
               <option value="high">Price: High to Low</option>
             </select>
@@ -255,7 +242,7 @@ const NewArrivals: React.FC = () => {
                     key={i + 1}
                     onClick={() => setCurrentPage(i + 1)}
                     className={`px-3 py-1 border text-sm rounded hover:bg-gray-100 ${
-                      currentPage === i + 1 ? "bg-black text-white" : ""
+                      currentPage === i + 1 ? "bg-[#2563eb] text-white" : ""
                     }`}
                   >
                     {i + 1}

@@ -1,231 +1,177 @@
 import React from "react";
+import {
+  FaInstagram,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaHeart,
+  FaArrowUp,
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="bg-[#f6efe7] border-t border-[#8b6f4d] px-6 md:px-[85px] pt-[68px] pb-[30px]">
-      {/* Newsletter Section */}
-      {/* <section className="flex flex-col lg:flex-row justify-between mb-10 gap-10">
-        <div className="flex flex-col gap-4 max-w-xl">
-          <h2 className="text-2xl font-medium">
-            Become part of the community.
-          </h2>
-          <p className="text-gray-600">
-            Receive first access to the very best of REVEILED products,
-            inspiration and services.
-          </p>
-          <form className="flex items-center gap-3 mt-2" method="post">
-            <label htmlFor="email" className="sr-only">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email"
-              required
-              className="border border-gray-300 rounded-md px-4 py-2 w-64"
-            />
-            <button type="submit" aria-label="Subscribe" className="p-2">
-              <img
-                src="img/arrow-right.svg"
-                alt="Submit arrow"
-                className="w-5 h-5"
+    <div className="bg-gray-900 text-white">
+      <div className="px-4 md:px-6 lg:px-[85px] py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand Section */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div>
+                <h2 className="text-2xl font-bold text-white">246 IMPEX</h2>
+                <p className="text-gray-400 text-sm">
+                  Your Trusted Tech Store
+                </p>
+              </div>
+            </div>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Your trusted destination for the latest technology, gadgets, and smart devices. Discover innovation, quality, and unbeatable value in one place.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-white">Quick Links</h3>
+            <div className="space-y-2">
+              {[
+                "New Arrivals",
+                "Laptop Collection",
+                "Mobile Collection",
+                "Exclusive",
+                "Accessories",
+              ].map((item) => (
+                <a
+                  key={item}
+                  href={`/${item.toLowerCase().replace(" ", "-")}`}
+                  className="block text-gray-400 hover:text-white transition-colors text-sm"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Support */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-white">Support</h3>
+            <div className="space-y-2">
+              {[
+                "How to Buy",
+                "Order Lookup",
+                "Returns",
+                "Contact Us",
+                "FAQ",
+              ].map((item) => (
+                <a
+                  key={item}
+                  href={`/${item.toLowerCase().replace(" ", "-")}`}
+                  className="block text-gray-400 hover:text-white transition-colors text-sm"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact & Social */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-white">Contact Us</h3>
+            <div className="space-y-2 text-sm text-gray-400">
+              <p>Email: 246Impex@gmail.com</p>
+              <p>Phone: 9869946896</p>
+              <p>Address: Tamrakar Complex, New Road</p>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="text-sm font-semibold text-white">Follow Us</h4>
+              <div className="flex gap-3">
+                {[
+                  {
+                    icon: FaInstagram,
+                    href: "#",
+                    color: "hover:text-pink-400",
+                  },
+                  { icon: FaFacebook, href: "#", color: "hover:text-blue-400" },
+                  { icon: FaTwitter, href: "#", color: "hover:text-blue-300" },
+                  { icon: FaLinkedin, href: "#", color: "hover:text-blue-600" },
+                ].map((social, index) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={index}
+                      href={social.href}
+                      className={`w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 transition-colors ${social.color}`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Newsletter */}
+        {/* <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="max-w-md">
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Stay Updated
+            </h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Get exclusive offers and latest updates
+            </p>
+            <form className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-[#2563eb] text-sm"
               />
-            </button>
-          </form>
-        </div>
-
-        <div className="flex flex-col md:flex-row gap-10">
-          <div>
-            <h3 className="text-sm font-semibold text-black mb-1">EMAIL US</h3>
-            <a
-              href="mailto:hello@dangiz.com.au"
-              className="text-gray-600 text-sm hover:underline"
-            >
-              hello@dangiz.com.au
-            </a>
+              <button className="bg-[#2563eb] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-sm">
+                Subscribe
+              </button>
+            </form>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-black mb-1">FOLLOW US</h3>
-            <div className="flex gap-4">
-              <a href="#" aria-label="Instagram">
-                <img
-                  src="img/akar-icons-instagram-fill.svg"
-                  alt="Instagram icon"
-                  className="w-5 h-5"
-                />
-              </a>
-              <a href="#" aria-label="Facebook">
-                <img
-                  src="img/fa-facebook-square.svg"
-                  alt="Facebook icon"
-                  className="w-5 h-5"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section> */}
+        </div> */}
 
-      {/* Main Footer */}
-      <footer>
-        <div className="flex flex-col lg:flex-row justify-between mb-7 gap-10">
-          <div className="flex flex-wrap gap-30">
-            <div className="flex flex-col gap-3">
-              <h4 className="text-base text-black font-medium">CATEGORIES</h4>
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <a
-                    href="/bag-collection"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Bags
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="mens-collection"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Mens
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="new-arrival"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    New Arrivals
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="exclusive"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Exclusive
-                  </a>
-                </li>
-              </ul>
+        {/* Bottom Bar */}
+        <div className="mt-8 pt-8 border-t border-gray-800">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <span>© 2024 246 Impex. Made with</span>
+              <FaHeart className="text-red-500" />
+              <span>for fashion lovers</span>
             </div>
-            <div className="flex flex-col gap-3">
-              <h4 className="text-base text-black font-medium">SHOP</h4>
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <a
-                    href="how-to-buy"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    How to buy
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="order-look-up"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Look up order
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-3">
-              <h4 className="text-base text-black font-medium">DANGIZ</h4>
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <a
-                    href="our-story"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    About us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="contact"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Contact us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/blog"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-2 mt-6 lg:mt-0">
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <a
-                    href="/login"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Log in
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/register"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Register
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="return-and-refund"
-                    className="text-gray-500 text-sm hover:underline"
-                  >
-                    Return & Refund
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <img
-            src="img/final-logo-formats-2.svg"
-            alt="Dangiz logo"
-            className="w-[202px] h-[75px] mx-auto lg:mx-0"
-          />
-        </div>
 
-        <hr className="border-t border-black my-6" />
-
-        <div className="flex justify-center">
-          <ul className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-            <li>
-              <a href="/dispute" className="hover:underline">
-                Dispute
+            <div className="flex gap-6 text-sm">
+              <a
+                href="/terms"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Terms
               </a>
-            </li>
-            <li>
-              <a href="faq" className="hover:underline">
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a href="/privacy-and-policy" className="hover:underline">
+              <a
+                href="/privacy"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Privacy
               </a>
-            </li>
-            <li>
-              <a href="/site-map" className="hover:underline">
-                Site map
+              <a
+                href="/sitemap"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Sitemap
               </a>
-            </li>
-            <li>
-              <a href="/terms-and-condition" className="hover:underline">
-                Terms & conditions
-              </a>
-            </li>
-          </ul>
+            </div>
+
+            {/* Back to Top Button */}
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="w-10 h-10 bg-[#2563eb] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors"
+            >
+              <FaArrowUp className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };

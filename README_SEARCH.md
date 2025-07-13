@@ -1,7 +1,7 @@
 # Search Functionality Implementation
 
 ## Overview
-The search functionality has been successfully implemented in the Dangiz e-commerce project. Users can now search for products using the search bar in the navbar, and the system will display relevant results with filtering and sorting options.
+The search functionality has been successfully implemented in the 246 Impex e-commerce project. Users can now search for products using the search bar in the navbar, and the system will display relevant results with filtering and sorting options.
 
 ## Features Implemented
 

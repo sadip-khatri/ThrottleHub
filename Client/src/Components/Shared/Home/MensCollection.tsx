@@ -2,9 +2,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import ProductCard from "../../Ui/ProductCard"; 
+import ProductCard from "../../Ui/ProductCard";
 import api from "../../../Utils/api";
-
 
 function MensCollection() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -24,9 +23,12 @@ function MensCollection() {
   const fetchMensProducts = async () => {
     try {
       const res = await api.get("/products");
-      setMensProducts(res.data);
+      // console.log(res.data);
+      setMensProducts(
+        res.data.filter((item: any) => item.category === "Laptops")
+      );
     } catch (err) {
-      console.error("Failed to fetch men's products", err);
+      console.error("Failed to fetch bags", err);
       setMensProducts([]);
     } finally {
       setLoading(false);
@@ -37,8 +39,8 @@ function MensCollection() {
     fetchMensProducts();
   }, []);
 
-  const heading = "Men’s Collection";
-  const description = "Discover premium styles for every occasion.";
+  const heading = "LAPTOP Collection";
+  const description = "Premium laptops for every need and occasion.";
 
   return (
     <section className="relative px-4 md:px-16 py-10 bg-white">
@@ -68,7 +70,7 @@ function MensCollection() {
             <h2 className="text-2xl font-bold mt-1">{heading}</h2>
             <p className="text-sm text-gray-500 mt-2">{description}</p>
             <Link to="mens-collection">
-              <button className="mt-4 px-5 py-2 border cursor-pointer border-black text-sm rounded-full hover:bg-black hover:text-white transition">
+              <button className="mt-4 px-5 py-2 border cursor-pointer border-[#2563eb] text-sm rounded-full hover:bg-[#2563eb] hover:text-white transition">
                 Shop Now →
               </button>
             </Link>
@@ -85,12 +87,12 @@ function MensCollection() {
               >
                 <Link to={`/product/${product.id}`} className="block">
                   <ProductCard
-  id={product._id} 
-  image={product.mainImage}
-  title={product.title}
-  price={product.price}
-  category={product.category}
-/>
+                    id={product._id}
+                    image={product.mainImage}
+                    title={product.title}
+                    price={product.price}
+                    category={product.category}
+                  />
                 </Link>
               </div>
             ))

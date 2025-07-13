@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../Components/Ui/ProductCard";
-import api from "../../utils/api";
+import api from "../../Utils/api";
 import { useCountry } from "../../Contexts/CountryContext";
 
 type Product = {

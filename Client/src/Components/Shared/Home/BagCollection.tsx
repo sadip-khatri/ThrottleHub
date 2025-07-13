@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import api from "../../../Utils/api"; // Adjust the import path as needed
+import api from "../../../Utils/api";
 import { toast } from "react-toastify";
 
 const BagCollection = () => {
@@ -24,7 +25,8 @@ const BagCollection = () => {
   const fetchBags = async () => {
     try {
       const res = await api.get("/products");
-      setBags(res.data);
+      // console.log(res.data);
+      setBags(res.data.filter((item: any) => item.category === "Mobiles"));
     } catch (err) {
       console.error("Failed to fetch bags", err);
       setBags([]);
@@ -36,7 +38,6 @@ const BagCollection = () => {
   useEffect(() => {
     fetchBags();
   }, []);
-
 
   const handleAddToCart = (product: any, selectedSize: string = "M") => {
     const cartProduct = {
@@ -56,16 +57,18 @@ const BagCollection = () => {
       <div className="mb-6 max-w-4xl">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold mb-2">
-            BAG COLLECTIONS
+            MOBILE COLLECTIONS
           </h2>
           <p className="text-gray-600 mb-4">
-            Rooted in the concept of minimalism & re-usability, the bag is a
-            classic silhouette that represents a bag that can do it all.
-            Comfortable & convenient, the bag is an essential.
+            Rooted in innovation and versatility, our mobile collection brings
+            together performance, design, and reliability. Whether for work or
+            play, these smartphones are crafted to keep you connected,
+            efficient, and ahead of the curve—an essential in today’s fast-paced
+            world.
           </p>
         </div>
         <Link to="bag-collection">
-          <button className="px-5 py-2 border border-black text-sm rounded-full hover:bg-black hover:text-white transition">
+          <button className="px-5 py-2 border border-[#2563eb] text-sm rounded-full hover:bg-[#2563eb] hover:text-white transition">
             Shop Now →
           </button>
         </Link>
@@ -95,18 +98,17 @@ const BagCollection = () => {
           {loading ? (
             <p>Loading...</p>
           ) : bags.length > 0 ? (
-        bags.map((bag) => (
-  <div key={bag._id} className="min-w-[220px] shrink-0">
-    <ProductCard
-      id={bag._id}
-      image={bag.mainImage}
-      title={bag.title}
-      price={bag.price}
-      category={bag.category}
-    />
-  </div>
-))
-
+            bags.map((bag) => (
+              <div key={bag._id} className="min-w-[220px] shrink-0">
+                <ProductCard
+                  id={bag._id}
+                  image={bag.mainImage}
+                  title={bag.title}
+                  price={bag.price}
+                  category={bag.category}
+                />
+              </div>
+            ))
           ) : (
             <p>No bags found.</p>
           )}

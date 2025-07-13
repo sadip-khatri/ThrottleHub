@@ -107,7 +107,11 @@ const Register: React.FC = () => {
           </button>
         </div>
 
-        <button type="submit" className="register-button" disabled={loading}>
+        <button
+          type="submit"
+          className="bg-[#2563eb] hover:bg-[#174ea6] text-white font-medium py-2 px-4 rounded-lg transition-colors w-full mt-4"
+          disabled={loading}
+        >
           {loading ? "Registering..." : "REGISTER"}
         </button>
       </form>

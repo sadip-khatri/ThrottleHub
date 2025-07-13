@@ -1,8 +1,9 @@
 // src/Ui/ProductCard.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { formatPrice } from "../../utils/formatPrice";
+import { formatPrice } from "../../Utils/formatPrice";
 import { useCountry } from "../../Contexts/CountryContext";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 interface ProductCardProps {
   id: string; 
@@ -23,46 +24,66 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const { selectedCountry } = useCountry();
   const localPrice = price * selectedCountry.rate;
-  const isExclusive = category?.toLowerCase() === "exclusive";
 
   return (
-    <Link
-      to={`/product/${id}`}
-      className="relative block bg-[#F0E6DA] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-    >
-      {isExclusive && (
-        <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded z-10">
-          EXCLUSIVE
-        </span>
-      )}
-
-      <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
+    <div className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+      {/* Image Container */}
+      <div className="relative h-64 overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="h-48 w-full object-cover object-center bg-[#F0E6DA]"
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
         />
-      </div>
+        
+        {/* Wishlist Button */}
+        <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-gray-600 hover:text-red-500 transition-colors duration-200 opacity-0 group-hover:opacity-100">
+          <FaHeart className="w-4 h-4" />
+        </button>
 
-      <div className="p-4">
-        <h3 className="text-sm font-medium text-[#754C29]">{title}</h3>
-        <p className="mt-1 text-lg font-semibold text-gray-900">
-          {formatPrice(localPrice, selectedCountry.currency)}
-        </p>
-
-        {onAddToCart && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onAddToCart();
-            }}
-            className="mt-3 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer"
-          >
-            Add to Cart
-          </button>
+        {/* Category Badge */}
+        {category && (
+          <div className="absolute top-3 left-3 bg-[#2563eb] text-white px-2 py-1 rounded-md text-xs font-medium">
+            {category}
+          </div>
         )}
       </div>
-    </Link>
+
+      {/* Content */}
+      <div className="p-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+          {title}
+        </h3>
+        
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-xl font-bold text-[#2563eb]">
+            {formatPrice(localPrice, selectedCountry.currency)}
+          </span>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2">
+          {onAddToCart && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onAddToCart();
+              }}
+              className="flex-1 bg-[#2563eb] text-white py-2 px-4 rounded-md font-medium hover:bg-[#1d4ed8] transition-colors duration-200 flex items-center justify-center gap-2"
+            >
+              <FaShoppingCart className="w-4 h-4" />
+              Add to Cart
+            </button>
+          )}
+          
+          <Link
+            to={`/product/${id}`}
+            className="bg-gray-100 text-gray-700 py-2 px-4 rounded-md font-medium hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center"
+          >
+            View
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

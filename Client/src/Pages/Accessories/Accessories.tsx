@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import TopHead from "../../Components/Shared/Accessories/TopHead";
+import Accessoriess from "../../Components/Shared/Accessories/Accessories";
 
 function Accessories() {
   return (
-    <div>Accessories</div>
-  )
+    <>
+      <TopHead />
+      <Accessoriess />
+    </>
+  );
 }
 
-export default Accessories
+export default Accessories;

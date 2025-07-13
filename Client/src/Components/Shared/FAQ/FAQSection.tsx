@@ -4,32 +4,32 @@ import FAQItem from "./FAQItem";
 
 const faqs = [
   {
-    title: "About Dangiz",
+    title: "About 246 Impex",
     items: [
       {
-        question: "What is Dangiz?",
+        question: "What is 246 Impex?",
         answer:
-          "Dangiz is an online store offering a curated collection of high-quality bags, dresses, and clothing that combine style with craftsmanship.",
+          "246 Impex is an online store offering a curated collection of high-quality tech products, gadgets, and electronics that combine innovation with reliability.",
       },
       {
-        question: "Where can I buy Dangiz products?",
+        question: "Where can I buy 246 Impex products?",
         answer:
-          "You can purchase Dangiz products exclusively from our official website.",
+          "You can purchase 246 Impex products exclusively from our official website.",
       },
       {
         question: "Where are your products made?",
         answer:
-          "Our products are thoughtfully designed and ethically made in collaboration with skilled artisans and manufacturers.",
+          "Our products are thoughtfully sourced and manufactured in collaboration with leading tech brands and trusted suppliers.",
       },
       {
-        question: "What are Dangiz products made of?",
+        question: "What are 246 Impex products made of?",
         answer:
-          "We use premium materials such as pure cotton, sustainable leather alternatives, and durable fabrics to craft our items.",
+          "We offer products made with premium materials and the latest technology, ensuring quality and durability in every device.",
       },
       {
         question: "How do I care for my products?",
         answer:
-          "Please follow the care instructions included with each product. For fabric items, gentle hand wash or dry cleaning is recommended.",
+          "Please follow the care instructions included with each tech product. For electronics, refer to the user manual for maintenance and safety tips.",
       },
     ],
   },
@@ -44,7 +44,7 @@ const faqs = [
       {
         question: "How can I update my account details?",
         answer:
-          "Log in to your Dangiz account and go to 'My Profile' to update your information.",
+          "Log in to your 246 Impex account and go to 'My Profile' to update your information.",
       },
       {
         question: "Forgot your password?",
@@ -99,21 +99,21 @@ const faqs = [
       {
         question: "Media features or editorial enquiries",
         answer:
-          "Please email us at press@dangiz.com for media-related queries.",
+          "Please email us at press@246impex.com for media-related queries.",
       },
       {
         question: "Creator collaborations & brand tie-ups",
         answer:
-          "We love working with creators! Reach out at collab@dangiz.com.",
+          "We love working with creators! Reach out at collab@246impex.com.",
       },
       {
         question: "Wholesale, gifting or private label",
-        answer: "For bulk or custom inquiries, contact wholesale@dangiz.com.",
+        answer: "For bulk or custom inquiries, contact wholesale@246impex.com.",
       },
       {
         question: "Marketplace partnerships",
         answer:
-          "If you're a marketplace or stockist, write to us at partner@dangiz.com.",
+          "If you're a marketplace or stockist, write to us at partner@246impex.com.",
       },
     ],
   },

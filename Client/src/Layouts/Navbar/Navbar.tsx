@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FaSearch,
   FaUserPlus,
@@ -10,13 +10,17 @@ import {
   FaShoppingCart,
   FaBars,
   FaTimes,
+  FaHome,
+  FaStar,
+  FaHeart,
+  FaRocket,
+  FaCrown,
 } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flag from "react-world-flags";
 import { useCountry } from "../../Contexts/CountryContext";
-import api from "../../Utils/api"
-
+import api from "../../Utils/api";
 
 interface User {
   name: string;
@@ -24,24 +28,25 @@ interface User {
 }
 
 const Navbar = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const { selectedCountry, setSelectedCountry, countries } = useCountry();
+  const [cartCount, setCartCount] = useState(0);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { selectedCountry, setSelectedCountry, countries } = useCountry();
+  const [user, setUser] = useState<User | null>(null);
 
   const navItems = [
-    { label: "End of Season Event", path: "/season-event" },
-    { label: "New Arrival", path: "/new-arrival" },
-    { label: "Trending", path: "/trending" },
-    { label: "Our Story", path: "/our-story" },
+    // { label: "Home", path: "/" },
+    { label: "New Arrivals", path: "/new-arrival" },
+    { label: "Mobile Collection", path: "/mens-collection" },
+    { label: "Laptop Collection", path: "/bag-collection" },
     { label: "Exclusive", path: "/exclusive" },
     { label: "Accessories", path: "/accessories" },
+    // { label: "Blogs", path: "/blogs" },
+    { label: "Contact", path: "/contact" },
   ];
 
   useEffect(() => {
@@ -102,71 +107,57 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <div className="w-full">
-      {/* Announcement Banner */}
-      <div className="bg-[#e1c3a1] text-center py-1 text-sm text-[#333] font-light">
-        Join the community
-      </div>
+    <div className="bg-white shadow-md sticky top-0 z-50">
+      <div className="px-4 md:px-6 lg:px-[85px]">
+        {/* Top Bar */}
+        <div className="flex items-center justify-between py-4">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3">
+            <div>
+              <h1 className="text-2xl font-bold text-[#2563eb]">246 IMPEX</h1>
+              <p className="text-xs text-gray-500">
+                Your Trusted Tech Store
+              </p>
+            </div>
+          </Link>
 
-      {/* Top Navbar */}
-      <div className="bg-white shadow-sm container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between py-3">
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-[#4b2d18] text-xl"
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-            aria-label="Toggle Menu"
-          >
-            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-
-          {/* Search Input (hidden on mobile) */}
-          <div className="hidden md:flex items-center gap-2 w-1/3">
-            <form onSubmit={handleSearch} className="w-full max-w-xs">
-              <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 w-full">
-                <FaSearch className="text-gray-400" />
+          {/* Desktop Search */}
+          <div className="hidden md:block flex-1 max-w-md mx-8">
+            <form onSubmit={handleSearch}>
+              <div className="relative">
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent outline-none px-2 py-1 text-sm w-full"
+                  className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-[#2563eb]"
                 />
               </div>
             </form>
           </div>
 
-          {/* Logo */}
-          <div className="flex-1 flex justify-center md:justify-center">
-            <Link to="/" className="flex items-center gap-2">
-              <img src="/" alt="Dangiz" className="w-6 h-6 object-contain" />
-              <span className="text-2xl font-semibold text-[#4b2d18]">
-                Dangiz
-              </span>
-            </Link>
-          </div>
-
-          {/* Icons Section */}
-          <div className="hidden md:flex items-center gap-5 w-1/3 justify-end text-[#4b2d18]">
-            {/* Country Dropdown */}
+          {/* Right Side Actions (Desktop Only) */}
+          <div className="hidden md:flex items-center gap-6">
+            {/* Country Selector */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-1 border rounded px-2 py-1 cursor-pointer"
+                className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer hover:bg-gray-100 transition-colors"
               >
                 <Flag
                   code={selectedCountry.code}
                   style={{ width: 20, height: 15 }}
                 />
-                <MdKeyboardArrowDown />
+                <MdKeyboardArrowDown className="text-gray-500" />
               </button>
 
               {dropdownOpen && (
-                <div className="absolute mt-1 bg-white border rounded shadow-md w-40 right-0 z-50">
+                <div className="absolute mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-48 right-0 z-50">
                   {countries.map((country) => (
                     <button
                       key={country.code}
-                      className="flex items-center w-full px-3 py-2 hover:bg-gray-100 text-sm gap-2"
+                      className="flex items-center w-full px-4 py-3 hover:bg-gray-50 text-sm gap-3 transition-colors"
                       onClick={() => {
                         setSelectedCountry(country);
                         setDropdownOpen(false);
@@ -183,74 +174,166 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* User Auth */}
+            {/* User Actions */}
             {!user ? (
-              <>
-                <Link to="/register" title="Register">
-                  <FaUserPlus />
+              <div className="flex gap-2">
+                <Link
+                  to="/register"
+                  className="bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors"
+                >
+                  Sign Up
                 </Link>
-                <Link to="/login" title="Login">
-                  <FaSignInAlt />
+                <Link
+                  to="/login"
+                  className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+                >
+                  Login
                 </Link>
-              </>
+              </div>
             ) : (
-              <>
-                <span className="text-sm font-medium">
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-600 hidden sm:block">
                   Hi, {user.name.split(" ")[0]}
                 </span>
-                <Link to="/profile" title="Profile">
+                <Link
+                  to="/profile"
+                  className="w-8 h-8 bg-[#2563eb] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors"
+                >
                   <FaUser />
                 </Link>
-                <button onClick={handleLogout} title="Logout">
+                <button
+                  onClick={handleLogout}
+                  className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center text-white hover:bg-red-600 transition-colors"
+                >
                   <FaSignOutAlt />
                 </button>
-              </>
+              </div>
             )}
 
             {/* Cart */}
-            <Link to="/cart" title="Cart" className="relative">
-              <FaShoppingCart />
+            <Link to="/cart" className="relative">
+              <div className="w-10 h-10 bg-[#2563eb] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors">
+                <FaShoppingCart />
+              </div>
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   {cartCount}
                 </span>
               )}
             </Link>
           </div>
+
+          {/* Mobile Menu Button (Only) */}
+          <button
+            className="md:hidden w-10 h-10 bg-[#2563eb] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+          >
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
 
-        {/* Navigation Links */}
-        <div
-          className={`${
-            mobileMenuOpen ? "block" : "hidden"
-          } md:flex justify-center gap-8 text-sm py-3 border-t border-gray-200 px-4 md:px-0`}
-        >
-          {/* Mobile Search Input */}
-          <div className="md:hidden mb-4">
-            <form onSubmit={handleSearch}>
-              <div className="flex items-center bg-gray-100 rounded-full px-3 py-2">
-                <FaSearch className="text-gray-400 mr-2" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent outline-none text-sm w-full"
-                />
+        {/* Mobile Menu Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden fixed inset-0 z-50 bg-black bg-opacity-40">
+            <div className="fixed top-0 right-0 w-4/5 max-w-xs h-full bg-white shadow-lg p-6 flex flex-col gap-6 animate-slide-in">
+              {/* Close Button */}
+              <button
+                className="self-end mb-2 text-gray-500 hover:text-[#2563eb]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <FaTimes size={24} />
+              </button>
+              {/* Search */}
+              <form onSubmit={handleSearch} className="mb-2">
+                <div className="relative">
+                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-[#2563eb]"
+                  />
+                </div>
+              </form>
+              {/* Navigation Links */}
+              <div className="flex flex-col gap-4">
+                {navItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    to={item.path}
+                    className="text-gray-700 hover:text-[#2563eb] transition-colors font-medium text-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
-            </form>
+              {/* User Actions */}
+              <div className="flex flex-col gap-3 mt-4">
+                {!user ? (
+                  <>
+                    <Link
+                      to="/register"
+                      className="bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center"
+                    >
+                      Sign Up
+                    </Link>
+                    <Link
+                      to="/login"
+                      className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors text-center"
+                    >
+                      Login
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/profile"
+                      className="w-full bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center flex items-center justify-center gap-2"
+                    >
+                      <FaUser /> Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition-colors text-center flex items-center justify-center gap-2"
+                    >
+                      <FaSignOutAlt /> Logout
+                    </button>
+                  </>
+                )}
+              </div>
+              {/* Cart */}
+              <Link
+                to="/cart"
+                className="w-full bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center flex items-center justify-center gap-2 relative"
+              >
+                <FaShoppingCart />
+                Cart
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
           </div>
+        )}
 
-          {navItems.map((item, idx) => (
-            <Link
-              key={idx}
-              to={item.path}
-              className="block md:inline-block hover:text-[#4b2d18] transition-colors duration-200 py-1"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+        {/* Navigation Links (Desktop Only) */}
+        <div className="hidden md:block pb-4">
+          <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+            {navItems.map((item, idx) => (
+              <Link
+                key={idx}
+                to={item.path}
+                className="text-gray-700 hover:text-[#2563eb] transition-colors font-medium text-center md:text-left"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

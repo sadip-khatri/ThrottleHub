@@ -55,8 +55,8 @@ const MainContent: React.FC = () => {
         </p>
         <p className="mt-2">
           Please email us at{" "}
-          <a href="mailto:orders@precisofashion.com" className="font-semibold">
-            orders@precisofashion.com
+          <a href="mailto:246Impex@gmail.com" className="font-semibold">
+            246Impex@gmail.com
           </a>{" "}
           within <span className="font-semibold">48 hours</span> of delivery
           with:
@@ -96,7 +96,7 @@ const MainContent: React.FC = () => {
         <ul className="list-disc list-inside mt-2 space-y-1">
           <li>
             Your shipping address is{" "}
-            <span className="font-semibold">outside our serviceable areas</span>
+            <span className="font-semibold">Tamrakar Complex, New Road</span>
           </li>
           <li>
             Your order has{" "}
@@ -124,7 +124,7 @@ const MainContent: React.FC = () => {
           <li>
             An{" "}
             <span className="font-semibold">
-              incomplete or incorrect address
+              incomplete or incorrect address (Tamrakar Complex, New Road)
             </span>{" "}
             was provided
           </li>

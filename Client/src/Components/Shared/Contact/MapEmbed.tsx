@@ -6,7 +6,7 @@ const MapEmbed: React.FC = () => {
       <div className="w-full h-full rounded-xl overflow-hidden border border-gray-200">
         <iframe
           title="Preciso Fashion Map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3596.4919743711225!2d85.29060207554079!3d27.7140549761787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18f2d306eb21%3A0xdae844496e6b4bd6!2sBhagwan%20Pau%20Taxi%20Stand!5e1!3m2!1sen!2snp!4v1751615349443!5m2!1sen!2snp"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3596.880082987725!2d85.30749417554031!3d27.702282876185564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18544a7dbc15%3A0xc93a82d71dacef29!2sTwo%20Four%20Six%20Impex%20Pvt.%20Ltd.!5e1!3m2!1sen!2snp!4v1752166387567!5m2!1sen!2snp"
           width="100%"
           height="100%"
           style={{ border: 0 }}
@@ -14,6 +14,7 @@ const MapEmbed: React.FC = () => {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
+        {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3596.880082987725!2d85.30749417554031!3d27.702282876185564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18544a7dbc15%3A0xc93a82d71dacef29!2sTwo%20Four%20Six%20Impex%20Pvt.%20Ltd.!5e1!3m2!1sen!2snp!4v1752166387567!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
       </div>
     </div>
   );

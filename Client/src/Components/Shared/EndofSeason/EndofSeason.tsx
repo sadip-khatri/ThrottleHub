@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
 import { Link } from "react-router-dom";
-import api from "../../../utils/api";
+import api from "../../../Utils/api";
 
 type Product = {
   id: number;
@@ -253,7 +253,7 @@ const EndofSeason: React.FC = () => {
                     key={i + 1}
                     onClick={() => setCurrentPage(i + 1)}
                     className={`px-3 py-1 border text-sm rounded hover:bg-gray-100 ${
-                      currentPage === i + 1 ? "bg-black text-white" : ""
+                      currentPage === i + 1 ? "bg-[#2563eb] text-white" : ""
                     }`}
                   >
                     {i + 1}

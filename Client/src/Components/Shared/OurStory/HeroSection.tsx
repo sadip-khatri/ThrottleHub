@@ -6,13 +6,13 @@ const HeroSection: React.FC = () => {
       {/* Top Text */}
       <div className="space-y-2 mb-6">
         <h1 className="text-xl md:text-2xl tracking-widest uppercase font-light">
-          A <span className="font-semibold">Premium</span> Marketplace For
+          Discover <span className="font-semibold">Next-Gen</span> Technology
         </h1>
         <h1 className="text-xl md:text-2xl tracking-widest uppercase font-light">
-          Unlimited <span className="font-semibold">Fashion.</span>
+          From <span className="font-semibold">Top Brands</span> Worldwide
         </h1>
-        <p className="text-red-600 italic font-medium text-lg">
-          Something New.
+        <p className="text-blue-600 italic font-medium text-lg">
+          Power Up Your Digital Life.
         </p>
       </div>
 
@@ -20,7 +20,7 @@ const HeroSection: React.FC = () => {
       <div className="px-4">
         <img
           src="/assets/img/ourstory/hero.jpg"
-          alt="Street View"
+          alt="Tech gadgets display"
           className="w-full h-[60vh] object-cover rounded"
         />
       </div>

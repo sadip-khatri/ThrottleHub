@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/Pages/ProductDetail.tsx
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../Utils/api";
 import ProductInfo from "../../Components/Ui/ProductInfo";
 // import SimilarItems from "../../Components/Shared/SimilarItems/SimilarItems";
-import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import { toast } from "react-toastify";
 
 const ProductDetail = () => {
@@ -55,14 +55,8 @@ const ProductDetail = () => {
     <>
       <div className="mx-auto p-4 grid-cols-1 md:grid-cols-2 gap-10">
         {/* <ProductGallery product={product} /> */}
-        <ProductInfo
-          product={product}
-          onAddToCart={handleAddToCart}
-          currencyCode={""}
-        />
+        <ProductInfo product={product} onAddToCart={handleAddToCart} />
       </div>
-
-      <YouMightAlsoLike />
     </>
   );
 };

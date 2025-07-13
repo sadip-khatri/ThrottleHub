@@ -22,17 +22,17 @@ const ContactSection = () => {
             <div className="flex items-start gap-2 mb-1">
               <FaMapMarkerAlt className="mt-1 text-brown-700" />
               <p>
-                Bhagwan Pau , <br />
-                Swyambhu
+                Tamrakar Complex, <br />
+                New Road
               </p>
             </div>
             <div className="flex items-center gap-2">
               <FaEnvelope className="text-brown-700" />
               <a
-                href="mailto:info@precisofashion.com"
+                href="mailto:246Impex@gmail.com"
                 className="hover:underline"
               >
-                info@dangiz.com
+                246Impex@gmail.com
               </a>
             </div>
           </div>
@@ -54,17 +54,17 @@ const ContactSection = () => {
             <h3 className="text-xl font-medium mb-2">For Order Enquiries</h3>
             <div className="flex items-center gap-2 mb-1">
               <FaPhoneAlt className="text-brown-700" />
-              <a href="tel:+919150079228" className="hover:underline">
-                +91 91500 79228
+              <a href="tel:9869946896" className="hover:underline">
+                9869946896
               </a>
             </div>
             <div className="flex items-center gap-2">
               <FaEnvelope className="text-brown-700" />
               <a
-                href="mailto:orders@precisofashion.com"
+                href="mailto:246Impex@gmail.com"
                 className="hover:underline"
               >
-                orders@dangiz.com
+                246Impex@gmail.com
               </a>
             </div>
           </div>
@@ -74,17 +74,17 @@ const ContactSection = () => {
             <h3 className="text-xl font-medium mb-2">For Bulk Enquiries</h3>
             <div className="flex items-center gap-2 mb-1">
               <FaPhoneAlt className="text-brown-700" />
-              <a href="tel:+919858590505" className="hover:underline">
-                +91 98585 90505
+              <a href="tel:9869946896" className="hover:underline">
+                9869946896
               </a>
             </div>
             <div className="flex items-center gap-2">
               <FaEnvelope className="text-brown-700" />
               <a
-                href="mailto:marketing@precisofashion.com"
+                href="mailto:246Impex@gmail.com"
                 className="hover:underline"
               >
-                marketing@dangiz.com
+                246Impex@gmail.com
               </a>
             </div>
           </div>

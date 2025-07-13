@@ -29,7 +29,7 @@ function Blogs() {
 
       {/* Heading and Search */}
       <div className="px-6 md:px-20 flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Our Blog</h1>
+        <h1 className="text-2xl font-bold text-[#2563eb]">Our Blog</h1>
         <div className="flex items-center gap-2">
           <input
             type="text"
@@ -49,7 +49,7 @@ function Blogs() {
             <img src={blog.image} alt={blog.title} className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
             <div className="p-6">
               <div className="text-xs text-gray-400 mb-1">{blog.author} &bull; {new Date(blog.date).toLocaleDateString()}</div>
-              <h2 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-primary-600 transition-colors">{blog.title}</h2>
+              <h2 className="text-xl font-semibold mb-2 text-[#2563eb] group-hover:text-primary-600 transition-colors">{blog.title}</h2>
               <p className="text-gray-600 text-sm line-clamp-2">{blog.excerpt}</p>
             </div>
           </Link>
@@ -63,7 +63,7 @@ function Blogs() {
             <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
             <div className="p-4">
               <div className="text-xs text-gray-400 mb-1">{blog.author} &bull; {new Date(blog.date).toLocaleDateString()}</div>
-              <h3 className="text-lg font-semibold mb-1 text-gray-800 group-hover:text-primary-600 transition-colors">{blog.title}</h3>
+              <h3 className="text-lg font-semibold mb-1 text-[#2563eb] group-hover:text-primary-600 transition-colors">{blog.title}</h3>
               <p className="text-gray-600 text-sm line-clamp-2">{blog.excerpt}</p>
             </div>
           </Link>

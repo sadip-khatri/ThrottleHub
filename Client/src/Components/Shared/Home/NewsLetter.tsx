@@ -1,76 +1,135 @@
-import React from "react";
-import { FaArrowRight, FaInstagram, FaFacebook } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaPaperPlane } from "react-icons/fa";
 
-function NewsLetter() {
+const NewsLetter = () => {
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setIsSubscribed(true);
+
+      // 1. Show alert to user
+      alert(
+        `You have subscribed to 246 Impex. We'll send updates to: 246Impex@gmail.com`
+      );
+
+      // 2. (Optional) Send email to backend API
+      fetch("https://your-backend-api.com/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: "246Impex@gmail.com" }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Subscribed:", data);
+        })
+        .catch((error) => {
+          console.error("Subscription failed:", error);
+        });
+
+      setEmail("");
+
+      // 3. Reset success message
+      setTimeout(() => setIsSubscribed(false), 3000);
+    }
+  };
+
   return (
-    <section className="flex flex-col lg:flex-row justify-between gap-10 px-4 sm:px-6 md:px-10 lg:px-20 py-10 bg-white max-w-screen-xl mx-auto">
-      {/* Left side: Heading + form */}
-      <div className="flex flex-col gap-4 w-full lg:max-w-xl">
-        <h2 className="text-2xl md:text-3xl font-semibold">
-          Become part of the community.
-        </h2>
-        <p className="text-gray-600 text-sm md:text-base">
-          Receive first access to the very best of REVEILED products,
-          inspiration and services.
-        </p>
-        <form
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-0 mt-2"
-          method="post"
-        >
-          <label htmlFor="email" className="sr-only">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            required
-            className="border border-gray-300 rounded-lg sm:rounded-l-lg px-4 py-2 w-full sm:w-64"
-          />
-          <button
-            type="submit"
-            aria-label="Subscribe"
-            className="bg-[#B48B65] px-4 py-2 rounded-lg sm:rounded-r-lg text-white flex items-center justify-center"
-          >
-            <FaArrowRight />
-          </button>
-        </form>
-      </div>
+    <div className="bg-gray-50 py-16">
+      <div className="container mx-auto px-4 md:px-6 lg:px-[85px]">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
+            {/* Header */}
+            <div className="mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Stay Updated with{" "}
+                <span className="text-[#2563eb]">246 Impex</span>
+              </h2>
+              <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
+                Subscribe to our newsletter and be the first to know about new
+                arrivals, . Join our community!
+              </p>
+            </div>
 
-      {/* Right side: Contact info + social */}
-      <div className="flex flex-col gap-6 w-full lg:w-auto">
-        <div>
-          <h3 className="text-sm font-semibold text-black mb-1">EMAIL US</h3>
-          <a
-            href="mailto:hello@dangiz.com.au"
-            className="text-gray-600 text-sm hover:underline break-all"
-          >
-            hello@dangiz.com.au
-          </a>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-black mb-1">FOLLOW US</h3>
-          <div className="flex gap-4 mt-2">
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="text-gray-700 hover:text-black"
-            >
-              <FaInstagram className="w-5 h-5" />
-            </a>
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="text-gray-700 hover:text-black"
-            >
-              <FaFacebook className="w-5 h-5" />
-            </a>
+            {/* Benefits */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {[
+                {
+                  title: "Early Access",
+                  description:
+                    "Be the first to explore upcoming gadgets and product launches",
+                },
+                {
+                  title: "Latest Tech Drops",
+                  description:
+                    "Stay updated with our newest arrivals in smart devices and accessories",
+                },
+                {
+                  title: "Tech Insights",
+                  description:
+                    "Get expert reviews, setup tutorials, and tech tips straight to your inbox",
+                },
+              ].map((benefit, index) => (
+                <div key={index} className="text-center">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Newsletter Form */}
+            <div className="bg-gray-50 rounded-lg p-6 md:p-8">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Join Our Newsletter
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Get the exclusive updates of 246 Impex
+              </p>
+
+              <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-[#2563eb]"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="bg-[#2563eb] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors flex items-center justify-center gap-2"
+                  >
+                    <FaPaperPlane className="w-4 h-4" />
+                    Subscribe
+                  </button>
+                </div>
+              </form>
+
+              {/* Success Message */}
+              {isSubscribed && (
+                <div className="mt-4 bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-lg text-center">
+                  🎉 Welcome to the 246 Impex community! Check your email for
+                  confirmation.
+                </div>
+              )}
+
+              <p className="text-gray-500 text-sm mt-4">
+                By subscribing, you agree to receive marketing emails from 246
+                Impex. You can unsubscribe at any time.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
-}
+};
 
 export default NewsLetter;

@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { formatPrice } from "../../utils/formatPrice";
+import { formatPrice } from "../../Utils/formatPrice";
 import SimilarItems from "../Shared/SimilarItems/SimilarItems";
 import { useCountry } from "../../Contexts/CountryContext";
+
+
 
 interface Product {
   id: number;
@@ -19,6 +21,10 @@ interface Product {
   colors?: string[];
   images?: string[];
   image?: string;
+  // Add for compatibility with SimilarItems
+  _id?: string;
+  mainImage?: string;
+  stock?: number;
 }
 
 interface ProductPageProps {
@@ -31,10 +37,7 @@ interface ProductPageProps {
   ) => void;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({
-  product,
-  onAddToCart,
-}) => {
+const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.size?.[0] || "M");
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "");
@@ -42,17 +45,30 @@ const ProductPage: React.FC<ProductPageProps> = ({
   const [expandedSections, setExpandedSections] = useState({
     description: false,
     condition: false,
-    styleAndFit: false,
-    myLoveStory: false,
+    features: false,
+    warranty: false,
   });
 
   const { selectedCountry } = useCountry();
 
-  const productImages = product.images || (product.image ? [product.image] : []);
+  // const productImages =
+  //   product.images || (product.image ? [product.image] : []);
   const localPrice = product.price * selectedCountry.rate;
   const localOriginalPrice = product.originalPrice
     ? product.originalPrice * selectedCountry.rate
     : null;
+
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+const productImages =
+  product.images?.map((img) =>
+    img.startsWith("http")
+      ? img
+      : `${baseURL}/uploads${img.startsWith("/") ? img : `/${img}`}`
+  ) || (product.image
+    ? [`${baseURL}/uploads${product.image.startsWith("/") ? product.image : `/${product.image}`}`]
+    : []);
+  console.log(productImages);
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({
@@ -75,21 +91,24 @@ const ProductPage: React.FC<ProductPageProps> = ({
         {/* Thumbnails */}
         {productImages.length > 1 && (
           <div className="flex lg:flex-col gap-2 order-2 lg:order-1">
-            {productImages.map((image, index) => (
-              <div
-                key={index}
-                className={`w-16 h-20 cursor-pointer border-2 ${
-                  selectedImage === index ? "border-black" : "border-gray-200"
-                }`}
-                onClick={() => setSelectedImage(index)}
-              >
-                <img
-                  src={image}
-                  alt={`${product.title} ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+            {productImages.map((image, index) => {
+              console.log(image);
+              return (
+                <div
+                  key={index}
+                  className={`w-16 h-20 cursor-pointer border-2 ${
+                    selectedImage === index ? "border-black" : "border-gray-200"
+                  }`}
+                  onClick={() => setSelectedImage(index)}
+                >
+                  <img
+                    src={image}
+                    alt={`${product.title} ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -108,7 +127,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
               </div>
             )}
             {product.discount && (
-              <div className="absolute top-4 left-4 bg-black text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+              <div className="absolute top-4 left-4 bg-[#2563eb] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
                 {product.discount}%
               </div>
             )}
@@ -129,7 +148,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
           {/* Price */}
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-xl text-red-600">
+              <span className="text-xl text-[#2563eb]">
                 {formatPrice(localPrice, selectedCountry.currency)}
               </span>
               {localOriginalPrice && (
@@ -182,7 +201,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
               <select
                 value={selectedSize}
                 onChange={(e) => setSelectedSize(e.target.value)}
-                className="border border-gray-300 px-3 py-2 w-20 text-center bg-white"
+                className="border border-gray-300 px-3 mx-5 py-2 w-20 text-center bg-white"
               >
                 {product.size.map((size) => (
                   <option key={size} value={size}>
@@ -196,7 +215,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
           {/* Add to Cart */}
           <button
             onClick={handleAddToCart}
-            className="w-full bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors cursor-pointer"
+            className="w-full bg-[#2563eb] text-white py-3 px-6 font-medium tracking-wide hover:bg-[#1d4ed8] transition-colors cursor-pointer"
           >
             ADD TO CART
           </button>
@@ -206,8 +225,8 @@ const ProductPage: React.FC<ProductPageProps> = ({
             {[
               { key: "description", label: "DESCRIPTION" },
               { key: "condition", label: "CONDITION" },
-              { key: "styleAndFit", label: "STYLE & FIT" },
-              { key: "myLoveStory", label: "MY LOVE STORY" },
+              { key: "features", label: "FEATURES" },
+              { key: "warranty", label: "WARRANTY" },
             ].map(({ key, label }) => (
               <div key={key} className="border-b border-gray-200 pb-4">
                 <button
@@ -236,7 +255,14 @@ const ProductPage: React.FC<ProductPageProps> = ({
         </div>
       </div>
 
-      <SimilarItems currentProduct={product} />
+      <SimilarItems currentProduct={{
+        _id: product._id ?? String(product.id),
+        mainImage: product.mainImage ?? product.images?.[0] ?? product.image ?? "",
+        title: product.title,
+        price: product.price,
+        category: product.category ?? "",
+        stock: product.stock ?? 0,
+      }} /> 
     </div>
   );
 };

@@ -1,17 +1,32 @@
 import express from 'express';
 import routes from './routes';
 import cors from 'cors';
+import path from 'path';
+
+
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", 
-    credentials: true, 
+    origin: (origin, callback) => {
+      // Allow requests from any localhost port or undefined (like Postman)
+      if (
+        !origin ||
+        origin.startsWith('http://localhost:') ||
+        origin.startsWith('https://localhost:')
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
   })
 );
 
 app.use(express.json());
 app.use('/api', routes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 export default app;

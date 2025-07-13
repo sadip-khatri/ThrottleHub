@@ -5,7 +5,6 @@ import api from "../../Utils/api";
 
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
-import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
 import { useCountry } from "../../Contexts/CountryContext";
 import { formatPrice } from "../../utils/formatPrice";
@@ -97,7 +96,7 @@ export default function CartPage() {
           <div className="flex items-center text-sm text-gray-600">
             <Link to="/">Home</Link>
             <span className="mx-2">/</span>
-            <span className="text-gray-900">Cart</span>
+            <span className="text-[#2563eb]">Cart</span>
           </div>
         </div>
       </div>
@@ -132,7 +131,7 @@ export default function CartPage() {
                         />
                       </div>
                       <div>
-                        <h3 className="font-medium text-gray-900">
+                        <h3 className="font-medium text-[#2563eb]">
                           {item.product.title}
                         </h3>
                         <p className="text-sm text-gray-600">
@@ -149,7 +148,7 @@ export default function CartPage() {
                     </div>
 
                     <div className="col-span-2 text-center">
-                      <span className="text-gray-900">
+                      <span className="text-[#2563eb]">
                         {formatPrice(
                           item.product.price * selectedCountry.rate,
                           selectedCountry.currency
@@ -180,7 +179,7 @@ export default function CartPage() {
                     </div>
 
                     <div className="col-span-2 text-center">
-                      <span className="text-gray-900">
+                      <span className="text-[#2563eb]">
                         {formatPrice(
                           item.product.price *
                             item.quantity *
@@ -197,13 +196,13 @@ export default function CartPage() {
             {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-6">
+                <h2 className="text-lg font-semibold text-[#2563eb] mb-6">
                   ORDER SUMMARY
                 </h2>
                 <div className="space-y-4">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Sub Total</span>
-                    <span className="text-gray-900">
+                    <span className="text-[#2563eb]">
                       {formatPrice(
                         subtotal * selectedCountry.rate,
                         selectedCountry.currency
@@ -212,7 +211,7 @@ export default function CartPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Shipping</span>
-                    <span className="text-gray-900">
+                    <span className="text-[#2563eb]">
                       {formatPrice(
                         shipping * selectedCountry.rate,
                         selectedCountry.currency
@@ -221,8 +220,8 @@ export default function CartPage() {
                   </div>
                   <hr className="my-4" />
                   <div className="flex justify-between text-lg font-semibold">
-                    <span className="text-gray-900">Total</span>
-                    <span className="text-gray-900">
+                    <span className="text-[#2563eb]">Total</span>
+                    <span className="text-[#2563eb]">
                       {formatPrice(
                         total * selectedCountry.rate,
                         selectedCountry.currency
@@ -231,7 +230,7 @@ export default function CartPage() {
                   </div>
                 </div>
                 <button
-                  className="w-full bg-[#8B5D3B] hover:bg-[#754C29] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors"
+                  className="w-full bg-[#2563eb] hover:bg-[#174ea6] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors"
                   onClick={() => {
                     alert("Proceeding to checkout...");
                     localStorage.removeItem("cartProducts");
@@ -246,7 +245,6 @@ export default function CartPage() {
           </div>
         </div>
       )}
-      <YouMightAlsoLike />
       <NewsLetter />
     </div>
   );

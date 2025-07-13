@@ -3,72 +3,88 @@ import { SectionHeading, ViewAllLink } from "../../Ui/Typography";
 
 const OurStory: React.FC = () => {
   return (
-    <section className="px-6 md:px-20 py-10">
+    <section className="px-6 md:px-20 py-16 bg-gradient-to-b from-gray-50 to-white">
       {/* Header */}
-      <div className="flex justify-between items-start flex-wrap gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
         <div>
           <SectionHeading text="OUR STORY" />
-          <p className="max-w-xl text-gray-600">
-            Built for everyday life, our bags blend simplicity, style, and
-            function. Timeless, versatile, and made to go wherever you do.
+          <p className="max-w-2xl text-gray-700 text-sm md:text-base leading-relaxed mt-2">
+            At <strong>246 Impex</strong>, we believe technology should elevate
+            everyday life. From humble beginnings in a garage lab to becoming a
+            trusted name in smart gadgets, our mission is to empower users
+            through innovation, reliability, and style.
           </p>
         </div>
-        <h4>
-          <a href="our-story">Learn More →</a>
-        </h4>
+        <a
+          href="/our-story"
+          className="text-blue-600 hover:text-blue-800 transition font-medium text-sm md:text-base"
+        >
+          Learn More →
+        </a>
       </div>
 
-      {/* Image Grid */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Visual Story Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <img
-          src="/images/story-1.jpg"
-          alt=""
-          className="w-full h-80 object-cover rounded-md"
+          src="/assets/img/Home/tech-innovation.jpg"
+          alt="Tech innovation lab"
+          className="rounded-xl object-cover w-full h-80 shadow-lg hover:scale-[1.02] transition-transform"
         />
+
         <div className="space-y-6">
           <img
-            src="/images/story-2.jpg"
-            alt=""
-            className="w-full h-36 object-cover rounded-md"
+            src="/assets/img/Home/team-brainstorming.jpg"
+            alt="Team brainstorming"
+            className="w-full h-36 rounded-xl object-cover shadow-md"
           />
           <img
-            src="/images/story-3.jpg"
-            alt=""
-            className="w-full h-36 object-cover rounded-md"
+            src="/assets/img/Home/gadget-distribution.jpg"
+            alt="Gadget distribution"
+            className="w-full h-36 rounded-xl object-cover shadow-md"
           />
-          <div className="bg-[#E9DCC7] flex items-center justify-center rounded-md h-12 font-semibold text-lg">
-            <img src="/images/logo.png" alt="Dangiz" className="h-6 mr-2" />
-            Dangiz
+          <div className="bg-white border border-gray-200 flex items-center justify-center rounded-xl h-14 font-bold text-lg text-[#2563eb] shadow-sm">
+            {/* <img
+              src="/images/logo-tech.png"
+              alt="246 Impex"
+              className="h-6 mr-2"
+            /> */}
+            246 Impex
           </div>
         </div>
+
         <img
-          src="/images/story-4.jpg"
-          alt=""
-          className="w-full h-80 object-cover rounded-md"
+          src="/assets/img/Home/tech-showroom.jpg"
+          alt="Tech showroom"
+          className="rounded-xl object-cover w-full h-80 shadow-lg hover:scale-[1.02] transition-transform"
         />
       </div>
 
-      {/* Success Story */}
-      <div className="mt-14 flex flex-col md:flex-row items-start gap-6">
-        <div className="flex-1">
-          <h3 className="text-2xl font-semibold">OUR SUCCESS STORY</h3>
-          <p className="text-gray-600 mt-1">with John Doe</p>
-          <ViewAllLink href="#" />
-        </div>
-        <div className="flex-[2] text-gray-700">
-          <p>
-            We chatted about online expectation pressures, wedding dress
-            choices, how to keep a level head throughout the journey and much
-            more!
-          </p>
-          <a
-            href="#"
-            className="text-brown-600 underline font-medium mt-2 inline-block"
-          >
-            Read the interview and shop the shoot
-          </a>
-        </div>
-      </div>
+      {/* Founder Story */}
+      {/* <div className="mt-16 bg-white shadow-lg rounded-xl p-8 md:p-10 flex flex-col md:flex-row gap-8">
+          <div className="flex-1">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+              FROM GARAGE LAB TO GLOBAL TECH BRAND
+            </h3>
+            <p className="text-gray-500 mt-1 text-sm">
+              with Alex Khatri, Founder of 246 Impex
+            </p>
+            <ViewAllLink href="/interview/founder-story" />
+          </div>
+          <div className="flex-[2] text-gray-700 text-sm md:text-base leading-relaxed">
+            <p>
+              In this exclusive feature, our founder Alex Khatri shares the
+              inspiring journey of launching 246 Impex — overcoming early
+              struggles, building a user-centric tech platform, and scaling to
+              serve customers across the globe.
+            </p>
+            <a
+              href="/interview/founder-story"
+              className="text-blue-600 underline font-medium mt-3 inline-block hover:text-blue-800"
+            >
+              Read the full interview
+            </a>
+          </div>
+        </div> */}
     </section>
   );
 };
