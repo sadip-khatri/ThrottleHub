@@ -57,6 +57,7 @@ const ProductDetail = () => {
         {/* <ProductGallery product={product} /> */}
         <ProductInfo product={product} onAddToCart={handleAddToCart} />
       </div>
+      <h1></h1>
     </>
   );
 };
