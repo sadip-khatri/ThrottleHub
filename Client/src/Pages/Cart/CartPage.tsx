@@ -63,6 +63,33 @@ export default function CartPage() {
     }
   };
 
+  const handleCheckout = async () => {
+  try {
+    const formattedCartItems = cartItems.map((item) => ({
+      title: item.product.title,
+      image: item.product.mainImage,
+      price: item.product.price * selectedCountry.rate,
+      quantity: item.quantity,
+    }));
+
+    const res = await api.post("/payment/create-checkout-session", {
+      cartItems: formattedCartItems,
+    });
+
+    console.log(res.data)
+
+    if (res.data.url) {
+      window.location.href = res.data.url;
+    } else {
+      alert("Checkout session failed. No URL returned.");
+    }
+  } catch (err) {
+    console.error("Checkout error:", err);
+    alert("Failed to proceed to payment.");
+  }
+};
+
+
 const subtotal = cartItems
   .filter(item => item.product && typeof item.product.price === 'number')
   .reduce((sum, item) => sum + item.product.price * item.quantity, 0);
@@ -234,16 +261,12 @@ const subtotal = cartItems
                   </div>
                 </div>
                 <button
-                  className="w-full bg-[#8B5D3B] hover:bg-[#754C29] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors"
-                  onClick={() => {
-                    alert("Proceeding to checkout...");
-                    localStorage.removeItem("cartProducts");
-                    setCartItems([]);
-                    window.dispatchEvent(new Event("cartUpdated"));
-                  }}
-                >
-                  PROCEED TO CHECKOUT
-                </button>
+  className="w-full bg-[#8B5D3B] hover:bg-[#754C29] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors cursor-pointer"
+  onClick={handleCheckout}
+>
+  PROCEED TO CHECKOUT
+</button>
+
               </div>
             </div>
           </div>

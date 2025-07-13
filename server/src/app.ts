@@ -1,6 +1,7 @@
 import express from 'express';
 import routes from './routes';
 import cors from 'cors';
+import dotenv from "dotenv"
 
 const app = express();
 
@@ -10,6 +11,8 @@ app.use(
     credentials: true, 
   })
 );
+
+dotenv.config()
 
 app.use(express.json());
 app.use('/api', routes);
