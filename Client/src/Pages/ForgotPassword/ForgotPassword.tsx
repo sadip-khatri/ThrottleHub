@@ -1,5 +1,5 @@
 import React, { useState, type FormEvent } from "react";
-import api from "../../Utils/api";
+import api from "../../utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AxiosError } from "axios";

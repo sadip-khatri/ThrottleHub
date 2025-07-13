@@ -29,8 +29,7 @@ const CartTry: React.FC = () => {
     fetch("src/Data/Productsinfo.json")
       .then((res) => res.json())
       .then((data: Product[]) => {
-        // You can dynamically pick which product to show here, using ID or other logic
-        setProductData(data[0]); // Change index or use route params to select product
+        setProductData(data[0]); 
       })
       .catch((error) => console.error("Error loading product:", error));
   }, []);

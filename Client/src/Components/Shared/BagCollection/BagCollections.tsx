@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
-import api from "../../../Utils/api";
+import api from "../../../utils/api";
 
 type Product = {
   _id: string;
@@ -12,6 +12,20 @@ type Product = {
   stock: number;
 };
 
+<<<<<<< HEAD
+=======
+
+const categories = [
+  "Totes",
+  "Backpacks",
+  "Handbags",
+  "Crossbody",
+  "Shoulder Bags",
+  "Satchels",
+  "Clutches",
+];
+
+>>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
 const itemsPerPage = 6;
 
 const BagCollections: React.FC = () => {
@@ -22,6 +36,7 @@ const BagCollections: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
+<<<<<<< HEAD
   const fetchProducts = async () => {
     try {
       const res = await api.get("/products");
@@ -39,6 +54,31 @@ const BagCollections: React.FC = () => {
       setLoading(false);
     }
   };
+=======
+ const fetchProducts = async () => {
+  try {
+
+    const res = await api.get("/products");
+
+    console.log("back",res.data)
+    const withStock = res.data
+      .map((p: any) => ({
+        ...p,
+        stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
+      }))
+        .filter((p: Product) => p.category?.toLowerCase().includes("bag"));
+console.log("withstock",withStock)
+
+    setProducts(withStock);
+  } catch (err) {
+    console.error("Failed to fetch products", err);
+    setProducts([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
+>>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
 
   useEffect(() => {
     fetchProducts();
@@ -76,6 +116,7 @@ const BagCollections: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  console.log("dispalay",displayedProducts)
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
@@ -86,7 +127,11 @@ const BagCollections: React.FC = () => {
           {/* Sidebar */}
           <aside className="w-full md:w-1/5">
             <div className="space-y-6 sticky top-20">
+<<<<<<< HEAD
               <h2 className="text-2xl font-bold mb-1">LAPTOP COLLECTION</h2>
+=======
+              <h2 className="text-2xl font-bold mb-1">BAG COLLECTIONS</h2>
+>>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
               <p className="text-sm text-gray-500 mb-6">
                 {sortedAndFiltered.length} items
               </p>

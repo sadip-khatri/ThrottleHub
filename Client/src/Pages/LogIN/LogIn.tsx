@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, type FormEvent } from "react";
-import api from "../../Utils/api";
+import api from "../../utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
