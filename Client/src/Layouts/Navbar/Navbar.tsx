@@ -41,8 +41,8 @@ const Navbar = () => {
   const navItems = [
     // { label: "Home", path: "/" },
     { label: "New Arrivals", path: "/new-arrival" },
-    { label: "Mobile Collection", path: "/mens-collection" },
-    { label: "Laptop Collection", path: "/bag-collection" },
+    { label: "Mobile Collection", path: "/mobile-collection" },
+    { label: "Laptop Collection", path: "/laptop-collection" },
     { label: "Exclusive", path: "/exclusive" },
     { label: "Accessories", path: "/accessories" },
     // { label: "Blogs", path: "/blogs" },
@@ -115,9 +115,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3">
             <div>
               <h1 className="text-2xl font-bold text-[#2563eb]">246 IMPEX</h1>
-              <p className="text-xs text-gray-500">
-                Your Trusted Tech Store
-              </p>
+              <p className="text-xs text-gray-500">Your Trusted Tech Store</p>
             </div>
           </Link>
 
