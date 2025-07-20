@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useMemo } from "react";
 import ProductCard from "../../Ui/ProductCard";
-import api from "../../../utils/api";
+import api from "../../../Utils/api";
 
 type Product = {
   _id: string;
@@ -12,23 +12,9 @@ type Product = {
   stock: number;
 };
 
-<<<<<<< HEAD
-=======
-
-const categories = [
-  "Totes",
-  "Backpacks",
-  "Handbags",
-  "Crossbody",
-  "Shoulder Bags",
-  "Satchels",
-  "Clutches",
-];
-
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
 const itemsPerPage = 6;
 
-const BagCollections: React.FC = () => {
+const LaptopCollection: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [stockFilter, setStockFilter] = useState<"all" | "in" | "out">("all");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
@@ -36,7 +22,6 @@ const BagCollections: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-<<<<<<< HEAD
   const fetchProducts = async () => {
     try {
       const res = await api.get("/products");
@@ -54,31 +39,6 @@ const BagCollections: React.FC = () => {
       setLoading(false);
     }
   };
-=======
- const fetchProducts = async () => {
-  try {
-
-    const res = await api.get("/products");
-
-    console.log("back",res.data)
-    const withStock = res.data
-      .map((p: any) => ({
-        ...p,
-        stock: p.stock ?? (Math.random() > 0.5 ? 0 : 10),
-      }))
-        .filter((p: Product) => p.category?.toLowerCase().includes("bag"));
-console.log("withstock",withStock)
-
-    setProducts(withStock);
-  } catch (err) {
-    console.error("Failed to fetch products", err);
-    setProducts([]);
-  } finally {
-    setLoading(false);
-  }
-};
-
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
 
   useEffect(() => {
     fetchProducts();
@@ -116,7 +76,6 @@ console.log("withstock",withStock)
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  console.log("dispalay",displayedProducts)
 
   return (
     <div className="px-4 md:px-16 py-10 bg-white">
@@ -127,11 +86,7 @@ console.log("withstock",withStock)
           {/* Sidebar */}
           <aside className="w-full md:w-1/5">
             <div className="space-y-6 sticky top-20">
-<<<<<<< HEAD
               <h2 className="text-2xl font-bold mb-1">LAPTOP COLLECTION</h2>
-=======
-              <h2 className="text-2xl font-bold mb-1">BAG COLLECTIONS</h2>
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
               <p className="text-sm text-gray-500 mb-6">
                 {sortedAndFiltered.length} items
               </p>
@@ -202,54 +157,56 @@ console.log("withstock",withStock)
 
           {/* Main Content */}
           <div className="flex-1">
-            {/* Sorting */}
-            <div className="flex justify-end py-4 mb-8">
-              <select
-                className="border px-3 py-2 rounded text-sm"
-                value={sortOption}
-                onChange={(e) => setSortOption(e.target.value)}
-              >
-                <option value="relevance">Sort by Relevance</option>
-                <option value="low">Price: Low to High</option>
-                <option value="high">Price: High to Low</option>
-              </select>
+            {/* Sort Options */}
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex gap-4">
+                <select
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                  className="border border-gray-300 px-3 py-1 text-sm"
+                >
+                  <option value="relevance">Relevance</option>
+                  <option value="low">Price: Low to High</option>
+                  <option value="high">Price: High to Low</option>
+                </select>
+              </div>
             </div>
 
-            {/* Product Grid */}
-            {displayedProducts.length === 0 ? (
-              <div className="text-center text-gray-500 mt-10">
-                No laptops found.
-              </div>
-            ) : (
-              <>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                  {displayedProducts.map((product) => (
-                    <ProductCard
-                      key={product._id}
-                      id={product._id}
-                      image={product.mainImage}
-                      title={product.title}
-                      price={product.price}
-                      category={product.category}
-                    />
-                  ))}
-                </div>
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {displayedProducts.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  id={product._id}
+                  image={product.mainImage}
+                  title={product.title}
+                  price={product.price}
+                  category={product.category}
+                />
+              ))}
+            </div>
 
-                {/* Pagination */}
-                <div className="flex justify-center items-center mt-10 space-x-2">
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <button
-                      key={i + 1}
-                      onClick={() => setCurrentPage(i + 1)}
-                      className={`px-3 py-1 border text-sm rounded hover:bg-gray-100 ${
-                        currentPage === i + 1 ? "bg-[#2563eb] text-white" : ""
-                      }`}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex justify-center mt-8">
+                <div className="flex gap-2">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`px-3 py-1 border rounded ${
+                          currentPage === page
+                            ? "bg-[#2563eb] text-white"
+                            : "bg-white text-gray-700"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    )
+                  )}
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
@@ -258,4 +215,4 @@ console.log("withstock",withStock)
   );
 };
 
-export default BagCollections;
+export default LaptopCollection;

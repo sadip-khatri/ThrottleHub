@@ -91,15 +91,6 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
           ) : similar.length > 0 ? (
             similar.map((item) => (
               <div key={item._id} className="min-w-[220px] shrink-0">
-<<<<<<< HEAD
-                 <ProductCard
-                      id={item._id}
-                      image={item.mainImage}
-                      title={item.title}
-                      price={item.price}
-                      category={item.category}
-                    />
-=======
                 <ProductCard
                   id={item._id}
                   image={item.mainImage}
@@ -107,7 +98,6 @@ const SimilarItems: React.FC<SimilarItemsProps> = ({ currentProduct }) => {
                   price={item.price}
                   category={item.category}
                 />
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
               </div>
             ))
           ) : (

@@ -1,8 +1,8 @@
 import React from "react";
 import Hero from "./Hero";
 import NewIn from "../../Components/Shared/Home/NewIn";
-import BagCollection from "../../Components/Shared/Home/BagCollection";
-import MensCollection from "../../Components/Shared/Home/MensCollection";
+import LaptopCollections from "../../Components/Shared/Home/LaptopCollections";
+import MensCollection from "../../Components/Shared/Home/MobileCollection";
 import Blog from "../../Components/Shared/Home/Blog";
 import FollowUs from "../../Components/Shared/Home/FollowUs";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
@@ -134,7 +134,7 @@ const Home = () => {
               performance for every moment.
             </p>
           </div>
-          <BagCollection />
+          <LaptopCollections />
         </div>
       </section>
 

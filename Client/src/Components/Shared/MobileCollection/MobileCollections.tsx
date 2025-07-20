@@ -15,7 +15,7 @@ type Product = {
 
 const itemsPerPage = 6;
 
-const MensCollections: React.FC = () => {
+const MobileCollections: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [stockFilter, setStockFilter] = useState<"all" | "in" | "out">("all");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
@@ -222,4 +222,4 @@ const MensCollections: React.FC = () => {
   );
 };
 
-export default MensCollections;
+export default MobileCollections;

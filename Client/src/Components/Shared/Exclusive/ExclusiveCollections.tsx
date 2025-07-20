@@ -15,7 +15,7 @@ type Product = {
 
 const categories = ["All", "Mobiles", "Laptops", "Headphones", "phone cases"];
 
-const BagCollections: React.FC = () => {
+const ExclusiveCollections: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [stockFilter, setStockFilter] = useState<"all" | "in" | "out">("all");
@@ -227,4 +227,4 @@ const BagCollections: React.FC = () => {
   );
 };
 
-export default BagCollections;
+export default ExclusiveCollections;

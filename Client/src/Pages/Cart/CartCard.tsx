@@ -4,7 +4,7 @@ import api from "../../Utils/api";
 import { useCountry } from "../../Contexts/CountryContext";
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
-import { formatPrice } from "../../utils/formatPrice";
+import { formatPrice } from "../../Utils/formatPrice";
 
 interface CartItem {
   _id: string;
@@ -120,7 +120,7 @@ function CartCard() {
                           />
                         </div>
                         <div>
-                          <h3 className="font-medium text-[#2563eb]">
+                          <h3 className="font-medium text-gray-900">
                             {item.product.title}
                           </h3>
                           <p className="text-sm text-gray-600">
@@ -137,7 +137,7 @@ function CartCard() {
                       </div>
 
                       <div className="md:col-span-2 text-center mb-2 md:mb-0">
-                        <span className="text-[#2563eb]">
+                        <span className="text-gray-900">
                           {formatPrice(
                             item.product.price * selectedCountry.rate,
                             selectedCountry.currency
@@ -168,7 +168,7 @@ function CartCard() {
                       </div>
 
                       <div className="md:col-span-2 text-center">
-                        <span className="text-[#2563eb]">
+                        <span className="text-gray-900">
                           {formatPrice(
                             item.product.price *
                               item.quantity *
@@ -186,7 +186,7 @@ function CartCard() {
             {/* Order Summary */}
             <div className="mt-10 lg:mt-0 lg:w-1/3">
   <div className="bg-white rounded-xl shadow-md p-6 border">
-    <h2 className="text-lg font-semibold text-[#2563eb] mb-4">Order Summary</h2>
+    <h2 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
     <div className="space-y-3 text-sm">
       <div className="flex justify-between text-gray-700">
         <span>Subtotal</span>
@@ -198,7 +198,7 @@ function CartCard() {
       </div>
     </div>
     <hr className="my-4" />
-    <div className="flex justify-between text-base font-bold text-[#2563eb]">
+    <div className="flex justify-between text-base font-bold text-gray-900">
       <span>Total</span>
       <span>{formatPrice(total * selectedCountry.rate, selectedCountry.currency)}</span>
     </div>

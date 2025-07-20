@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import api from "../../../Utils/api";
 import { toast } from "react-toastify";
 
-const BagCollection = () => {
+const LaptopCollections = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [bags, setBags] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -25,14 +25,8 @@ const BagCollection = () => {
   const fetchBags = async () => {
     try {
       const res = await api.get("/products");
-<<<<<<< HEAD
       // console.log(res.data);
       setBags(res.data.filter((item: any) => item.category === "Mobiles"));
-=======
-      // ✅ Filter only 'Bags'
-      const onlyBags = res.data.filter((p: any) => p.category === "Bags");
-      setBags(onlyBags);
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
     } catch (err) {
       console.error("Failed to fetch bags", err);
       setBags([]);
@@ -61,7 +55,6 @@ const BagCollection = () => {
     <section className="relative px-4 md:px-16 py-10 bg-white">
       {/* Top Text Section */}
       <div className="mb-6 max-w-4xl">
-<<<<<<< HEAD
         <div>
           <h2 className="text-2xl md:text-3xl font-bold mb-2">
             MOBILE COLLECTIONS
@@ -70,19 +63,11 @@ const BagCollection = () => {
             Rooted in innovation and versatility, our mobile collection brings
             together performance, design, and reliability. Whether for work or
             play, these smartphones are crafted to keep you connected,
-            efficient, and ahead of the curve—an essential in today’s fast-paced
+            efficient, and ahead of the curve—an essential in today's fast-paced
             world.
           </p>
         </div>
-=======
-        <h2 className="text-2xl md:text-3xl font-bold mb-2">BAG COLLECTIONS</h2>
-        <p className="text-gray-600 mb-4">
-          Rooted in the concept of minimalism & re-usability, the bag is a
-          classic silhouette that represents a bag that can do it all.
-          Comfortable & convenient, the bag is an essential.
-        </p>
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
-        <Link to="bag-collection">
+        <Link to="mobile-collection">
           <button className="px-5 py-2 border border-[#2563eb] text-sm rounded-full hover:bg-[#2563eb] hover:text-white transition">
             Shop Now →
           </button>
@@ -145,4 +130,4 @@ const BagCollection = () => {
   );
 };
 
-export default BagCollection;
+export default LaptopCollections;

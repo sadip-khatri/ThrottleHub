@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 
-import api from "../../utils/api";
+import api from "../../Utils/api";
 
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
+import YouMightAlsoLike from "../../Components/Shared/YouMIghtAlsoLike/YouMightAlsoLike";
 import NewsLetter from "../../Components/Shared/Home/NewsLetter";
 import { useCountry } from "../../Contexts/CountryContext";
-import { formatPrice } from "../../utils/formatPrice";
+import { formatPrice } from "../../Utils/formatPrice";
 
 interface CartItem {
   _id: string;
@@ -63,35 +64,34 @@ export default function CartPage() {
   };
 
   const handleCheckout = async () => {
-  try {
-    const formattedCartItems = cartItems.map((item) => ({
-      title: item.product.title,
-      image: item.product.mainImage,
-      price: item.product.price * selectedCountry.rate,
-      quantity: item.quantity,
-    }));
+    try {
+      const formattedCartItems = cartItems.map((item) => ({
+        title: item.product.title,
+        image: item.product.mainImage,
+        price: item.product.price * selectedCountry.rate,
+        quantity: item.quantity,
+      }));
 
-    const res = await api.post("/payment/create-checkout-session", {
-      cartItems: formattedCartItems,
-    });
+      const res = await api.post("/payment/create-checkout-session", {
+        cartItems: formattedCartItems,
+      });
 
-    console.log(res.data)
+      console.log(res.data);
 
-    if (res.data.url) {
-      window.location.href = res.data.url;
-    } else {
-      alert("Checkout session failed. No URL returned.");
+      if (res.data.url) {
+        window.location.href = res.data.url;
+      } else {
+        alert("Checkout session failed. No URL returned.");
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+      alert("Failed to proceed to payment.");
     }
-  } catch (err) {
-    console.error("Checkout error:", err);
-    alert("Failed to proceed to payment.");
-  }
-};
+  };
 
-
-const subtotal = cartItems
-  .filter(item => item.product && typeof item.product.price === 'number')
-  .reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const subtotal = cartItems
+    .filter((item) => item.product && typeof item.product.price === "number")
+    .reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
   const shipping = cartItems.length > 0 ? 4 : 0;
   const total = subtotal + shipping;
@@ -123,7 +123,7 @@ const subtotal = cartItems
           <div className="flex items-center text-sm text-gray-600">
             <Link to="/">Home</Link>
             <span className="mx-2">/</span>
-            <span className="text-[#2563eb]">Cart</span>
+            <span className="text-gray-900">Cart</span>
           </div>
         </div>
       </div>
@@ -144,95 +144,101 @@ const subtotal = cartItems
                   <div className="col-span-2 text-center">Quantity</div>
                   <div className="col-span-2 text-center">Subtotal</div>
                 </div>
-                {cartItems.map((item) =>{ 
+                {cartItems.map((item) => {
                   if (!item.product) return null;
-                  return(
-                  
-                  <div
-                    key={item.product._id}
-                    className="grid grid-cols-12 gap-4 p-6 border-b items-center"
-                  >
-                    <div className="col-span-6 flex items-center space-x-4">
-                      <div className="w-20 h-24 bg-gray-100 rounded-lg overflow-hidden">
-                        <img
-                          src={item.product.mainImage}
-                          alt={item.product.title}
-                          className="object-cover w-full h-full"
-                        />
+                  return (
+                    <div
+                      key={item.product._id}
+                      className="grid grid-cols-12 gap-4 p-6 border-b items-center"
+                    >
+                      <div className="col-span-6 flex items-center space-x-4">
+                        <div className="w-20 h-24 bg-gray-100 rounded-lg overflow-hidden">
+                          <img
+                            src={item.product.mainImage}
+                            alt={item.product.title}
+                            className="object-cover w-full h-full"
+                          />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">
+                            {item.product.title}
+                          </h3>
+                          {/* <p className="text-sm text-gray-600">
+                            Size: {item.product.size?.[0] || "Default"}
+                          </p> */}
+                          <button
+                            onClick={() => removeItem(item.product._id)}
+                            className="text-sm text-red-600 hover:text-red-800 flex items-center mt-2 cursor-pointer"
+                          >
+                            <Trash2 className="w-4 h-4 mr-1" />
+                            Delete
+                          </button>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-medium text-[#2563eb]">
-                          {item.product.title}
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          Size: {item.product.size?.[0] || "Default"}
-                        </p>
-                        <button
-                          onClick={() => removeItem(item.product._id)}
-                          className="text-sm text-red-600 hover:text-red-800 flex items-center mt-2 cursor-pointer"
-                        >
-                          <Trash2 className="w-4 h-4 mr-1" />
-                          Delete
-                        </button>
+
+                      <div className="col-span-2 text-center">
+                        <span className="text-gray-900">
+                          {formatPrice(
+                            item.product.price * selectedCountry.rate,
+                            selectedCountry.currency
+                          )}
+                        </span>
+                      </div>
+
+                      <div className="col-span-2 text-center ">
+                        <div className="flex items-center justify-center space-x-2 ">
+                          <button
+                            onClick={() =>
+                              updateQuantity(
+                                item.product._id,
+                                item.quantity - 1
+                              )
+                            }
+                            className="w-8 h-8 border border-gray-300 rounded-md cursor-pointer"
+                          >
+                            -
+                          </button>
+                          <span>{item.quantity}</span>
+                          <button
+                            onClick={() =>
+                              updateQuantity(
+                                item.product._id,
+                                item.quantity + 1
+                              )
+                            }
+                            className="w-8 h-8 border border-gray-300 rounded-md cursor-pointer"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="col-span-2 text-center">
+                        <span className="text-gray-900">
+                          {formatPrice(
+                            item.product.price *
+                              item.quantity *
+                              selectedCountry.rate,
+                            selectedCountry.currency
+                          )}
+                        </span>
                       </div>
                     </div>
-
-                    <div className="col-span-2 text-center">
-                      <span className="text-[#2563eb]">
-                        {formatPrice(
-                          item.product.price * selectedCountry.rate,
-                          selectedCountry.currency
-                        )}
-                      </span>
-                    </div>
-
-                    <div className="col-span-2 text-center ">
-                      <div className="flex items-center justify-center space-x-2 ">
-                        <button
-                          onClick={() =>
-                            updateQuantity(item.product._id, item.quantity - 1)
-                          }
-                          className="w-8 h-8 border border-gray-300 rounded-md cursor-pointer"
-                        >
-                          -
-                        </button>
-                        <span>{item.quantity}</span>
-                        <button
-                          onClick={() =>
-                            updateQuantity(item.product._id, item.quantity + 1)
-                          }
-                          className="w-8 h-8 border border-gray-300 rounded-md cursor-pointer"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="col-span-2 text-center">
-                      <span className="text-[#2563eb]">
-                        {formatPrice(
-                          item.product.price *
-                            item.quantity *
-                            selectedCountry.rate,
-                          selectedCountry.currency
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                )})}
+                  );
+                })}
               </div>
             </div>
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-[#2563eb] mb-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-6">
                   ORDER SUMMARY
                 </h2>
                 <div className="space-y-4">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Sub Total</span>
-                    <span className="text-[#2563eb]">
+                    <span className="text-gray-900">
                       {formatPrice(
                         subtotal * selectedCountry.rate,
                         selectedCountry.currency
@@ -241,7 +247,7 @@ const subtotal = cartItems
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Shipping</span>
-                    <span className="text-[#2563eb]">
+                    <span className="text-gray-900">
                       {formatPrice(
                         shipping * selectedCountry.rate,
                         selectedCountry.currency
@@ -250,8 +256,8 @@ const subtotal = cartItems
                   </div>
                   <hr className="my-4" />
                   <div className="flex justify-between text-lg font-semibold">
-                    <span className="text-[#2563eb]">Total</span>
-                    <span className="text-[#2563eb]">
+                    <span className="text-gray-900">Total</span>
+                    <span className="text-gray-900">
                       {formatPrice(
                         total * selectedCountry.rate,
                         selectedCountry.currency
@@ -260,25 +266,11 @@ const subtotal = cartItems
                   </div>
                 </div>
                 <button
-<<<<<<< HEAD
-                  className="w-full bg-[#2563eb] hover:bg-[#174ea6] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors"
-                  onClick={() => {
-                    alert("Proceeding to checkout...");
-                    localStorage.removeItem("cartProducts");
-                    setCartItems([]);
-                    window.dispatchEvent(new Event("cartUpdated"));
-                  }}
+                  className="w-full bg-[#8B5D3B] hover:bg-[#754C29] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors cursor-pointer"
+                  onClick={handleCheckout}
                 >
                   PROCEED TO CHECKOUT
                 </button>
-=======
-  className="w-full bg-[#8B5D3B] hover:bg-[#754C29] text-white font-medium py-3 px-4 rounded-lg mt-6 transition-colors cursor-pointer"
-  onClick={handleCheckout}
->
-  PROCEED TO CHECKOUT
-</button>
-
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
               </div>
             </div>
           </div>

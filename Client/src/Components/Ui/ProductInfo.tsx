@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { formatPrice } from "../../Utils/formatPrice";
 import SimilarItems from "../Shared/SimilarItems/SimilarItems";
 import { useCountry } from "../../Contexts/CountryContext";
-
-
 
 interface Product {
   id: number;
@@ -21,7 +19,6 @@ interface Product {
   colors?: string[];
   images?: string[];
   image?: string;
-  // Add for compatibility with SimilarItems
   _id?: string;
   mainImage?: string;
   stock?: number;
@@ -48,40 +45,30 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
     features: false,
     warranty: false,
   });
-  //Clculate the date
-  const deliveryDate = new Date();
-  deliveryDate.setDate(deliveryDate.getDate() + 5);
-  const formattedDeliveryDate = deliveryDate.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 
   const { selectedCountry } = useCountry();
 
-<<<<<<< HEAD
-  // const productImages =
-  //   product.images || (product.image ? [product.image] : []);
-=======
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
   const productImages =
-    product.images || (product.image ? [product.image] : []);
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
+    product.images?.map((img) =>
+      img.startsWith("http")
+        ? img
+        : `${baseURL}/uploads${img.startsWith("/") ? img : `/${img}`}`
+    ) ||
+    (product.image
+      ? [
+          `${baseURL}/uploads${
+            product.image.startsWith("/") ? product.image : `/${product.image}`
+          }`,
+        ]
+      : []);
+  console.log(productImages);
+
   const localPrice = product.price * selectedCountry.rate;
   const localOriginalPrice = product.originalPrice
     ? product.originalPrice * selectedCountry.rate
     : null;
-
-    const baseURL = import.meta.env.VITE_API_BASE_URL;
-
-const productImages =
-  product.images?.map((img) =>
-    img.startsWith("http")
-      ? img
-      : `${baseURL}/uploads${img.startsWith("/") ? img : `/${img}`}`
-  ) || (product.image
-    ? [`${baseURL}/uploads${product.image.startsWith("/") ? product.image : `/${product.image}`}`]
-    : []);
-  console.log(productImages);
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({
@@ -208,17 +195,13 @@ const productImages =
           )}
 
           {/* Sizes */}
-          {product.size && product.size.length > 0 && (
+          {/* {product.size && product.size.length > 0 && (
             <div className="space-y-2">
               <span className="text-sm font-medium">SIZE</span>
               <select
                 value={selectedSize}
                 onChange={(e) => setSelectedSize(e.target.value)}
-<<<<<<< HEAD
                 className="border border-gray-300 px-3 mx-5 py-2 w-20 text-center bg-white"
-=======
-                className="border border-gray-300  ml-3 px-3 py-2 w-20 text-center bg-white"
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
               >
                 {product.size.map((size) => (
                   <option key={size} value={size}>
@@ -227,44 +210,15 @@ const productImages =
                 ))}
               </select>
             </div>
-          )}
+          )} */}
 
           {/* Add to Cart */}
-<<<<<<< HEAD
           <button
             onClick={handleAddToCart}
             className="w-full bg-[#2563eb] text-white py-3 px-6 font-medium tracking-wide hover:bg-[#1d4ed8] transition-colors cursor-pointer"
           >
             ADD TO CART
           </button>
-=======
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <button
-              onClick={handleAddToCart}
-              className="flex-1 bg-amber-700 text-white py-3 px-6 font-medium tracking-wide hover:bg-amber-800 transition-colors cursor-pointer"
-            >
-              ADD TO CART
-            </button>
-            <button
-              onClick={() => {
-                onAddToCart(product, selectedSize, quantity, selectedColor);
-                // Example: navigate("/checkout")
-              }}
-              className="flex-1 bg-transparent text-amber-700 border-2 border-amber-700 py-3 px-6 font-medium tracking-wide hover:bg-amber-700 hover:text-white transition-colors cursor-pointer"
-            >
-              BUY NOW
-            </button>
-          </div>
-
-          {/* Estimated Delivery */}
-          <p className="text-sm text-gray-600 mt-2">
-            Your order will arrive by{" "}
-            <span className="font-medium text-amber-700">
-              {formattedDeliveryDate}!
-            </span>
-          </p>
->>>>>>> def3aaad95fc98fc19fb3ea5b0814890cefffc80
 
           {/* Expandable Sections */}
           <div className="space-y-4 border-t pt-6">
@@ -301,14 +255,17 @@ const productImages =
         </div>
       </div>
 
-      <SimilarItems currentProduct={{
-        _id: product._id ?? String(product.id),
-        mainImage: product.mainImage ?? product.images?.[0] ?? product.image ?? "",
-        title: product.title,
-        price: product.price,
-        category: product.category ?? "",
-        stock: product.stock ?? 0,
-      }} /> 
+      <SimilarItems
+        currentProduct={{
+          _id: product._id ?? String(product.id),
+          mainImage:
+            product.mainImage ?? product.images?.[0] ?? product.image ?? "",
+          title: product.title,
+          price: product.price,
+          category: product.category ?? "",
+          stock: product.stock ?? 0,
+        }}
+      />
     </div>
   );
 };

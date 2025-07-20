@@ -5,7 +5,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ProductCard from "../../Ui/ProductCard";
 import api from "../../../Utils/api";
 
-function MensCollection() {
+function MobileCollection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [mensProducts, setMensProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -69,7 +69,7 @@ function MensCollection() {
           <div className="min-w-[200px] shrink-0">
             <h2 className="text-2xl font-bold mt-1">{heading}</h2>
             <p className="text-sm text-gray-500 mt-2">{description}</p>
-            <Link to="mens-collection">
+            <Link to="laptop-collection">
               <button className="mt-4 px-5 py-2 border cursor-pointer border-[#2563eb] text-sm rounded-full hover:bg-[#2563eb] hover:text-white transition">
                 Shop Now →
               </button>
@@ -116,4 +116,4 @@ function MensCollection() {
   );
 }
 
-export default MensCollection;
+export default MobileCollection;
