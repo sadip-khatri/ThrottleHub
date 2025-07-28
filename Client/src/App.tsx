@@ -16,8 +16,6 @@ import CartPage from "./Pages/Cart/CartPage";
 import ProductDetail from "./Pages/ProductDetails/ProductDetails";
 
 import CartTry from "./Pages/Cart/CartTry";
-import LaptopCollection from "./Pages/LaptopCollection/LaptopCollection";
-import MobileCollection from "./Pages/MobileCollection/MobileCollection";
 import Blogs from "./Pages/Blogs/Blogs";
 import BlogDetail from "./Pages/Blogs/BlogDetail";
 import Search from "./Pages/Search/Search";
@@ -38,6 +36,8 @@ import FAQ from "./Pages/FAQ/FAQ";
 
 import SiteMap from "./Pages/SiteMap/SiteMap";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import CarCollections from "./Pages/CarCollection/CarCollection";
+import BikeCollection from "./Pages/BikeCollection/BikeCollection";
 
 // import Home from "./Pages/Home/Hero";
 
@@ -51,8 +51,8 @@ function App() {
             <Route index element={<Home />} /> {/* Or Home if you add it */}
             <Route path="season-event" element={<SeasonEvent />} />
             <Route path="new-arrival" element={<NewArrival />} />
-            <Route path="laptop-collection" element={<LaptopCollection />} />
-            <Route path="mobile-collection" element={<MobileCollection />} />
+            <Route path="car-collection" element={<CarCollections />} />
+            <Route path="bike-collection" element={<BikeCollection />} />
             <Route path="trending" element={<Trending />} />
             <Route path="our-story" element={<OurStory />} />
             <Route path="exclusive" element={<Exclusive />} />

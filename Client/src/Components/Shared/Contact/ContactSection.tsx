@@ -29,10 +29,10 @@ const ContactSection = () => {
             <div className="flex items-center gap-2">
               <FaEnvelope className="text-brown-700" />
               <a
-                href="mailto:246Impex@gmail.com"
+                href="mailto:ThrottleHub@gmail.com"
                 className="hover:underline"
               >
-                246Impex@gmail.com
+                ThrottleHub@gmail.com
               </a>
             </div>
           </div>
@@ -61,10 +61,10 @@ const ContactSection = () => {
             <div className="flex items-center gap-2">
               <FaEnvelope className="text-brown-700" />
               <a
-                href="mailto:246Impex@gmail.com"
+                href="mailto:ThrottleHub@gmail.com"
                 className="hover:underline"
               >
-                246Impex@gmail.com
+                ThrottleHub@gmail.com
               </a>
             </div>
           </div>
@@ -81,10 +81,10 @@ const ContactSection = () => {
             <div className="flex items-center gap-2">
               <FaEnvelope className="text-brown-700" />
               <a
-                href="mailto:246Impex@gmail.com"
+                href="mailto:ThrottleHub@gmail.com"
                 className="hover:underline"
               >
-                246Impex@gmail.com
+                ThrottleHub@gmail.com
               </a>
             </div>
           </div>

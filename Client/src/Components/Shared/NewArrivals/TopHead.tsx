@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 function TopHead() {
   return (
     <>
-      <section className=" bg-gray-100">
+      <section className=" bg-background">
         <div className="content container mx-auto py-2 text-sm">
           <Link to="/">Home</Link> /{" "}
-          <span className="text-[#2563eb] font-semibold">New Arrivals</span>
+          <span className="text-accent font-semibold">New Arrivals</span>
         </div>
       </section>
     </>

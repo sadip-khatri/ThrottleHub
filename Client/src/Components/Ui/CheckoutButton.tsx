@@ -26,7 +26,7 @@ const CheckoutButton = ({ cartItems }) => {
   return (
     <button
       onClick={handleCheckout}
-      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+      className="bg-success text-background px-4 py-2 rounded hover:bg-button-hover transition-colors"
     >
       Proceed to Checkout
     </button>

@@ -1,10 +1,46 @@
 @import "tailwindcss";
-/* *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-/* 
-.container{
 
-} */
+/* Neon Cyan Theme Variables */
+:root {
+  --accent: #00FFFF;           /* Neon Cyan */
+  --background: #0A192F;       /* Deep Navy */
+  --surface: #1F2937;          /* Gunmetal Gray */
+  --text-primary: #F9FAFB;     /* Ghost White */
+  --text-secondary: #9CA3AF;   /* Cool Gray */
+  --button-hover: #38E8E1;     /* Bright Cyan */
+  --success: #A6E22E;          /* Lime Green */
+  --warning: #FFB020;          /* Amber Gold */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+/* Utility Classes for Neon Cyan Theme */
+.bg-background { background-color: var(--background); }
+.bg-surface { background-color: var(--surface); }
+.bg-accent { background-color: var(--accent); }
+.bg-success { background-color: var(--success); }
+.bg-warning { background-color: var(--warning); }
+.bg-button-hover { background-color: var(--button-hover); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-accent { color: var(--accent); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+
+.border-accent { border-color: var(--accent); }
+.border-success { border-color: var(--success); }
+.border-warning { border-color: var(--warning); }
+
+/* Hover States */
+.hover\:bg-button-hover:hover { background-color: var(--button-hover); }
+.hover\:bg-accent:hover { background-color: var(--accent); }
+.hover\:text-accent:hover { color: var(--accent); }
+.hover\:border-accent:hover { border-color: var(--accent); }
+
+/* Focus States */
+.focus\:ring-accent:focus { --tw-ring-color: var(--accent); }
+.focus\:border-accent:focus { border-color: var(--accent); }

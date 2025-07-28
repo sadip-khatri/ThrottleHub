@@ -22,11 +22,11 @@ const Dispute: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#faf8f6] py-10 px-4">
-      <div className="bg-[#f8f5f1] rounded-md shadow-sm p-8 w-full max-w-lg border border-gray-200">
+    <div className="min-h-screen flex items-center justify-center bg-background py-10 px-4">
+      <div className="bg-surface rounded-md shadow-sm p-8 w-full max-w-lg border border-accent">
         <div className="mb-6 text-center">
           <SectionHeading text="Raise a Dispute" />
-          <p className="text-gray-600 text-base max-w-md mx-auto">
+          <p className="text-secondary text-base max-w-md mx-auto">
             If you have an issue with your order, please fill out the form below. Our support team will review your dispute and get back to you as soon as possible.
           </p>
         </div>
@@ -45,7 +45,7 @@ const Dispute: React.FC = () => {
                 value={form.name}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8b5d3b] transition shadow-sm bg-white"
+                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition shadow-sm bg-white"
                 placeholder="Your full name"
               />
             </div>
@@ -58,7 +58,7 @@ const Dispute: React.FC = () => {
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8b5d3b] transition shadow-sm bg-white"
+                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition shadow-sm bg-white"
                 placeholder="you@email.com"
               />
             </div>
@@ -71,7 +71,7 @@ const Dispute: React.FC = () => {
                 value={form.orderId}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8b5d3b] transition shadow-sm bg-white"
+                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition shadow-sm bg-white"
                 placeholder="Order #12345"
               />
             </div>
@@ -84,7 +84,7 @@ const Dispute: React.FC = () => {
                 onChange={handleChange}
                 required
                 rows={4}
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8b5d3b] transition shadow-sm bg-white resize-none"
+                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition shadow-sm bg-white resize-none"
                 placeholder="Describe your issue in detail..."
               />
             </div>

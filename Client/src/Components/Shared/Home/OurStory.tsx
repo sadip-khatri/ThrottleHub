@@ -1,90 +1,141 @@
 import React from "react";
-import { SectionHeading, ViewAllLink } from "../../Ui/Typography";
+import { FaMotorcycle, FaCar, FaTools } from "react-icons/fa";
 
 const OurStory: React.FC = () => {
   return (
-    <section className="px-6 md:px-20 py-16 bg-gradient-to-b from-gray-50 to-white">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
-        <div>
-          <SectionHeading text="OUR STORY" />
-          <p className="max-w-2xl text-gray-700 text-sm md:text-base leading-relaxed mt-2">
-            At <strong>246 Impex</strong>, we believe technology should elevate
-            everyday life. From humble beginnings in a garage lab to becoming a
-            trusted name in smart gadgets, our mission is to empower users
-            through innovation, reliability, and style.
-          </p>
-        </div>
-        <a
-          href="/our-story"
-          className="text-blue-600 hover:text-blue-800 transition font-medium text-sm md:text-base"
-        >
-          Learn More →
-        </a>
-      </div>
-
-      {/* Visual Story Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <img
-          src="/assets/img/Home/tech-innovation.jpg"
-          alt="Tech innovation lab"
-          className="rounded-xl object-cover w-full h-80 shadow-lg hover:scale-[1.02] transition-transform"
-        />
-
-        <div className="space-y-6">
-          <img
-            src="/assets/img/Home/team-brainstorming.jpg"
-            alt="Team brainstorming"
-            className="w-full h-36 rounded-xl object-cover shadow-md"
-          />
-          <img
-            src="/assets/img/Home/gadget-distribution.jpg"
-            alt="Gadget distribution"
-            className="w-full h-36 rounded-xl object-cover shadow-md"
-          />
-          <div className="bg-white border border-gray-200 flex items-center justify-center rounded-xl h-14 font-bold text-lg text-[#2563eb] shadow-sm">
-            {/* <img
-              src="/images/logo-tech.png"
-              alt="246 Impex"
-              className="h-6 mr-2"
-            /> */}
-            246 Impex
-          </div>
-        </div>
-
-        <img
-          src="/assets/img/Home/tech-showroom.jpg"
-          alt="Tech showroom"
-          className="rounded-xl object-cover w-full h-80 shadow-lg hover:scale-[1.02] transition-transform"
-        />
-      </div>
-
-      {/* Founder Story */}
-      {/* <div className="mt-16 bg-white shadow-lg rounded-xl p-8 md:p-10 flex flex-col md:flex-row gap-8">
-          <div className="flex-1">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
-              FROM GARAGE LAB TO GLOBAL TECH BRAND
-            </h3>
-            <p className="text-gray-500 mt-1 text-sm">
-              with Alex Khatri, Founder of 246 Impex
-            </p>
-            <ViewAllLink href="/interview/founder-story" />
-          </div>
-          <div className="flex-[2] text-gray-700 text-sm md:text-base leading-relaxed">
-            <p>
-              In this exclusive feature, our founder Alex Khatri shares the
-              inspiring journey of launching 246 Impex — overcoming early
-              struggles, building a user-centric tech platform, and scaling to
-              serve customers across the globe.
-            </p>
-            <a
-              href="/interview/founder-story"
-              className="text-blue-600 underline font-medium mt-3 inline-block hover:text-blue-800"
+    <section
+      className="relative py-20"
+      style={{
+        backgroundColor: "var(--background)",
+        color: "var(--text-primary)",
+      }}
+    >
+      <div className="container mx-auto px-6">
+        {/* Headline + Link */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-6">
+          <div className="text-center md:text-left">
+            <h2 className="text-4xl font-extrabold uppercase tracking-wider mb-2">
+              The ThrottleHub Journey
+            </h2>
+            <p
+              className="max-w-xl text-lg"
+              style={{ color: "var(--text-secondary)" }}
             >
-              Read the full interview
-            </a>
+              Fueled by passion, driven by innovation — we power your rides with
+              the best in bikes, cars, and premium auto parts.
+            </p>
           </div>
-        </div> */}
+
+          <a
+            href="/our-story"
+            className="px-5 py-2 rounded-full font-medium text-sm border transition"
+            style={{
+              color: "var(--accent)",
+              borderColor: "var(--accent)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--text-primary)";
+              e.currentTarget.style.borderColor = "var(--text-primary)";
+              e.currentTarget.style.backgroundColor = "var(--accent)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--accent)";
+              e.currentTarget.style.borderColor = "var(--accent)";
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            Learn More →
+          </a>
+        </div>
+
+        {/* Story Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="space-y-6">
+            {/* Icon Sections */}
+            {[
+              {
+                icon: <FaMotorcycle />,
+                title: "Born in a Garage",
+                desc: "Our roots trace back to late-night builds and custom mods in a garage with a vision to revolutionize how Nepal shops for vehicles.",
+              },
+              {
+                icon: <FaCar />,
+                title: "For Car & Bike Lovers",
+                desc: "Whether it's a commuter or a beast on wheels, we stock only the finest machines and accessories to elevate your experience.",
+              },
+              {
+                icon: <FaTools />,
+                title: "Beyond the Machine",
+                desc: "From filters to full upgrades, our catalog ensures you don’t just ride — you dominate the roads.",
+              },
+            ].map((item, index) => (
+              <div key={index} className="flex items-start gap-4">
+                <div style={{ color: "var(--accent)", fontSize: "1.75rem" }}>
+                  {item.icon}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">{item.title}</h3>
+                  <p style={{ color: "var(--text-secondary)" }}>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Banner Image */}
+          <div className="relative rounded-xl overflow-hidden shadow-2xl">
+            <img
+              src="/ad.png"
+              alt="ThrottleHub Showroom"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-6">
+              <h4 className="text-xl font-semibold text-white">
+                Real Rides. Real Power.
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        {/* Brand Values Section */}
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+          {[
+            {
+              title: "Curated Quality",
+              desc: "Every product — from helmets to engines — is handpicked to ensure it meets our performance and durability standards.",
+            },
+            {
+              title: "Gearhead Support",
+              desc: "New rider or seasoned racer? We’re here to help you make the right choice with personalized assistance.",
+            },
+            {
+              title: "Built for Nepal",
+              desc: "All vehicles, parts, and accessories are sourced and tested for local terrain, climate, and style.",
+            },
+          ].map((card, i) => (
+            <div
+              key={i}
+              className="rounded-xl p-6 shadow-md hover:shadow-lg transition border"
+              style={{
+                backgroundColor: "var(--surface)",
+                color: "var(--text-primary)",
+                borderColor: "rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <h4
+                className="text-xl font-bold mb-2"
+                style={{ color: "var(--accent)" }}
+              >
+                {card.title}
+              </h4>
+              <p
+                style={{ color: "var(--text-secondary)", fontSize: "0.875rem" }}
+              >
+                {card.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };

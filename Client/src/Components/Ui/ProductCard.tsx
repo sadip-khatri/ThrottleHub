@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const localPrice = price * selectedCountry.rate;
 
   return (
-    <div className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+    <div className="group bg-surface rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       {/* Image Container */}
       <div className="relative h-64 overflow-hidden">
         <img
@@ -36,13 +36,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
         
         {/* Wishlist Button */}
-        <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-gray-600 hover:text-red-500 transition-colors duration-200 opacity-0 group-hover:opacity-100">
+        <button className="absolute top-3 right-3 w-8 h-8 bg-surface/90 rounded-full flex items-center justify-center text-secondary hover:text-accent transition-colors duration-200 opacity-0 group-hover:opacity-100">
           <FaHeart className="w-4 h-4" />
         </button>
 
         {/* Category Badge */}
         {category && (
-          <div className="absolute top-3 left-3 bg-[#2563eb] text-white px-2 py-1 rounded-md text-xs font-medium">
+          <div className="absolute top-3 left-3 bg-accent text-background px-2 py-1 rounded-md text-xs font-medium">
             {category}
           </div>
         )}
@@ -50,12 +50,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Content */}
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+        <h3 className="text-lg font-semibold text-primary mb-2 line-clamp-2">
           {title}
         </h3>
         
         <div className="flex items-center justify-between mb-4">
-          <span className="text-xl font-bold text-[#2563eb]">
+          <span className="text-xl font-bold text-accent">
             {formatPrice(localPrice, selectedCountry.currency)}
           </span>
         </div>
@@ -68,7 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 e.preventDefault();
                 onAddToCart();
               }}
-              className="flex-1 bg-[#2563eb] text-white py-2 px-4 rounded-md font-medium hover:bg-[#1d4ed8] transition-colors duration-200 flex items-center justify-center gap-2"
+              className="flex-1 bg-accent text-background py-2 px-4 rounded-md font-medium hover:bg-button-hover transition-colors duration-200 flex items-center justify-center gap-2"
             >
               <FaShoppingCart className="w-4 h-4" />
               Add to Cart
@@ -77,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           
           <Link
             to={`/product/${id}`}
-            className="bg-gray-100 text-gray-700 py-2 px-4 rounded-md font-medium hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center"
+            className="bg-background text-accent py-2 px-4 rounded-md font-medium hover:bg-surface transition-colors duration-200 flex items-center justify-center border border-accent"
           >
             View
           </Link>

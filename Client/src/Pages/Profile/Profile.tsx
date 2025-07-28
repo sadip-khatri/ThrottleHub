@@ -85,14 +85,14 @@ const Profile: React.FC = () => {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-surface shadow-sm border-b border-accent">
         <div className="max-w-6xl mx-auto px-4 py-6">
-          <h1 className="text-2xl font-semibold text-[#2563eb] text-center">
+          <h1 className="text-2xl font-semibold text-accent text-center">
             My Account
           </h1>
-          <div className="flex justify-center items-center mt-2 text-sm text-gray-500">
+          <div className="flex justify-center items-center mt-2 text-sm text-secondary">
             <span>Home</span>
             <span className="mx-2">/</span>
             <span>My Account</span>
@@ -111,7 +111,7 @@ const Profile: React.FC = () => {
                     onClick={() => setActiveTab("personal")}
                     className={`w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg transition-colors ${
                       activeTab === "personal"
-                        ? "bg-[#2563eb] text-white font-medium"
+                        ? "bg-primary text-white font-medium"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -123,7 +123,7 @@ const Profile: React.FC = () => {
                     onClick={() => setActiveTab("cart")}
                     className={`w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg transition-colors ${
                       activeTab === "cart"
-                        ? "bg-[#2563eb] text-white font-medium"
+                        ? "bg-primary text-white font-medium"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -150,11 +150,11 @@ const Profile: React.FC = () => {
                 <div className="p-6">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-                      <div className="w-12 h-12 bg-[#2563eb] rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                         <User className="text-white" size={24} />
                       </div>
                     </div>
-                    <div className="absolute ml-12 mt-8 w-6 h-6 bg-[#2563eb] rounded-full flex items-center justify-center">
+                    <div className="absolute ml-12 mt-8 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
                       <span className="text-white text-xs">✓</span>
                     </div>
                   </div>
@@ -183,7 +183,7 @@ const Profile: React.FC = () => {
 
                       <button
                         onClick={() => setIsEditing(true)}
-                        className="bg-[#2563eb] text-white px-6 py-2 rounded-md hover:bg-[#1d4ed8] transition-colors"
+                        className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark transition-colors"
                       >
                         Update Changes
                       </button>
@@ -211,7 +211,7 @@ const Profile: React.FC = () => {
                               }));
                             }}
                             required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2563eb]"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                           />
                         </div>
                         <div>
@@ -232,7 +232,7 @@ const Profile: React.FC = () => {
                               }));
                             }}
                             required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2563eb]"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                           />
                         </div>
                       </div>
@@ -251,7 +251,7 @@ const Profile: React.FC = () => {
                             }))
                           }
                           required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2563eb]"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                       </div>
 
@@ -264,7 +264,7 @@ const Profile: React.FC = () => {
                           value={newPassword}
                           placeholder="Leave blank to keep current password"
                           onChange={(e) => setNewPassword(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2563eb]"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                       </div>
 
@@ -273,7 +273,7 @@ const Profile: React.FC = () => {
                           type="button"
                           onClick={handleSubmit}
                           disabled={loading}
-                          className="bg-[#2563eb] text-white px-6 py-2 rounded-md hover:bg-[#1d4ed8] transition-colors disabled:opacity-50"
+                          className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark transition-colors disabled:opacity-50"
                         >
                           {loading ? "Updating..." : "Update Changes"}
                         </button>
@@ -317,7 +317,7 @@ const Profile: React.FC = () => {
                 <div className="w-8 h-8 bg-orange-500 rounded"></div>
               </div>
               <div>
-                <h3 className="font-semibold text-[#2563eb]">Free Shipping</h3>
+                <h3 className="font-semibold text-primary">Free Shipping</h3>
                 <p className="text-sm text-gray-600">
                   Free shipping for order above $50
                 </p>
@@ -329,7 +329,7 @@ const Profile: React.FC = () => {
                 <div className="w-8 h-8 bg-blue-500 rounded"></div>
               </div>
               <div>
-                <h3 className="font-semibold text-[#2563eb]">
+                <h3 className="font-semibold text-primary">
                   Flexible Payment
                 </h3>
                 <p className="text-sm text-gray-600">
@@ -339,11 +339,11 @@ const Profile: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-[#dbeafe] rounded-lg flex items-center justify-center">
-                        <div className="w-8 h-8 bg-[#2563eb] rounded"></div>
+                                    <div className="w-12 h-12 bg-primary-light rounded-lg flex items-center justify-center">
+                        <div className="w-8 h-8 bg-primary rounded"></div>
               </div>
               <div>
-                <h3 className="font-semibold text-[#2563eb]">24×7 Support</h3>
+                <h3 className="font-semibold text-primary">24×7 Support</h3>
                 <p className="text-sm text-gray-600">
                   We support online all days
                 </p>

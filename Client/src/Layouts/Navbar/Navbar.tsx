@@ -41,8 +41,8 @@ const Navbar = () => {
   const navItems = [
     // { label: "Home", path: "/" },
     { label: "New Arrivals", path: "/new-arrival" },
-    { label: "Mobile Collection", path: "/mobile-collection" },
-    { label: "Laptop Collection", path: "/laptop-collection" },
+    { label: "Bike Collection", path: "/bike-collection" },
+    { label: "Car Collection", path: "/car-collection" },
     { label: "Exclusive", path: "/exclusive" },
     { label: "Accessories", path: "/accessories" },
     // { label: "Blogs", path: "/blogs" },
@@ -107,15 +107,17 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <div className="bg-white shadow-md sticky top-0 z-50">
+    <div className="bg-surface shadow-md sticky top-0 z-50">
       <div className="px-4 md:px-6 lg:px-[85px]">
         {/* Top Bar */}
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <div>
-              <h1 className="text-2xl font-bold text-[#2563eb]">246 IMPEX</h1>
-              <p className="text-xs text-gray-500">Your Trusted Tech Store</p>
+              <h1 className="text-2xl font-bold text-accent">ThrottleHub</h1>
+              <p className="text-xs text-secondary">
+                Driven by Trust, Powered by Passion
+              </p>
             </div>
           </Link>
 
@@ -129,7 +131,7 @@ const Navbar = () => {
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-[#2563eb]"
+                  className="w-full pl-10 pr-4 py-2 bg-surface border border-accent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-primary placeholder:text-secondary"
                 />
               </div>
             </form>
@@ -141,21 +143,21 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer hover:bg-gray-100 transition-colors"
+                className="flex items-center gap-2 bg-surface border border-accent rounded-lg px-3 py-2 cursor-pointer hover:bg-background transition-colors"
               >
                 <Flag
                   code={selectedCountry.code}
                   style={{ width: 20, height: 15 }}
                 />
-                <MdKeyboardArrowDown className="text-gray-500" />
+                <MdKeyboardArrowDown className="text-secondary" />
               </button>
 
               {dropdownOpen && (
-                <div className="absolute mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-48 right-0 z-50">
+                <div className="absolute mt-2 bg-surface border border-accent rounded-lg shadow-lg w-48 right-0 z-50">
                   {countries.map((country) => (
                     <button
                       key={country.code}
-                      className="flex items-center w-full px-4 py-3 hover:bg-gray-50 text-sm gap-3 transition-colors"
+                      className="flex items-center w-full px-4 py-3 hover:bg-background text-sm gap-3 transition-colors text-primary"
                       onClick={() => {
                         setSelectedCountry(country);
                         setDropdownOpen(false);
@@ -177,31 +179,31 @@ const Navbar = () => {
               <div className="flex gap-2">
                 <Link
                   to="/register"
-                  className="bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors"
+                  className="bg-success text-primary px-4 py-2 rounded-lg font-medium hover:bg-success/90 transition-colors"
                 >
                   Sign Up
                 </Link>
                 <Link
                   to="/login"
-                  className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+                  className="bg-background text-primary px-4 py-2 rounded-lg font-medium hover:bg-surface transition-colors border border-accent"
                 >
                   Login
                 </Link>
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <span className="text-sm text-gray-600 hidden sm:block">
+                <span className="text-sm text-secondary hidden sm:block">
                   Hi, {user.name.split(" ")[0]}
                 </span>
                 <Link
                   to="/profile"
-                  className="w-8 h-8 bg-[#2563eb] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors"
+                  className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-background hover:bg-accent/80 transition-colors"
                 >
                   <FaUser />
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center text-white hover:bg-red-600 transition-colors"
+                  className="w-8 h-8 bg-error rounded-lg flex items-center justify-center text-background hover:bg-error/90 transition-colors"
                 >
                   <FaSignOutAlt />
                 </button>
@@ -210,11 +212,11 @@ const Navbar = () => {
 
             {/* Cart */}
             <Link to="/cart" className="relative">
-              <div className="w-10 h-10 bg-[#2563eb] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors">
+              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-background hover:bg-accent/80 transition-colors">
                 <FaShoppingCart />
               </div>
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                <span className="absolute -top-2 -right-2 bg-warning text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   {cartCount}
                 </span>
               )}
@@ -325,7 +327,7 @@ const Navbar = () => {
               <Link
                 key={idx}
                 to={item.path}
-                className="text-gray-700 hover:text-[#2563eb] transition-colors font-medium text-center md:text-left"
+                className="text-gray-400 hover:text-gray-600 transition-colors font-medium text-center md:text-left"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}

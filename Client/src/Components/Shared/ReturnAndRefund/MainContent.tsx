@@ -55,8 +55,8 @@ const MainContent: React.FC = () => {
         </p>
         <p className="mt-2">
           Please email us at{" "}
-          <a href="mailto:246Impex@gmail.com" className="font-semibold">
-            246Impex@gmail.com
+          <a href="mailto:ThrottleHub@gmail.com" className="font-semibold">
+            ThrottleHub@gmail.com
           </a>{" "}
           within <span className="font-semibold">48 hours</span> of delivery
           with:
