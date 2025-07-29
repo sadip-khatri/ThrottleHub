@@ -225,7 +225,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button (Only) */}
           <button
-            className="md:hidden w-10 h-10 bg-[#2563eb] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors"
+            className="md:hidden w-10 h-10 bg-[#00FFFF] rounded-lg flex items-center justify-center text-white hover:bg-[#1d4ed8] transition-colors"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
           >
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -238,7 +238,7 @@ const Navbar = () => {
             <div className="fixed top-0 right-0 w-4/5 max-w-xs h-full bg-white shadow-lg p-6 flex flex-col gap-6 animate-slide-in">
               {/* Close Button */}
               <button
-                className="self-end mb-2 text-gray-500 hover:text-[#2563eb]"
+                className="self-end mb-2 text-gray-500 hover:text-[#00FFFF]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <FaTimes size={24} />
@@ -252,7 +252,7 @@ const Navbar = () => {
                     placeholder="Search products..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-[#2563eb]"
+                    className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00FFFF] focus:border-[#00FFFF]"
                   />
                 </div>
               </form>
@@ -262,7 +262,7 @@ const Navbar = () => {
                   <Link
                     key={idx}
                     to={item.path}
-                    className="text-gray-700 hover:text-[#2563eb] transition-colors font-medium text-lg"
+                    className="text-gray-700 hover:text-[#00FFFF] transition-colors font-medium text-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.label}
@@ -275,7 +275,7 @@ const Navbar = () => {
                   <>
                     <Link
                       to="/register"
-                      className="bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center"
+                      className="bg-[#00FFFF] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center"
                     >
                       Sign Up
                     </Link>
@@ -290,7 +290,7 @@ const Navbar = () => {
                   <>
                     <Link
                       to="/profile"
-                      className="w-full bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center flex items-center justify-center gap-2"
+                      className="w-full bg-[#00FFFF] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center flex items-center justify-center gap-2"
                     >
                       <FaUser /> Profile
                     </Link>
@@ -306,7 +306,7 @@ const Navbar = () => {
               {/* Cart */}
               <Link
                 to="/cart"
-                className="w-full bg-[#2563eb] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center flex items-center justify-center gap-2 relative"
+                className="w-full bg-[#00FFFF] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#1d4ed8] transition-colors text-center flex items-center justify-center gap-2 relative"
               >
                 <FaShoppingCart />
                 Cart

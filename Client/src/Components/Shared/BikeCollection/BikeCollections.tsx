@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../../Ui/ProductCard";
@@ -9,16 +10,18 @@ type Product = {
   mainImage: string;
   title: string;
   price: number;
-  category: string;
+  fit: string;
   stock: number;
 };
 
 const itemsPerPage = 6;
+const maxPrice = 4000000;
 
 const BikeCollections: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [stockFilter, setStockFilter] = useState<"all" | "in" | "out">("all");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, maxPrice]);
+
   const [sortOption, setSortOption] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -29,12 +32,17 @@ const BikeCollections: React.FC = () => {
         const res = await api.get("/products");
         const allProducts = res.data;
 
-        // ✅ Only include Mobiles (case-sensitive)
-        const mobileProducts = allProducts.filter(
-          (p: Product) => p.category === "Mobiles"
+        console.log("All products fetched:", allProducts);
+
+        // Filter products where fit is "Bike" (case-insensitive, trimmed)
+        const bikeProducts = allProducts.filter(
+          (p: Product) =>
+            typeof p.fit === "string" && p.fit.trim().toLowerCase() === "bike"
         );
 
-        setProducts(mobileProducts);
+        console.log("Filtered Bike products:", bikeProducts);
+
+        setProducts(bikeProducts);
       } catch (err) {
         console.error("Failed to fetch products", err);
         setProducts([]);
@@ -80,19 +88,19 @@ const BikeCollections: React.FC = () => {
   );
 
   return (
-    <div className="px-4 md:px-16 py-10 bg-white">
+    <div className="px-4 md:px-16 py-10 bg-surface text-primary">
       <div className="flex flex-col md:flex-row gap-6">
         {/* Sidebar */}
         <aside className="w-full md:w-1/5 sticky top-20 self-start space-y-6">
-          <h2 className="text-2xl font-bold mb-1">MOBILE COLLECTION</h2>
-          <p className="text-sm text-gray-500 mb-6">
+          <h2 className="text-2xl font-bold mb-1">BIKE COLLECTION</h2>
+          <p className="text-sm text-primary mb-6">
             {loading ? "Loading..." : `${sortedAndFiltered.length} items found`}
           </p>
 
           {/* Price Range */}
           <div>
             <h3 className="text-sm font-medium mb-3">PRICE RANGE</h3>
-            <div className="space-y-2 text-sm text-gray-700">
+            <div className="space-y-2 text-sm text-primary">
               <div className="flex justify-between">
                 <span>Rs. {priceRange[0]}</span>
                 <span>Rs. {priceRange[1]}</span>
@@ -102,7 +110,7 @@ const BikeCollections: React.FC = () => {
                 <input
                   type="range"
                   min={0}
-                  max={10000}
+                  max={maxPrice}
                   step={100}
                   value={priceRange[1]}
                   onChange={(e) =>
@@ -111,16 +119,16 @@ const BikeCollections: React.FC = () => {
                       Math.max(+e.target.value, priceRange[0] + 100),
                     ])
                   }
-                  className="absolute z-20 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#2563eb]"
+                  className="absolute z-20 w-full h-1 bg-transparent appearance-none pointer-events-auto accent-[#00FFFF]"
                 />
 
-                <div className="absolute top-1/2 transform -translate-y-1/2 w-full h-[2px] bg-gray-300 z-0" />
+                <div className="absolute top-1/2 transform -translate-y-1/2 w-full h-[2px] bg-accent z-0" />
                 <div
-                  className="absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-[#2563eb] z-0"
+                  className="absolute top-1/2 transform -translate-y-1/2 h-[2px] bg-white z-0"
                   style={{
-                    left: `${(priceRange[0] / 10000) * 100}%`,
+                    left: `${(priceRange[0] / maxPrice) * 100}%`,
                     width: `${
-                      ((priceRange[1] - priceRange[0]) / 10000) * 100
+                      ((priceRange[1] - priceRange[0]) / maxPrice) * 100
                     }%`,
                   }}
                 />
@@ -129,7 +137,7 @@ const BikeCollections: React.FC = () => {
           </div>
 
           {/* Stock Filter */}
-          <div>
+          {/* <div>
             <h3 className="text-sm font-medium mb-2">AVAILABILITY</h3>
             <div className="space-y-1 text-sm text-gray-600">
               {["all", "in", "out"].map((status) => (
@@ -141,7 +149,7 @@ const BikeCollections: React.FC = () => {
                     type="radio"
                     name="stock"
                     value={status}
-                    className="accent-[#2563eb]"
+                    className="accent-[#00FFFF]"
                     checked={stockFilter === status}
                     onChange={() => handleStockChange(status as any)}
                   />
@@ -153,7 +161,7 @@ const BikeCollections: React.FC = () => {
                 </label>
               ))}
             </div>
-          </div>
+          </div> */}
         </aside>
 
         {/* Main Content */}
@@ -161,7 +169,7 @@ const BikeCollections: React.FC = () => {
           {/* Sorting */}
           <div className="flex justify-end py-4 mb-8">
             <select
-              className="border px-3 py-2 rounded text-sm"
+              className="border px-3 py-2 rounded text-sm bg-background"
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
             >
@@ -178,7 +186,7 @@ const BikeCollections: React.FC = () => {
             </div>
           ) : displayedProducts.length === 0 ? (
             <div className="text-center text-gray-500 mt-10">
-              No mobile products found.
+              No Bike found.
             </div>
           ) : (
             <>
@@ -194,7 +202,7 @@ const BikeCollections: React.FC = () => {
                       image={product.mainImage}
                       title={product.title}
                       price={product.price}
-                      category={product.category}
+                      fit={product.fit}
                     />
                   </Link>
                 ))}
@@ -207,7 +215,7 @@ const BikeCollections: React.FC = () => {
                     key={i + 1}
                     onClick={() => setCurrentPage(i + 1)}
                     className={`px-3 py-1 border text-sm rounded hover:bg-gray-100 ${
-                      currentPage === i + 1 ? "bg-[#2563eb] text-white" : ""
+                      currentPage === i + 1 ? "bg-[#00FFFF] text-white" : ""
                     }`}
                   >
                     {i + 1}

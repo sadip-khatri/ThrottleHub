@@ -1,16 +1,17 @@
 // src/Ui/ProductCard.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { formatPrice } from "../../Utils/formatPrice";
+// import { formatPrice } from "../../Utils/formatPrice";
 import { useCountry } from "../../Contexts/CountryContext";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { formatPrice } from "../../Utils/formatPrice";
 
 interface ProductCardProps {
-  id: string; 
+  id: string;
   image: string;
   title: string;
   price: number;
-  category?: string;
+  fit?: string;
   onAddToCart?: () => void;
 }
 
@@ -19,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   image,
   title,
   price,
-  category,
+  fit,
   onAddToCart,
 }) => {
   const { selectedCountry } = useCountry();
@@ -31,19 +32,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="relative h-64 overflow-hidden">
         <img
           src={image}
-          alt={title} 
+          alt={title}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
         />
-        
+
         {/* Wishlist Button */}
         <button className="absolute top-3 right-3 w-8 h-8 bg-surface/90 rounded-full flex items-center justify-center text-secondary hover:text-accent transition-colors duration-200 opacity-0 group-hover:opacity-100">
           <FaHeart className="w-4 h-4" />
         </button>
 
-        {/* Category Badge */}
-        {category && (
+        {/* fit Badge */}
+        {fit && (
           <div className="absolute top-3 left-3 bg-accent text-background px-2 py-1 rounded-md text-xs font-medium">
-            {category}
+            {fit}
           </div>
         )}
       </div>
@@ -53,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <h3 className="text-lg font-semibold text-primary mb-2 line-clamp-2">
           {title}
         </h3>
-        
+
         <div className="flex items-center justify-between mb-4">
           <span className="text-xl font-bold text-accent">
             {formatPrice(localPrice, selectedCountry.currency)}
@@ -74,7 +75,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               Add to Cart
             </button>
           )}
-          
+
           <Link
             to={`/product/${id}`}
             className="bg-background text-accent py-2 px-4 rounded-md font-medium hover:bg-surface transition-colors duration-200 flex items-center justify-center border border-accent"

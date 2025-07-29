@@ -23,6 +23,7 @@ interface Product {
   _id?: string;
   mainImage?: string;
   stock?: number;
+  fit?: string;
 }
 
 interface ProductPageProps {
@@ -83,8 +84,8 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="px-6 py-4 text-sm text-gray-500">
+    <div className="min-h-screen bg-surface">
+      <div className="px-6 py-4 text-sm text-primary">
         Home / {product.category || "Products"}
       </div>
 
@@ -128,7 +129,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
               </div>
             )}
             {product.discount && (
-              <div className="absolute top-4 left-4 bg-[#2563eb] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+              <div className="absolute top-4 left-4 bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
                 {product.discount}%
               </div>
             )}
@@ -149,12 +150,12 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
           {/* Price */}
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-xl text-[#2563eb]">
+              <span className="text-xl text-accent">
                 {formatPrice(localPrice, selectedCountry.currency)}
               </span>
               {localOriginalPrice && (
                 <>
-                  <span className="text-sm text-gray-500 line-through">
+                  <span className="text-sm text-primary line-through">
                     {formatPrice(localOriginalPrice, selectedCountry.currency)}
                   </span>
                   {product.discount && (
@@ -216,7 +217,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
           {/* Add to Cart */}
           <button
             onClick={handleAddToCart}
-            className="w-full bg-[#2563eb] text-white py-3 px-6 font-medium tracking-wide hover:bg-[#1d4ed8] transition-colors cursor-pointer"
+            className="w-full bg-accent text-black py-3 px-6 font-medium tracking-wide button-hover transition-colors cursor-pointer"
           >
             ADD TO CART
           </button>
@@ -229,7 +230,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
               { key: "features", label: "FEATURES" },
               { key: "warranty", label: "WARRANTY" },
             ].map(({ key, label }) => (
-              <div key={key} className="border-b border-gray-200 pb-4">
+              <div key={key} className="border-b border-primary pb-4">
                 <button
                   onClick={() =>
                     toggleSection(key as keyof typeof expandedSections)
@@ -246,7 +247,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
                   />
                 </button>
                 {expandedSections[key as keyof typeof expandedSections] && (
-                  <div className="mt-3 text-sm text-gray-600">
+                  <div className="mt-3 text-sm text-primary">
                     Content for {label.toLowerCase()} section would go here.
                   </div>
                 )}
@@ -263,6 +264,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
             product.mainImage ?? product.images?.[0] ?? product.image ?? "",
           title: product.title,
           price: product.price,
+          fit: product.fit ?? "",
           category: product.category ?? "",
           stock: product.stock ?? 0,
         }}
